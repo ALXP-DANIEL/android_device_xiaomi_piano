@@ -60,6 +60,20 @@ service vendor.piano_boot_adsp /system/bin/sh /piano/bin/piano-boot-adsp.sh
     oneshot
     disabled
 
+# Stock Android starts batterysecret after boot. It authenticates the battery
+# with the charger firmware; without its success event the kernel holds the
+# input current at 100 mA even after the ADSP and USB PD are online.
+service vendor.piano_batterysecret /piano/vendor-stock/bin/batterysecret
+    class core
+    user root
+    group system wakelock
+    seclabel u:r:recovery:s0
+    setenv LD_LIBRARY_PATH /piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/piano/odm-stock/lib64:/system/lib64
+    disabled
+
+on property:init.svc.vendor.piano_boot_adsp=stopped
+    start vendor.piano_batterysecret
+
 # Reads the installed ROM's security patch levels and applies them to the
 # recovery's own properties. Started with exec_start from the stock-runtime
 # action so that it has finished before qseecomd and KeyMint are created.

@@ -2,7 +2,7 @@
 
 ## 3.7.1_16-0(ALXP) — universal HyperOS 3
 
-Image SHA-256 `360f598c57bc0d9b89c8cfef0b0bd0daa1e50b7497b295a1daa80c5b7ce447f2`.
+Image SHA-256 `3f5a9c3be95a7431f31a524c0c9788e183af8cb568e1947622b84e53ba0eb6ea`.
 Tested on HyperOS 3 CN OS3.0.307 and OS3.0.308 (fastboot and OTA) and Global
 OS3.0.303. HyperOS 4 is not supported.
 
@@ -35,6 +35,8 @@ A 30-boot loop exposed two faults that showed only intermittently:
   `bootable_recovery/0002` makes TWRP leave a mount it did not create.
 
 Result: 30/30 clean recovery boots with every release gate passing.
+The charging update passed another 5/5 clean recovery boots on slot A,
+including a wrong PIN followed by the correct PIN.
 
 ### OTA install from TWRP
 
@@ -55,15 +57,21 @@ with `fastboot set_active <slot>`.
 - `piano-boot-adsp.sh` starts the ADSP, which runs USB and Type-C detection.
   The blobs are copied into the firmware search path rather than read in place,
   because reading them needs a capability AOSP forbids the kernel domain.
+- Recovery starts the stock `batterysecret` daemon after the ADSP. Its battery
+  authentication event releases the charger's 100 mA input limit. On the same
+  Mac USB connection, the limit rose to 1,600 mA and the battery charge
+  counter increased by 86,000 µAh over five minutes. The previous image
+  detected USB power but discharged despite showing `Charging`.
+- A wall charger stayed connected for 5 minutes 38 seconds. During a logged
+  two-minute interval the charge counter rose by 243,000 µAh, and the displayed
+  level rose from 25% to 33% over the visit. The kernel reported about 9 V
+  after connection. The maximum charging wattage has not been measured.
 - The clock follows Android's time zone: the user's choice from
   `persistent_properties`, otherwise the ROM default from `build.prop`.
   `bootable_recovery/0003`.
 
 ### Known issues
 
-- **The battery does not charge in TWRP.** USB is detected but the charger's
-  input limit stays 0. `status=Charging` is misleading and a positive
-  `current_now` means discharge on this device.
 - After an OTA, unlock once in Android before decrypting in TWRP. The Synthetic
   Password key stays bound to the old patch level until Android upgrades it,
   and recovery deliberately never writes that key (`system_security/0001`).
