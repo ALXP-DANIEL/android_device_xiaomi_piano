@@ -290,7 +290,7 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 #
 # Keeping them current is therefore no longer required, but it is still the
 # safe thing to do after an update: re-read /system/build.prop and
-# /vendor/build.prop from the device. Current values are 308's.
+# /vendor/build.prop from the device. Current fallback values are OS4.0.0.42's.
 # The standalone resetprop binary. libresetprop is already linked into the
 # recovery by TW_INCLUDE_CRYPTO, but init cannot call into it; the prepdecrypt
 # script needs the executable.
@@ -307,8 +307,8 @@ TW_DEVICE_VERSION := 0(ALXP)
 
 PLATFORM_VERSION := 16
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
-PLATFORM_SECURITY_PATCH := 2026-08-01
-VENDOR_SECURITY_PATCH := 2026-08-01
+PLATFORM_SECURITY_PATCH := 2026-09-01
+VENDOR_SECURITY_PATCH := 2026-09-01
 BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # Qualcomm RTC / ATS time correction.

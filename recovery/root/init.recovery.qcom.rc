@@ -428,9 +428,8 @@ service vendor.gatekeeper_default /vendor/bin/hw/piano-gatekeeper
     disabled
     setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
-# Phase 7: stock piano Xiaomi Weaver HAL.
-#
-# libmi_weaver.so is odm-private, hence the extra odm path.
+# Phase 7: stock piano Xiaomi Weaver HAL. Keep both stock vendor and ODM
+# library paths for the Android 17 service and its Xiaomi AIDL dependencies.
 # Started when qseecomd publishes vendor.sys.listeners.registered=true.
 service vendor.weaver /vendor/bin/hw/piano-weaver
     class hal

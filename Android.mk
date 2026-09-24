@@ -51,15 +51,11 @@ LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
-# Stock HyperOS 3 Xiaomi Weaver HAL (miweaver).
-#
-# Its only odm-private dependency is libmi_weaver.so, which resolves from the
-# read-only odm view at /vendor/piano-stock-odm. The transport is not a
-# separate GlobalPlatform driver: libmi_weaver -> libGPTEE_vendor dlopens
-# libGPMTEEC_vendor (Qualcomm TZComWrap), which is the same smcinvoke/Mink
-# path qseecomd and KeyMint use.
-#
-# SHA-256 7b8974bef8e944f3cfc52659924e8d9e9beef1ae29dc43c2780c83e410af659c
+# Stock HyperOS 4 / Android 17 Xiaomi Weaver HAL. HyperOS 4 removed
+# libmi_weaver.so from ODM; this matching service links to libGPTEE_vendor
+# and the installed ROM's Xiaomi AIDL libraries through the read-only stock
+# vendor and ODM views.
+# SHA-256 1702d223b56421c6c652e58f5b30451b39a625ce6479212d7882696cc43934d7
 include $(CLEAR_VARS)
 LOCAL_MODULE := piano_weaver
 LOCAL_MODULE_CLASS := EXECUTABLES
