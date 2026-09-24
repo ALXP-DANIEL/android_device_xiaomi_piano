@@ -1,0 +1,272 @@
+diff --git a/Decrypt.cpp b/Decrypt.cpp
+index a5a5ab5..a4bfd4d 100755
+--- a/Decrypt.cpp
++++ b/Decrypt.cpp
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include "Decrypt.h"
++#include <climits>
+ #include "FsCrypt.h"
+ #include <fscrypt/fscrypt.h>
+ 
+@@ -34,6 +35,7 @@
+ #include <openssl/sha.h>
+ #include <openssl/aes.h>
+ #include <openssl/evp.h>
++#include <openssl/crypto.h>
+ #include <openssl/rand.h>
+ 
+ #include <dirent.h>
+@@ -429,13 +431,28 @@ bool Get_Weaver_Data(const std::string& spblob_path, const std::string& handle_s
+ 		return found_file;
+ 	} else {
+ 		// output_hex(weaver_data.data(), weaver_data.size());printf("\n");
+-		const unsigned char* byteptr = (const unsigned char*)weaver_data.data();
+-		wd->version = *byteptr;
+-		// printf("weaver version %i\n", wd->version);
+-		const int* intptr = (const int*)weaver_data.data() + sizeof(unsigned char);
+-		wd->slot = *intptr;
+-		//endianswap(&wd->slot); not needed
+-		// printf("weaver slot %i\n", wd->slot);
++		// Android writes one version byte followed by a big-endian uint32
++		// slot (SyntheticPasswordManager uses DataOutputStream.writeInt, and
++		// ByteBuffer defaults to big endian).
++		//
++		// The previous expression was (const int*)data + sizeof(unsigned char),
++		// which is pointer arithmetic on int* and therefore advances FOUR
++		// bytes: it read 4 bytes at offset 4 of a 5-byte buffer, one byte out
++		// of bounds, and returned the wrong value in the wrong byte order.
++		if (weaver_data.size() != 5) {
++			printf("Invalid Weaver record length\n");
++			return false;
++		}
++		const unsigned char* bytes = (const unsigned char*)weaver_data.data();
++		if (bytes[0] != 1) {
++			printf("Unsupported Weaver record version\n");
++			return false;
++		}
++		const uint32_t slot = ((uint32_t)bytes[1] << 24) | ((uint32_t)bytes[2] << 16) |
++		                      ((uint32_t)bytes[3] << 8)  |  (uint32_t)bytes[4];
++		if (slot > INT_MAX) return false;
++		wd->version = bytes[0];
++		wd->slot = (int)slot;
+ 	}
+ 	return found_file;
+ }
+@@ -676,17 +693,35 @@ namespace keystore {
+ 			EVP_CIPHER_CTX *d_ctx = EVP_CIPHER_CTX_new();
+ 			const unsigned char* key = (const unsigned char*)personalized_application_id; // The key is the now personalized copy of the application ID
+ 			// printf("key: "); output_hex((const unsigned char*)key, 32); printf("\n");
+-			EVP_DecryptInit(d_ctx, EVP_aes_256_gcm(), key, intermediate_iv);
++			// The previous code was not authenticated at all: it set the GCM
++			// tag from an UNINITIALISED stack buffer, passed cipher_size
++			// (which includes the trailing 16-byte tag) as ciphertext length,
++			// and discarded the EVP_DecryptFinal_ex result. Any ciphertext
++			// would "decrypt".
++			const int plaintext_capacity = cipher_size - 16;
+ 			unsigned char* secret_key = (unsigned char*)malloc(cipher_size);
+-			if (!secret_key) {
++			if (!d_ctx || !secret_key) {
++				EVP_CIPHER_CTX_free(d_ctx);
++				free(secret_key);
+ 				printf("malloc failure on secret key\n");
+ 				return disk_decryption_secret_key;
+ 			}
+-			EVP_DecryptUpdate(d_ctx, secret_key, &actual_size, intermediate_cipher_text, cipher_size);
+-			unsigned char tag[AES_BLOCK_SIZE];
+-			EVP_CIPHER_CTX_ctrl(d_ctx, EVP_CTRL_GCM_SET_TAG, 16, tag);
+-			EVP_DecryptFinal_ex(d_ctx, secret_key + actual_size, &final_size);
++			const bool authenticated =
++				EVP_DecryptInit_ex(d_ctx, EVP_aes_256_gcm(), nullptr, key, intermediate_iv) == 1 &&
++				EVP_DecryptUpdate(d_ctx, secret_key, &actual_size, intermediate_cipher_text,
++				                  plaintext_capacity) == 1 &&
++				EVP_CIPHER_CTX_ctrl(d_ctx, EVP_CTRL_GCM_SET_TAG, 16,
++				                   (void*)(intermediate_cipher_text + plaintext_capacity)) == 1 &&
++				EVP_DecryptFinal_ex(d_ctx, secret_key + actual_size, &final_size) == 1;
+ 			EVP_CIPHER_CTX_free(d_ctx);
++			if (!authenticated) {
++				OPENSSL_cleanse(secret_key, cipher_size);
++				free(secret_key);
++				free(personalized_application_id);
++				free(keystore_result);
++				printf("Synthetic password authentication failed\n");
++				return disk_decryption_secret_key;
++			}
+ 			free(personalized_application_id);
+ 			free(keystore_result);
+ 			int secret_key_real_size = actual_size - 16;
+diff --git a/FsCrypt.cpp b/FsCrypt.cpp
+index 54dd91c..d3c0ab8 100644
+--- a/FsCrypt.cpp
++++ b/FsCrypt.cpp
+@@ -189,25 +189,13 @@ static bool get_ce_key_new_path(const std::string& directory_path,
+     return false;
+ }
+ 
+-// Discard all keys but the named one; rename it to canonical name.
+-static bool fixate_user_ce_key(const std::string& directory_path, const std::string& to_fix,
+-                               const std::vector<std::string>& paths) {
+-    bool need_sync = false;
+-    for (auto const other_path : paths) {
+-        if (other_path != to_fix) {
+-            android::vold::destroyKey(other_path);
+-            need_sync = true;
+-        }
+-    }
+-    auto const current_path = get_ce_key_current_path(directory_path);
+-    if (to_fix != current_path) {
+-        LOG(DEBUG) << "Renaming " << to_fix << " to " << current_path;
+-        if (!android::vold::RenameKeyDir(to_fix, current_path)) return false;
+-        need_sync = true;
+-    }
+-    if (need_sync && !android::vold::FsyncDirectory(directory_path)) return false;
+-    return true;
+-}
++// AOSP fixates the CE key here: it deletes every sibling key binding and
++// renames the survivor to the canonical path. That is an unrecoverable
++// Keystore deletion, and in recovery we have no way to know whether the user
++// was midway through a credential change when the device was rebooted. The
++// call site in read_user_ce_key() is therefore removed, and with no caller
++// left the function itself is removed too rather than silenced -- keeping a
++// dead copy of a destructive routine in the tree invites it back.
+ 
+ // Unlike AOSP this does not fixate the key it found: dropping the sibling
+ // bindings is a Keystore deletion we cannot undo if the user was midway
+@@ -884,8 +872,12 @@ bool fscrypt_set_ce_key_protection(userid_t user_id, const std::string& secret_h
+         LOG(INFO) << "Deferring fixation of " << directory_path << " until checkpoint is committed";
+         s_deferred_fixations[directory_path] = ce_key_path;
+     } else {
++        // Fixation deletes every other on-disk binding of this key. Recovery
++        // must never erase existing key material: only the in-memory key is
++        // needed, and a failed attempt must leave the user's protectors
++        // exactly as they were.
+         s_deferred_fixations.erase(directory_path);
+-        if (!fixate_user_ce_key(directory_path, ce_key_path, paths)) return false;
++        LOG(INFO) << "Skipping CE key fixation: recovery never deletes key material";
+     }
+ 
+     if (s_new_ce_keys.erase(user_id)) {
+@@ -898,8 +890,8 @@ void fscrypt_deferred_fixate_ce_keys() {
+     for (const auto& it : s_deferred_fixations) {
+         const auto& directory_path = it.first;
+         const auto& to_fix = it.second;
+-        LOG(INFO) << "Doing deferred fixation of " << directory_path;
+-        fixate_user_ce_key(directory_path, to_fix, get_ce_key_paths(directory_path));
++        LOG(INFO) << "Skipping deferred fixation of " << directory_path
++                  << ": recovery never deletes key material";
+         // Continue on error.
+     }
+     s_deferred_fixations.clear();
+diff --git a/KeyStorage.cpp b/KeyStorage.cpp
+index be66f88..1e8f1ef 100644
+--- a/KeyStorage.cpp
++++ b/KeyStorage.cpp
+@@ -353,6 +353,35 @@ static KeystoreOperation BeginKeystoreOp(Keystore& keystore, const std::string&
+ //     }
+ 
+     auto opHandle = keystore.begin(blob, inParams, outParams);
++
++    // Fall back to the stock "key_back" blob.
++    //
++    // HyperOS keeps a second copy of the metadata key beside the live one, at
++    // <key_dir>/../key_back. On this device the two directories hold an
++    // IDENTICAL encrypted_key but DIFFERENT keymaster_key_blob, which is what a
++    // key upgrade leaves behind: the same wrapped payload re-bound under a new
++    // KeyMint blob. Either blob may therefore be the one this TEE state will
++    // open, and trying only the live one gives up a working key for no reason.
++    //
++    // This is read-only. Nothing in /metadata is written, renamed or deleted,
++    // and the live blob is left exactly as found even when the backup is the one
++    // that works.
++    if (!opHandle) {
++        auto backup_blob_file = dir + "/../key_back/" + kFn_keymaster_key_blob;
++        std::string backup_blob;
++        if (android::base::ReadFileToString(backup_blob_file, &backup_blob) &&
++            backup_blob != blob) {
++            LOG(WARNING) << "begin() failed on " << blob_file << "; trying the stock backup blob "
++                         << backup_blob_file << " read-only";
++            opHandle = keystore.begin(backup_blob, inParams, outParams);
++            if (opHandle) {
++                LOG(INFO) << "The stock backup blob opened; the live blob is left unchanged";
++            } else {
++                LOG(ERROR) << "The stock backup blob did not open either";
++            }
++        }
++    }
++
+     if (!opHandle) return opHandle;
+ 
+     // If key blob wasn't upgraded, nothing left to do.
+diff --git a/MetadataCrypt.cpp b/MetadataCrypt.cpp
+index bc2e7ea..ba1ab57 100644
+--- a/MetadataCrypt.cpp
++++ b/MetadataCrypt.cpp
+@@ -291,6 +291,16 @@ bool fscrypt_mount_metadata_encrypted(const std::string& blk_device, const std::
+                << fs_type << " block device: " << blk_device << " with zoned " << is_zoned
+                << " length: " << length;
+ 
++    // Recovery is existing-data-only. Encrypting or formatting userdata from
++    // here destroys the very data the user is trying to reach, so both are
++    // refused unconditionally rather than trusting every caller to pass the
++    // right flags. This makes encrypt_inplace and f2fs::Format unreachable.
++    if (needs_encrypt || should_format) {
++        LOG(ERROR) << "fscrypt_mount_metadata_encrypted: refusing to encrypt or format "
++                   << mount_point << " in recovery";
++        return false;
++    }
++
+     for (auto& device : user_devices) {
+         LOG(DEBUG) << " - user devices: " << device;
+     }
+diff --git a/Weaver1.cpp b/Weaver1.cpp
+index a2eeaaa..a0a4cf3 100644
+--- a/Weaver1.cpp
++++ b/Weaver1.cpp
+@@ -34,6 +34,7 @@
+ #include <aidl/android/hardware/weaver/IWeaver.h>
+ 
+ #include <iostream>
++#include <unistd.h>
+ #define ERROR 1
+ #define LOG(x) std::cout
+ 
+@@ -65,10 +66,34 @@ bool Weaver::GetConfig() {
+ 		return true;
+ 
+ 	if (mAidlDevice != nullptr) {
+-		auto r = mAidlDevice->getConfig(&aidlConfig);
+-		if (r.isOk()) {
+-			GottenConfig = true;
+-			return true;
++		// Retry, and require a non-zero config.
++		//
++		// Xiaomi's Weaver trusted application is loaded lazily. The first
++		// getConfig() can land while the secure stack is still bringing it up,
++		// so the call can fail
++		// outright, or return OK with a zeroed config, and a single attempt
++		// therefore reports "Failed to get weaver key size" and the credential
++		// is never checked.
++		//
++		// Waiting up to 20 seconds and insisting on keySize and valueSize being
++		// populated is the approach taken by MissMyTime/TWRP-Xiaomi, whose
++		// nezha notes describe this same failure on SM8750 hardware.
++		for (int attempt = 0; attempt < 80; attempt++) {
++			auto r = mAidlDevice->getConfig(&aidlConfig);
++			if (r.isOk() && aidlConfig.keySize > 0 && aidlConfig.valueSize > 0) {
++				LOG(ERROR) << "Weaver AIDL getConfig OK on attempt " << (attempt + 1)
++					   << " slots=" << aidlConfig.slots
++					   << " keySize=" << aidlConfig.keySize
++					   << " valueSize=" << aidlConfig.valueSize << "\n";
++				GottenConfig = true;
++				return true;
++			}
++			if (attempt == 0 || attempt == 19 || attempt == 39 || attempt == 79) {
++				LOG(ERROR) << "Weaver AIDL getConfig not ready on attempt " << (attempt + 1)
++					   << " keySize=" << aidlConfig.keySize
++					   << " valueSize=" << aidlConfig.valueSize << "\n";
++			}
++			usleep(250000);
+ 		}
+ 		return false;
+ 	}

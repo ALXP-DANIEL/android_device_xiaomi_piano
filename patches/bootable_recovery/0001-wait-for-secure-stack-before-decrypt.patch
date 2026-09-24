@@ -1,0 +1,58 @@
+diff --git a/twrp.cpp b/twrp.cpp
+index 18ad85b..5e1fb91 100644
+--- a/twrp.cpp
++++ b/twrp.cpp
+@@ -121,6 +121,40 @@ static void process_fastbootd_mode() {
+ 		}
+ }
+ 
++// Waits for the stock secure stack before decryption is attempted.
++//
++// The HALs are declared "disabled" in init.recovery.qcom.rc and started by
++// triggers there: qseecomd once the stock vendor mount completes, then KeyMint,
++// Gatekeeper and Weaver once qseecomd announces its listeners through
++// vendor.sys.listeners.registered. Both happen in parallel with TWRP's own
++// start-up, so without a wait Setup_Fstab_Partitions() can ask for the metadata
++// key before KeyMint has registered:
++//
++//   Service android.hardware.security.keymint.IKeyMintDevice/default didn't start
++//   keystore2: failed to get interface ... Retry 4/5: NAME_NOT_FOUND
++//
++// and decryption then fails for want of a HAL rather than for any crypto reason,
++// which makes every decrypt result untrustworthy.
++//
++// The waits are bounded and non-fatal. If the stack does not come up, carrying on
++// gives the same failure as before rather than hanging the recovery, and the
++// timeout is logged so it cannot be mistaken for a crypto fault.
++static void piano_wait_for_secure_stack() {
++	using namespace std::chrono_literals;
++
++	if (!android::base::WaitForProperty("vendor.sys.listeners.registered", "true", 30s)) {
++		LOGERR("piano: QSEE listeners did not register within 30s; decryption will likely fail\n");
++		return;
++	}
++	LOGINFO("piano: QSEE listeners registered\n");
++
++	if (!android::base::WaitForProperty("init.svc.vendor.keymint", "running", 15s)) {
++		LOGERR("piano: KeyMint HAL did not start within 15s; decryption will likely fail\n");
++		return;
++	}
++	LOGINFO("piano: KeyMint HAL running\n");
++}
++
+ static void process_recovery_mode(twrpAdbBuFifo* adb_bu_fifo, bool skip_decryption) {
+ 	char crash_prop_val[PROPERTY_VALUE_MAX];
+ 	int crash_counter;
+@@ -397,6 +431,12 @@ int main(int argc, char **argv) {
+ 	printf("Starting the UI...\n");
+ 	gui_init();
+ 
++	// Must precede Setup_Fstab_Partitions(): metadata decryption happens there and
++	// needs KeyMint already registered. See piano_wait_for_secure_stack().
++#ifdef TW_INCLUDE_CRYPTO
++	if (!startup.Get_Fastboot_Mode()) piano_wait_for_secure_stack();
++#endif
++
+ 	if (!startup.Get_Fastboot_Mode()) PartitionManager.Setup_Fstab_Partitions(true);
+ 
+ 	if (TWFunc::get_log_dir() == DATA_LOGS_DIR && !TWFunc::Path_Exists(DATA_LOGS_DIR))
