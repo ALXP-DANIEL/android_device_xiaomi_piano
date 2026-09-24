@@ -1,4 +1,23 @@
-# TWRP 16 for Xiaomi Pad 8 Pro (piano)
+# TWRP for Xiaomi Pad 8 Pro (piano)
+
+## HyperOS 4 / Android 17 compatibility candidate (`twrp-17.0`)
+
+This device-tree branch still builds on the TWRP 16 recovery core. It is not
+an upstream TWRP 17 release. The candidate image SHA-256 is
+`2394f4741c92c079956c253b95b26689af22a1c9431ea93e166f0dbe7c26784a`.
+
+HyperOS 4 changed the kernel ABI used by the touch modules and removed the
+ODM `libmi_weaver.so` needed by the earlier Weaver service. This branch uses
+the touch modules and Weaver service from OS4.0.0.42.XPYCNXM, plus a matching
+patch-level fallback. The pre-decryption script still reads the installed ROM
+version and patch levels before KeyMint starts.
+
+On OS4.0.0.42.XPYCNXM, slot B, the candidate passed five clean recovery boots
+with PIN decryption, wrong PIN then correct PIN, touch, `/product`
+mount/unmount, Android boot after recovery, and recovery re-entry from Android.
+The battery charge counter rose on Mac USB while in recovery. The HyperOS 3
+`twrp-16.0` release remains the tested Android 16 image. A combined Android
+16/17 image needs a compatibility selector and fresh Android 16 device tests.
 
 ## 3.7.1_16-0(ALXP) — universal HyperOS 3
 
