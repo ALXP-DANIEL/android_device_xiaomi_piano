@@ -35,7 +35,7 @@ index 5d0c7ec..9e8c8a4 100755
          "libcrypto",
          "libext4_utils",
 diff --git a/twrpinstall/twinstall.cpp b/twrpinstall/twinstall.cpp
-index d920972..f7cf884 100755
+index d920972..027a5ae 100755
 --- a/twrpinstall/twinstall.cpp
 +++ b/twrpinstall/twinstall.cpp
 @@ -25,10 +25,15 @@
@@ -157,13 +157,16 @@ index d920972..f7cf884 100755
  int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
  	int ret_val, zip_verify = 1, unmount_system = 1, reflashtwrp = 0;
  
-@@ -334,6 +428,16 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
+@@ -334,6 +428,19 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
  		if (FindEntry(Zip, ab_binary_name, &ab_binary_entry) == 0) {
  			LOGINFO("AB zip\n");
  			gui_msg(Msg(msg::kHighlight, "flash_ab_inactive=Flashing A/B zip to inactive slot: {1}")(PartitionManager.Get_Active_Slot_Display()=="A"?"B":"A"));
 +			DataManager::GetValue(TW_AUTO_REFLASHTWRP_VAR, reflashtwrp);
 +			const bool dedicated_recovery = PartitionManager.Find_Partition_By_Path("/recovery") != nullptr;
 +			const std::string original_slot = Current_Boot_Slot();
++			const std::string target_slot =
++				original_slot == "A" ? "B" :
++				original_slot == "B" ? "A" : "";
 +			std::string recovery_backup;
 +			uint64_t recovery_size = 0;
 +			if (reflashtwrp && dedicated_recovery &&
@@ -174,7 +177,7 @@ index d920972..f7cf884 100755
  			// We need this so backuptool can do its magic
  			bool system_mount_state = PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path());
  			bool vendor_mount_state = PartitionManager.Is_Mounted_By_Path("/vendor");
-@@ -354,11 +458,23 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
+@@ -354,11 +461,24 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
  				gui_warn("mount_vab_partitions=Devices on super may not mount until rebooting recovery.");
  			}
  			gui_warn("flash_ab_reboot=To flash additional zips, please reboot recovery to switch to the updated slot.");
@@ -184,10 +187,11 @@ index d920972..f7cf884 100755
 -			repacker.Flash_Current_Twrp();
 +			if (reflashtwrp && ret_val == INSTALL_SUCCESS) {
 +				if (dedicated_recovery) {
-+					const std::string updated_slot = Current_Boot_Slot();
-+					if (updated_slot == original_slot) {
-+						gui_warn("A/B update did not switch slots; recovery was not rewritten.");
-+					} else if (!Restore_Recovery_Image(recovery_backup, updated_slot, recovery_size) ||
++					LOGINFO("A/B recovery preservation: source slot=%s target slot=%s\n",
++					        original_slot.c_str(), target_slot.c_str());
++					if (target_slot.empty()) {
++						gui_err("Unable to determine A/B OTA target slot; recovery was not restored.");
++					} else if (!Restore_Recovery_Image(recovery_backup, target_slot, recovery_size) ||
 +					           !Restore_Recovery_Image(recovery_backup, original_slot, recovery_size)) {
 +						gui_err("A/B update succeeded, but recovery restore or verification failed. Reflash TWRP before rebooting recovery.");
 +					} else {
