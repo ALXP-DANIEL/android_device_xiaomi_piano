@@ -5,12 +5,14 @@ The GitHub Actions workflow fetches the tested `bootable/recovery` revision
 `580a0e89cb27007f4584cbb9649ba2607bb21d6a` and applies these patches
 before building. Its `system/vold` and `system/security` patches likewise match
 the locally tested source edits.
+The `vendor/twrp` patch exports the FBE and fscrypt policy flags to Soong,
+matching the tested builder checkout.
 
 `bootable_recovery/0000` adds the pre-decryption device hook, `0001` waits for
 the secure stack, `0002` preserves init's persist mount, `0003` reads Android's
 time zone, and `0004` backs up and verifies recovery around a successful A/B
-OTA while filtering the Mount screen. The A/B restore path has not yet been
-exercised with the option enabled during an OTA.
+OTA while filtering the Mount screen. The A/B restore path was validated on
+the device with the option enabled during an OTA.
 
 ## system_vold
 

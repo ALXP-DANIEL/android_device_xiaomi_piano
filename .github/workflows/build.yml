@@ -144,6 +144,8 @@ jobs:
           git -C system/vold apply "$GITHUB_WORKSPACE/$DEVICE/patches/system_vold/0001-recovery-crypto-safety-invariants.patch"
           git -C system/security apply --check "$GITHUB_WORKSPACE/$DEVICE/patches/system_security/0001-recovery-keymint-mutation-policy.patch"
           git -C system/security apply "$GITHUB_WORKSPACE/$DEVICE/patches/system_security/0001-recovery-keymint-mutation-policy.patch"
+          git -C vendor/twrp apply --check "$GITHUB_WORKSPACE/$DEVICE/patches/vendor_twrp/0001-export-crypto-flags-to-soong.patch"
+          git -C vendor/twrp apply "$GITHUB_WORKSPACE/$DEVICE/patches/vendor_twrp/0001-export-crypto-flags-to-soong.patch"
 
       - name: Build recovery
         run: |

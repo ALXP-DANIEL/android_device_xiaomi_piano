@@ -8,11 +8,14 @@
 - Fixes sideload USB enumeration and reduces the Mount screen to user-facing
   partitions.
 - Adds recovery backup and verified restore around successful A/B OTAs. The
-  restore path still needs an end-to-end test with the option enabled.
+  slot-fix candidate passed an end-to-end OTA preservation test on the device.
 - The Android 17 OS4.0.0.42 full OTA completed successfully, booted from slot B,
   and decrypted in TWRP. Recovery B was restored manually after that test.
-- Earlier dual-Weaver builds decrypted Android 16 OS3.0.307 and OS3.0.308.
-  The final `-1` image still needs the planned Android 16 regression run.
+- The slot-fix candidate was subsequently validated on Android 16 and 17,
+  including automatic recovery restoration to both A/B slots.
+- The tested slot-fix image has SHA-256
+  `1da418829c2142e9f5acf41e9459ea3e449cf940b0801a5faa220e400a2b9563`.
+  Its embedded version is `3.7.1_16-0(ALXP)`; `-1` remains the release target.
 
 ## Android 16/17 compatibility development (`twrp-16.0`)
 
