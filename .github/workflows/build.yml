@@ -128,6 +128,18 @@ jobs:
           rm -rf "$GITHUB_WORKSPACE/device_tree"
           ls -la device/${{ inputs.DEVICE_PATH }}
 
+      # CI proves that the source builds. The tested release image was signed
+      # locally; its private AVB key never enters GitHub Actions.
+      - name: Generate disposable CI AVB key
+        run: |
+          set -euo pipefail
+          umask 077
+          KEY=device/${{ inputs.DEVICE_PATH }}/security/recovery_avb.pem
+          mkdir -p "$(dirname "$KEY")"
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 \
+            -out "$KEY" >/dev/null 2>&1
+          test -s "$KEY"
+
       - name: Apply tested recovery and crypto patches
         run: |
           set -euo pipefail
@@ -181,6 +193,7 @@ jobs:
           mkdir -p artifacts
           cp "$IMG" "artifacts/recovery-${{ inputs.DEVICE_NAME }}-$(date +%Y%m%d-%H%M%S).img"
           (cd artifacts && sha256sum *.img | tee SHA256SUMS)
+          printf '%s\n' 'CI build signed with a disposable key; this is not the tested TWRP release image.' > artifacts/CI_BUILD_NOTICE.txt
 
       # Uploaded as a workflow artifact, not a public release. The ramdisk
       # contains proprietary Xiaomi touch firmware, TFLite models and vendor
@@ -188,7 +201,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: recovery-${{ inputs.DEVICE_NAME }}
+          name: recovery-${{ inputs.DEVICE_NAME }}-ci-testkey
           path: artifacts/
           retention-days: 14
           if-no-files-found: error
+
+      - name: Remove disposable CI AVB key
+        if: always()
+        run: rm -f device/${{ inputs.DEVICE_PATH }}/security/recovery_avb.pem
