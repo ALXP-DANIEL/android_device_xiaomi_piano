@@ -302,8 +302,8 @@ TW_INCLUDE_RESETPROP := true
 # once piano-boot-adsp.sh has started the ADSP, the real charging status.
 TW_USE_LEGACY_BATTERY_SERVICES := true
 
-# Displayed version: 3.7.1_16-0(ALXP). TWRP appends this as "-<value>".
-TW_DEVICE_VERSION := 0(ALXP)
+# Displayed version: 3.7.1_16-1(ALXP). TWRP appends this as "-<value>".
+TW_DEVICE_VERSION := 1(ALXP)
 
 PLATFORM_VERSION := 16
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)

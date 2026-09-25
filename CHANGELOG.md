@@ -1,5 +1,19 @@
 # TWRP for Xiaomi Pad 8 Pro (piano)
 
+## 3.7.1_16-1(ALXP) — Android 16/17 compatibility candidate
+
+- Selects the matching HyperOS 3 or HyperOS 4 Weaver service and touch modules.
+- Starts Weaver before the first decryption attempt. Android 17 PIN decryption
+  passed after booting recovery from both slots.
+- Fixes sideload USB enumeration and reduces the Mount screen to user-facing
+  partitions.
+- Adds recovery backup and verified restore around successful A/B OTAs. The
+  restore path still needs an end-to-end test with the option enabled.
+- The Android 17 OS4.0.0.42 full OTA completed successfully, booted from slot B,
+  and decrypted in TWRP. Recovery B was restored manually after that test.
+- Earlier dual-Weaver builds decrypted Android 16 OS3.0.307 and OS3.0.308.
+  The final `-1` image still needs the planned Android 16 regression run.
+
 ## Android 16/17 compatibility development (`twrp-16.0`)
 
 The device tree now packages both HyperOS 3 and HyperOS 4 Weaver HALs.
