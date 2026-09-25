@@ -19,10 +19,10 @@
 # On any failure the build-time values are left in place, which is no worse
 # than not running at all.
 #
-# KeyMint is the only secure service that reads these values, so it is the
-# only one init leaves stopped; this script starts it once the values are in
-# place. That start happens from an EXIT trap, so every path out of the script
-# - success, failure, or an unexpected error - still brings KeyMint up.
+# KeyMint reads these values, so this script starts it after they are in
+# place. Weaver is also started here after selecting the binary for the
+# installed Android generation. Starts happen from an EXIT trap so an early
+# script exit still brings KeyMint up.
 # keystore2 blocks until KeyMint registers and nothing decrypts without it, so
 # a KeyMint on the fallback values is always better than no KeyMint.
 
@@ -65,6 +65,22 @@ start_keymint() {
 }
 
 finish() {
+    if [ -n "${WEAVER_VARIANT}" ]; then
+        service="vendor.weaver_${WEAVER_VARIANT}"
+        i=0
+        while [ "${i}" -lt 30 ]; do
+            if [ "$(getprop "init.svc.${service}")" = "running" ]; then
+                log_msg "${service} running after ${i} retries"
+                break
+            fi
+            setprop ctl.start "${service}" 2>/dev/null
+            sleep 1
+            i=$((i + 1))
+        done
+        if [ "$(getprop "init.svc.${service}")" != "running" ]; then
+            log_msg "${service} did not reach running within 30s"
+        fi
+    fi
     start_keymint
     setprop vendor.piano.prepdecrypt.done 1
 }
@@ -140,6 +156,28 @@ apply_prop ro.vendor.build.security_patch "${VENDOR_SPL}"
 # second, stale mount of a partition it manages itself.
 if [ "${SYSTEM_MOUNTED}" = "1" ]; then
     umount "${SYSTEM_MNT}" 2>/dev/null || log_msg "cannot unmount ${SYSTEM_MNT}"
+fi
+
+# Select the Weaver HAL matching the installed Android generation.
+#
+# HyperOS 3 / Android 16 uses the older miweaver service and libmi_weaver.so.
+# HyperOS 4 / Android 17 uses Xiaomi's newer miauthsecretd/oldcredential stack.
+case "${SYSTEM_REL}" in
+    16)
+        WEAVER_VARIANT=hos3
+        ;;
+    17)
+        WEAVER_VARIANT=hos4
+        ;;
+    *)
+        WEAVER_VARIANT=
+        log_msg "unsupported Android release for Weaver selection: ${SYSTEM_REL}"
+        ;;
+esac
+
+if [ -n "${WEAVER_VARIANT}" ]; then
+    setprop vendor.piano.weaver.variant "${WEAVER_VARIANT}"
+    log_msg "selected Weaver variant: ${WEAVER_VARIANT}"
 fi
 
 log_msg "done: system=$(getprop ro.build.version.security_patch) vendor=$(getprop ro.vendor.build.security_patch) release=$(getprop ro.build.version.release)"

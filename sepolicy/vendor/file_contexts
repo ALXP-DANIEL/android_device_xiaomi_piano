@@ -39,7 +39,8 @@
 
 # Stock Xiaomi Weaver HAL. hal_weaver_default and its exec type are declared
 # by system/sepolicy/vendor/hal_weaver_default.te in the platform policy.
-/vendor/bin/hw/piano-weaver    u:object_r:hal_weaver_default_exec:s0
+/vendor/bin/hw/piano-weaver-hos3    u:object_r:hal_weaver_default_exec:s0
+/vendor/bin/hw/piano-weaver-hos4    u:object_r:hal_weaver_default_exec:s0
 
 # Qualcomm GlobalPlatform TA loader, packaged from the stock vendor image.
 # The AOSP tee_exec type is reused so init performs the standard transition into

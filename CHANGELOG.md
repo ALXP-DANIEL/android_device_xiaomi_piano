@@ -1,5 +1,21 @@
 # TWRP for Xiaomi Pad 8 Pro (piano)
 
+## Android 16/17 compatibility development (`twrp-16.0`)
+
+The device tree now packages both HyperOS 3 and HyperOS 4 Weaver HALs.
+`piano-prepdecrypt.sh` reads the installed ROM release and patch levels, starts
+the matching Weaver service, then starts KeyMint. The same TWRP 16 recovery
+core is used on both Android versions. The service start is retried because
+the recovery briefly remounts `/vendor` during startup; a property-only
+Weaver start missed the first decrypt request on OS4.0.0.42.
+
+An earlier dual-Weaver image decrypted Android 16 OS3.0.307 and OS3.0.308 and
+Android 17 OS4.0.0.42. Normal ADB and sideload enumeration worked on both
+versions after removing duplicate sideload USB init actions. The latest
+Weaver startup change and the recovery-core OTA preservation change are still
+under device validation. The Android 16/17 touch behavior also needs a
+separate check before calling this a universal release.
+
 ## HyperOS 4 / Android 17 compatibility candidate (`twrp-17.0`)
 
 This device-tree branch still builds on the TWRP 16 recovery core. It is not

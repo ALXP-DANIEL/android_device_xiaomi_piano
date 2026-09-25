@@ -79,7 +79,8 @@ PRODUCT_PACKAGES += \
 # Phases 6 and 7: stock Gatekeeper and Weaver HALs (disabled, started manually).
 PRODUCT_PACKAGES += \
     piano_gatekeeper \
-    piano_weaver
+    piano_weaver_hos3 \
+    piano_weaver_hos4
 
 PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom/bootctrl

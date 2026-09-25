@@ -106,7 +106,8 @@ on early-fs
     restorecon /vendor/bin/piano-qseecomd
     restorecon /vendor/bin/hw/piano-keymint
     restorecon /vendor/bin/hw/piano-gatekeeper
-    restorecon /vendor/bin/hw/piano-weaver
+    restorecon /vendor/bin/hw/piano-weaver-hos3
+    restorecon /vendor/bin/hw/piano-weaver-hos4
 
     # Everything the stock binaries link must carry its real label, not the
     # rootfs label ramdisk files arrive with. u:r:tee:s0 cannot map or read a
@@ -349,7 +350,6 @@ on property:twrp.super.symlinks_created=true && property:vendor.piano.stock.moun
     # credential operation, giving Mink/SSGTZD time to become ready.
     start vendor.ssgtzd
     start vendor.gatekeeper_default
-    start vendor.weaver
 
     # Reads the installed ROM's patch levels, then starts vendor.keymint
     # itself with ctl.start. piano-keymint has its own retry path for QSEE
@@ -428,17 +428,29 @@ service vendor.gatekeeper_default /vendor/bin/hw/piano-gatekeeper
     disabled
     setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
-# Phase 7: stock piano Xiaomi Weaver HAL. Keep both stock vendor and ODM
-# library paths for the Android 17 service and its Xiaomi AIDL dependencies.
-# Started when qseecomd publishes vendor.sys.listeners.registered=true.
-service vendor.weaver /vendor/bin/hw/piano-weaver
+# Phase 7: Xiaomi Weaver HAL selected from the installed Android generation.
+#
+# prepdecrypt reads ro.build.version.release from the installed system before
+# credential decryption, then starts the matching service with ctl.start and
+# waits for init to report it running. A property-triggered start did not run
+# reliably before TWRP requested Weaver.
+#
+# Android 16 / HyperOS 3 -> legacy miweaver HAL.
+# Android 17 / HyperOS 4 -> new miauthsecretd/oldcredential HAL.
+
+service vendor.weaver_hos3 /vendor/bin/hw/piano-weaver-hos3
     class hal
     user system
     group system drmrpc
     disabled
-    interface aidl android.hardware.weaver.IWeaver/default
     setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
+service vendor.weaver_hos4 /vendor/bin/hw/piano-weaver-hos4
+    class hal
+    user system
+    group system drmrpc
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 # Qualcomm's GlobalPlatform trusted-application loader.
 #

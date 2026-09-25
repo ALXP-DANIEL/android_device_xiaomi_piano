@@ -51,17 +51,28 @@ LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
-# Stock HyperOS 4 / Android 17 Xiaomi Weaver HAL. HyperOS 4 removed
-# libmi_weaver.so from ODM; this matching service links to libGPTEE_vendor
-# and the installed ROM's Xiaomi AIDL libraries through the read-only stock
-# vendor and ODM views.
-# SHA-256 1702d223b56421c6c652e58f5b30451b39a625ce6479212d7882696cc43934d7
+# Stock HyperOS 3 / Android 16 Xiaomi Weaver HAL.
+# SHA-256 7b8974bef8e944f3cfc52659924e8d9e9beef1ae29dc43c2780c83e410af659c
 include $(CLEAR_VARS)
-LOCAL_MODULE := piano_weaver
+LOCAL_MODULE := piano_weaver_hos3
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_STEM := piano-weaver
-LOCAL_SRC_FILES := prebuilt/weaver-service
+LOCAL_MODULE_STEM := piano-weaver-hos3
+LOCAL_SRC_FILES := prebuilt/weaver-service-hos3
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
+LOCAL_MULTILIB := 64
+LOCAL_STRIP_MODULE := false
+LOCAL_CHECK_ELF_FILES := false
+include $(BUILD_PREBUILT)
+
+# Stock HyperOS 4 / Android 17 Xiaomi Weaver HAL.
+# SHA-256 1702d223b56421c6c652e58f5b30451b39a625ce6479212d7882696cc43934d7
+include $(CLEAR_VARS)
+LOCAL_MODULE := piano_weaver_hos4
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_STEM := piano-weaver-hos4
+LOCAL_SRC_FILES := prebuilt/weaver-service-hos4
 LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
