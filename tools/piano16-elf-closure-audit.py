@@ -37,7 +37,7 @@ LINKER_PROVIDED = {
 # Each entry must be justified by evidence that nothing loads the object:
 # no init .rc references it and no binary in the image names it.
 INERT_OBJECTS = {
-    "odm/lib64/sensors.touch.detect.so":
+    "vendor/odm/lib64/sensors.touch.detect.so":
         "not referenced by any binary or .rc in the image; libtouchreport.so "
         "does not name it. Retained because the touch stack is kept complete.",
     "system/bin/keystore_cli_v2":
@@ -47,26 +47,33 @@ INERT_OBJECTS = {
 
 # Objects whose dependencies are deliberately NOT packaged, because they are
 # resolved at runtime from the stock vendor partition mounted read-only at
-# /vendor/piano-stock. Their init service sets LD_LIBRARY_PATH accordingly.
+# /piano/vendor-stock. Their init service sets LD_LIBRARY_PATH accordingly.
 #
 # This is not the same as an inert object: these DO execute. The exception is
 # only valid while every missing library is confirmed present in the stock
 # vendor image, which is checked on device during Phase 3/4 validation.
 RUNTIME_MOUNT_OBJECTS = {
-
+    "vendor/bin/hw/piano-gatekeeper":
         "links the stock QTI Gatekeeper runtime, resolved from "
-        "/vendor/piano-stock/lib64.",
-    "vendor/bin/hw/piano-weaver":
+        "/piano/vendor-stock/lib64.",
+    "vendor/bin/hw/piano-weaver-hos3":
         "links libmi_weaver from the read-only odm view and the stock vendor "
-        "runtime, resolved from /vendor/piano-stock-odm/lib64 and "
-        "/vendor/piano-stock/lib64.",
+        "runtime, resolved from /piano/odm-stock/lib64 and "
+        "/piano/vendor-stock/lib64.",
+    "vendor/bin/hw/piano-weaver-hos4":
+        "HyperOS 4 Weaver service; init.recovery.qcom.rc sets its library "
+        "path to the read-only /piano/odm-stock/lib64 and "
+        "/piano/vendor-stock/lib64 views before the device decrypt hook starts it.",
+    "vendor/bin/piano-qwesd":
+        "stock QWES daemon; vendor.qwesd in init.recovery.qcom.rc resolves "
+        "its vendor runtime from /piano/vendor-stock/lib64 and lib64/hw.",
     "vendor/bin/hw/piano-keymint":
         "links the stock QTI KeyMint runtime (libqtikeymint, "
-        "android.hardware.keymaster@4.0), resolved from /vendor/piano-stock/"
+        "android.hardware.keymaster@4.0), resolved from /piano/vendor-stock/"
         "lib64. Both verified present in the stock vendor partition.",
     "vendor/bin/piano-minkdaemon":
         "the HLOS Mink opener. Links libminkdescriptor, libminksocket_vendor "
-        "and libqcbor, resolved from /vendor/piano-stock/lib64, which init "
+        "and libqcbor, resolved from /piano/vendor-stock/lib64, which init "
         "mounts read-only. All three verified present on this device's stock "
         "vendor partition (85512, 185472 and 52024 bytes respectively). This "
         "is the same transport runtime ssgtzd links below.",
@@ -74,11 +81,11 @@ RUNTIME_MOUNT_OBJECTS = {
         "Qualcomm's GlobalPlatform TA loader. Links the stock QMI and Mink "
         "transport runtime (libqrtr, libqmi_cci, libqmi_csi, libqmi_common_so, "
         "libqcbor, libminksocket_vendor, libminkdescriptor), resolved from "
-        "/vendor/piano-stock/lib64. All seven verified present on the stock "
+        "/piano/vendor-stock/lib64. All seven verified present on the stock "
         "vendor partition.",
     "vendor/bin/piano-qseecomd":
         "links the stock vendor runtime (libQSEEComAPI, libminkdescriptor, "
-        "libdrmfs, libdmabufheap), resolved from /vendor/piano-stock/lib64 "
+        "libdrmfs, libdmabufheap), resolved from /piano/vendor-stock/lib64 "
         "which init mounts read-only. All four verified present on device.",
 }
 
