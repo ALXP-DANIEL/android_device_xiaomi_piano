@@ -2,7 +2,7 @@ name: OrangeFox R12 Builder (piano)
 
 # Xiaomi Pad 8 Pro (piano) OrangeFox R12.0 (fox_16.0) recovery build.
 #
-# Source setup follows patches/README.md: the TWRP 16 minimal manifest, the
+# Source setup follows patches/README.md: the OrangeFox16 base manifest, the
 # two local manifests in manifests/, OrangeFox's vendor/recovery, then the
 # device's source patches.
 #
@@ -14,13 +14,13 @@ on:
   workflow_dispatch:
     inputs:
       MANIFEST_URL:
-        description: "Base manifest url (TWRP 16 minimal manifest)"
+        description: "Base manifest url (OrangeFox16 base manifest)"
         required: true
-        default: "https://github.com/TWRP-Test/platform_manifest_twrp_aosp"
+        default: "https://github.com/OrangeFox16/platform_manifest_twrp_aosp"
       MANIFEST_BRANCH:
         description: "Base manifest branch"
         required: true
-        default: "twrp-16.0"
+        default: "twrp-16"
       LUNCH_TARGET:
         description: "Full lunch target"
         required: true

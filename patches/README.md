@@ -5,7 +5,7 @@ source. The device tree alone is not enough: a build from a fresh OrangeFox 16
 sync is missing these fixes.
 
 Source setup (OrangeFox R12.0, `fox_16.0`). The complete OrangeFox 16
-manifest is not public, so start from the TWRP 16 minimal manifest and add the
+manifest is not public, so start from the base manifest github.com/OrangeFox16/platform_manifest_twrp_aosp (branch `twrp-16`) and add the
 two local manifests in `device/xiaomi/piano/manifests/`:
 
 - `orangefox-r12.xml` swaps about 27 projects for OrangeFox's GitLab

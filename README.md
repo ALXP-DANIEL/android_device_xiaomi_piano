@@ -32,7 +32,7 @@ manifests and the patch script are described in
 [`patches/README.md`](patches/README.md). In short:
 
 ```
-repo init -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp -b twrp-16.0
+repo init -u https://github.com/OrangeFox16/platform_manifest_twrp_aosp -b twrp-16
 cp device/xiaomi/piano/manifests/*.xml .repo/local_manifests/
 repo sync
 git clone -b fox_16.0 https://gitlab.com/OrangeFox/vendor/recovery.git vendor/recovery
