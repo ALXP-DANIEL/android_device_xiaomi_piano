@@ -45,7 +45,7 @@ m recoveryimage
 Put your own AVB key at `security/recovery_avb.pem` first. Keys are never
 committed.
 
-The GitHub Actions workflow (`Actions > OrangeFox R12 Builder`) runs the same
+The GitHub Actions workflow (`Actions > OrangeFox R12 Builder`, file `orangefox.yml`) runs the same
 steps with a throwaway key. Its image proves the source builds; it is not the
 tested release image.
 
