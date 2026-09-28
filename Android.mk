@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 # Stock HyperOS 3 Qualcomm TEE daemon, packaged unmodified as
-# /vendor/bin/piano-qseecomd.
+# /piano/bin/piano-qseecomd.
 #
 # SHA-256 dc1ccdd0a32891f0f38048383499e8849e071840ef5bb210eefa1b0e3b2c369f
 #
@@ -14,14 +14,14 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-qseecomd
 LOCAL_SRC_FILES := prebuilt/qseecomd
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 # Stock HyperOS 3 KeyMint HAL service, packaged unmodified as
-# /vendor/bin/hw/piano-keymint. One process hosts IKeyMintDevice,
+# /piano/bin/piano-keymint. One process hosts IKeyMintDevice,
 # IRemotelyProvisionedComponent, ISecureClock and ISharedSecret.
 #
 # SHA-256 bc3c6361a7d3e67385d1001f56891e1b49094ae9243530e05dc9a2c7c6acbd91
@@ -31,7 +31,7 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-keymint
 LOCAL_SRC_FILES := prebuilt/keymint-service-qti
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
@@ -45,7 +45,7 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-gatekeeper
 LOCAL_SRC_FILES := prebuilt/gatekeeper-service-qti
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
@@ -59,7 +59,7 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-weaver-hos3
 LOCAL_SRC_FILES := prebuilt/weaver-service-hos3
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
@@ -73,14 +73,14 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-weaver-hos4
 LOCAL_SRC_FILES := prebuilt/weaver-service-hos4
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin/hw
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 # Stock HyperOS 3 Qualcomm GlobalPlatform trusted-application loader, packaged
-# unmodified as /vendor/bin/piano-ssgtzd.
+# unmodified as /piano/bin/piano-ssgtzd.
 #
 # SHA-256 d52f5ef5fd7dc40b9fa622f97b430552cb223771dd15f258be54bb871372ac1e
 #
@@ -102,14 +102,14 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-ssgtzd
 LOCAL_SRC_FILES := prebuilt/ssgtzd
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 # Stock HyperOS 3 HLOS Mink daemon, packaged unmodified as
-# /vendor/bin/piano-minkdaemon.
+# /piano/bin/piano-minkdaemon.
 #
 # SHA-256 e8396f14435f7300847e74e05b326b3ebe4e328c33c9589573b602b5ec279efd
 #
@@ -130,7 +130,7 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-minkdaemon
 LOCAL_SRC_FILES := prebuilt/hlosminkdaemon
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false
@@ -146,7 +146,7 @@ LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_STEM := piano-qwesd
 LOCAL_SRC_FILES := prebuilt/qwesd
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/vendor/bin
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/piano/bin
 LOCAL_MULTILIB := 64
 LOCAL_STRIP_MODULE := false
 LOCAL_CHECK_ELF_FILES := false

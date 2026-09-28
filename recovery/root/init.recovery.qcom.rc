@@ -94,20 +94,42 @@ service vendor.piano_prepdecrypt /system/bin/sh /piano/bin/piano-prepdecrypt.sh
 # ships cgroups.json but not task_profiles.json, so logd aborts in
 # libprocessgroup, logcat stays empty, and every userspace SELinux denial
 # becomes invisible - including the ones raised by servicemanager.
+# The secure-stack binaries and the binder symlink live under /piano, not
+# /vendor. OrangeFox mounts stock /vendor at startup to read the ROM
+# fingerprint, and the /vendor/firmware_mnt bind below then lands inside it
+# and pins it ("Device or resource busy"), hiding anything the recovery
+# ships under /vendor for the whole session:
+#   init: Could not ctl.start for 'vendor.keymint' ... Cannot find
+#         '/vendor/bin/hw/piano-keymint': No such file or directory
+# /piano is recovery-owned and nothing mounts over it, so the secure stack
+# starts whatever TWRP or OrangeFox does with /vendor.
 on early-fs
+    # The ramdisk packer assigns file modes from fs_config, which knows
+    # /vendor/bin but not /piano/bin, so these arrive 0644 and init's execv
+    # fails with "Permission denied". Make them executable before any secure
+    # service can start.
+    chmod 0755 /piano/bin/piano-qseecomd
+    chmod 0755 /piano/bin/piano-minkdaemon
+    chmod 0755 /piano/bin/piano-ssgtzd
+    chmod 0755 /piano/bin/piano-qwesd
+    chmod 0755 /piano/bin/piano-keymint
+    chmod 0755 /piano/bin/piano-gatekeeper
+    chmod 0755 /piano/bin/piano-weaver-hos3
+    chmod 0755 /piano/bin/piano-weaver-hos4
+
     restorecon /system/etc/task_profiles.json
     restorecon_recursive /system/etc/vintf
     restorecon /piano/bin/piano-prepdecrypt.sh
     restorecon /piano/bin/piano-boot-adsp.sh
-    restorecon /vendor/bin/piano-minkdaemon
-    restorecon /vendor/bin/piano-ssgtzd
-    restorecon /vendor/bin/piano-qwesd
+    restorecon /piano/bin/piano-minkdaemon
+    restorecon /piano/bin/piano-ssgtzd
+    restorecon /piano/bin/piano-qwesd
     restorecon_recursive /vendor/etc/ssg
-    restorecon /vendor/bin/piano-qseecomd
-    restorecon /vendor/bin/hw/piano-keymint
-    restorecon /vendor/bin/hw/piano-gatekeeper
-    restorecon /vendor/bin/hw/piano-weaver-hos3
-    restorecon /vendor/bin/hw/piano-weaver-hos4
+    restorecon /piano/bin/piano-qseecomd
+    restorecon /piano/bin/piano-keymint
+    restorecon /piano/bin/piano-gatekeeper
+    restorecon /piano/bin/piano-weaver-hos3
+    restorecon /piano/bin/piano-weaver-hos4
 
     # Everything the stock binaries link must carry its real label, not the
     # rootfs label ramdisk files arrive with. u:r:tee:s0 cannot map or read a
@@ -193,7 +215,14 @@ on post-fs
 on init
     setprop vendor.piano.stock.mounted 0
 
-on property:twrp.super.symlinks_created=true && property:vendor.piano.stock.mounted=0
+    # OrangeFox packages the recovery build of servicemanager, whose rc only
+    # declares the service. The system build it replaced started itself from
+    # its own rc; TWRP starts it from its init.rc. Nothing did here, so
+    # keystore2 and KeyMint waited forever for servicemanager.ready and the
+    # metadata decrypt hung on the splash screen.
+    start servicemanager
+
+on property:vendor.piano.partitions_ready=1 && property:vendor.piano.stock.mounted=0
     setprop vendor.piano.stock.mounted 1
     mkdir /piano/vendor-stock 0755 root root
     mkdir /piano/odm-stock 0755 root root
@@ -217,9 +246,9 @@ on property:twrp.super.symlinks_created=true && property:vendor.piano.stock.moun
     # the recovery build. Everything else still resolves from stock vendor.
     # This is the TWRP16 equivalent of the TWRP14 binder-ABI finding, but it
     # needs a single library rather than a compatibility island.
-    mkdir /vendor/piano-binder 0755 root root
-    mkdir /vendor/piano-binder/lib64 0755 root root
-    symlink /system/lib64/libbinder.so /vendor/piano-binder/lib64/libbinder.so
+    mkdir /piano/binder 0755 root root
+    mkdir /piano/binder/lib64 0755 root root
+    symlink /system/lib64/libbinder.so /piano/binder/lib64/libbinder.so
 
     # /dev/block/bootdevice is created in "on fs" above, before the boot
     # control HAL starts; see the comment there.
@@ -387,14 +416,14 @@ on property:ro.crypto.fs_crypto_blkdev=*
 #
 # Kept "disabled" so that only the vendor.piano.stock.mounted trigger above
 # starts it, exactly once per recovery boot, after the stock vendor mount.
-service vendor.qseecomd /vendor/bin/piano-qseecomd
+service vendor.qseecomd /piano/bin/piano-qseecomd
     class core
     user root
     group root drmrpc
     socket notify-topology stream 0660 system drmrpc
     disabled
     oneshot
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 
 # Phase 5: stock piano KeyMint HAL.
@@ -408,12 +437,12 @@ service vendor.qseecomd /vendor/bin/piano-qseecomd
 # Same LD_LIBRARY_PATH as qseecomd, including the binder symlink directory:
 # this binary links libbinder_ndk too, so the pair must match for the same
 # reason qseecomd's did.
-service vendor.keymint /vendor/bin/hw/piano-keymint
+service vendor.keymint /piano/bin/piano-keymint
     class hal
     user system
     group system drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 
 # Phase 6: stock piano Gatekeeper HAL.
@@ -421,12 +450,12 @@ service vendor.keymint /vendor/bin/hw/piano-keymint
 # Stock enables this when vendor.gatekeeper.is_security_level_spu=0, which
 # init sets above. Started only after QSEE listeners are confirmed healthy, by
 # the vendor.sys.listeners.registered trigger.
-service vendor.gatekeeper_default /vendor/bin/hw/piano-gatekeeper
+service vendor.gatekeeper_default /piano/bin/piano-gatekeeper
     class early_hal
     user system
     group system
     disabled
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 # Phase 7: Xiaomi Weaver HAL selected from the installed Android generation.
 #
@@ -438,19 +467,19 @@ service vendor.gatekeeper_default /vendor/bin/hw/piano-gatekeeper
 # Android 16 / HyperOS 3 -> legacy miweaver HAL.
 # Android 17 / HyperOS 4 -> new miauthsecretd/oldcredential HAL.
 
-service vendor.weaver_hos3 /vendor/bin/hw/piano-weaver-hos3
+service vendor.weaver_hos3 /piano/bin/piano-weaver-hos3
     class hal
     user system
     group system drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
-service vendor.weaver_hos4 /vendor/bin/hw/piano-weaver-hos4
+service vendor.weaver_hos4 /piano/bin/piano-weaver-hos4
     class hal
     user system
     group system drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/odm-stock/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 # Qualcomm's GlobalPlatform trusted-application loader.
 #
@@ -464,7 +493,7 @@ service vendor.weaver_hos4 /vendor/bin/hw/piano-weaver-hos4
 # Definition copied from the stock /vendor/etc/init/ssgtzd.rc, including the
 # capabilities and both sockets. Stock starts it from an early-boot trigger; here
 # it starts with the rest of the secure stack, after qseecomd's listeners are up.
-service vendor.ssgtzd /vendor/bin/piano-ssgtzd
+service vendor.ssgtzd /piano/bin/piano-ssgtzd
     class late_start
     user system
     group system oem_2912 wakelock
@@ -472,7 +501,7 @@ service vendor.ssgtzd /vendor/bin/piano-ssgtzd
     disabled
     socket ssgtzd stream 0660 system oem_2912
     socket ssgtzd_opener stream 0660 system system
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 
 # Stock HLOS Mink daemon. The opener is required by the GlobalPlatform
@@ -488,18 +517,18 @@ service vendor.ssgtzd /vendor/bin/piano-ssgtzd
 
 # Stock Qualcomm QWES daemon. Stock HyperOS starts this at boot while SSGTZD
 # starts at early-boot. Recovery starts it only after metadata /data exists.
-service vendor.qwesd /vendor/bin/piano-qwesd
+service vendor.qwesd /piano/bin/piano-qwesd
     class late_start
     user system
     group system inet
     disabled
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
 
 
-service vendor.minkdaemon /vendor/bin/piano-minkdaemon
+service vendor.minkdaemon /piano/bin/piano-minkdaemon
     class core
     user system
     group system drmrpc
     disabled
     socket hlos_mink_opener stream 0660 system drmrpc
-    setenv LD_LIBRARY_PATH /vendor/piano-binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64
+    setenv LD_LIBRARY_PATH /piano/binder/lib64:/piano/vendor-stock/lib64:/piano/vendor-stock/lib64/hw:/system/lib64

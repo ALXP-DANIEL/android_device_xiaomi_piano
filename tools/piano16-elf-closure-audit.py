@@ -56,27 +56,27 @@ RUNTIME_MOUNT_OBJECTS = {
 
         "links the stock QTI Gatekeeper runtime, resolved from "
         "/vendor/piano-stock/lib64.",
-    "vendor/bin/hw/piano-weaver":
+    "piano/bin/piano-weaver-hos3":
         "links libmi_weaver from the read-only odm view and the stock vendor "
         "runtime, resolved from /vendor/piano-stock-odm/lib64 and "
         "/vendor/piano-stock/lib64.",
-    "vendor/bin/hw/piano-keymint":
+    "piano/bin/piano-keymint":
         "links the stock QTI KeyMint runtime (libqtikeymint, "
         "android.hardware.keymaster@4.0), resolved from /vendor/piano-stock/"
         "lib64. Both verified present in the stock vendor partition.",
-    "vendor/bin/piano-minkdaemon":
+    "piano/bin/piano-minkdaemon":
         "the HLOS Mink opener. Links libminkdescriptor, libminksocket_vendor "
         "and libqcbor, resolved from /vendor/piano-stock/lib64, which init "
         "mounts read-only. All three verified present on this device's stock "
         "vendor partition (85512, 185472 and 52024 bytes respectively). This "
         "is the same transport runtime ssgtzd links below.",
-    "vendor/bin/piano-ssgtzd":
+    "piano/bin/piano-ssgtzd":
         "Qualcomm's GlobalPlatform TA loader. Links the stock QMI and Mink "
         "transport runtime (libqrtr, libqmi_cci, libqmi_csi, libqmi_common_so, "
         "libqcbor, libminksocket_vendor, libminkdescriptor), resolved from "
         "/vendor/piano-stock/lib64. All seven verified present on the stock "
         "vendor partition.",
-    "vendor/bin/piano-qseecomd":
+    "piano/bin/piano-qseecomd":
         "links the stock vendor runtime (libQSEEComAPI, libminkdescriptor, "
         "libdrmfs, libdmabufheap), resolved from /vendor/piano-stock/lib64 "
         "which init mounts read-only. All four verified present on device.",

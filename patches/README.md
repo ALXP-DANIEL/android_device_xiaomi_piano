@@ -1,3 +1,75 @@
+# OrangeFox 16 source patches
+
+The `ofox_*` directories hold the changes this device needs in OrangeFox's own
+source. The device tree alone is not enough: a build from a fresh OrangeFox 16
+sync is missing these fixes.
+
+Source setup (OrangeFox R12.0, `fox_16.0`). The complete OrangeFox 16
+manifest is not public, so start from the TWRP 16 minimal manifest and add the
+two local manifests in `device/xiaomi/piano/manifests/`:
+
+- `orangefox-r12.xml` swaps about 27 projects for OrangeFox's GitLab
+  `fox_16.0` versions (recovery, build, security, sepolicy, vendor/twrp,
+  WLAN, ttyd, rclone, libvterm and others). Three stay on TWRP-Test on
+  purpose: `system/vold`, because OrangeFox's fox_16.0 vold fails the Weaver
+  synthetic-password unwrap on this device; and `system/core` and
+  `system/update_engine`, because with OrangeFox's versions a recovery-installed
+  OTA is left in Virtual A/B snapshots, and HyperOS 4 (Android 17) then loops at
+  the Mi logo. TWRP's versions write the partitions directly, and the device
+  boots.
+- `piano.xml` adds `hardware/qcom/bootctrl` (LineageOS, `lineage-23.2-caf`)
+  for the recovery boot control HAL, which A/B OTA installs need.
+
+`vendor/recovery` is cloned by hand from
+gitlab.com/OrangeFox/vendor/recovery.git, branch `fox_16.0`.
+
+```
+cp device/xiaomi/piano/manifests/*.xml .repo/local_manifests/
+repo sync
+device/xiaomi/piano/tools/apply-ofox-patches.sh ~/android/ofox-16
+```
+
+The script is safe to run again, because it skips patches that are already
+applied. If OrangeFox has changed and a patch no longer fits, the script stops
+and names that patch.
+
+After building, check that no library in `recovery/root/system/lib64` is older
+than its `system/lib64` copy: the relink step does not refresh them, and a
+stale copy can stop recovery from starting (`CANNOT LINK EXECUTABLE`). The
+builder's `ofox-build-piano-full.sh` does this automatically.
+
+Tested revisions:
+
+| Project | Remote | Revision |
+| --- | --- | --- |
+| `bootable/recovery` | gitlab.com/OrangeFox/bootable/Recovery | `6ff71bed1506fec1893247f0c74d7ae87c594eed` |
+| `system/core` | github.com/TWRP-Test/android_system_core (twrp-16.0) | `b6e6bf1` |
+| `system/update_engine` | github.com/TWRP-Test/android_system_update_engine | `a4c7444` |
+| `vendor/recovery` | gitlab.com/OrangeFox/vendor/recovery | `928aab803d2c1f759824a5222b9790a96f542502` |
+| `system/vold` | github.com/TWRP-Test/android_system_vold | `4c83041` |
+
+`ofox_bootable_recovery`:
+
+| Patch | What it fixes |
+| --- | --- |
+| `0001` | Adds the `update_engine` headers that TWRP's libsnapshot needs, and uses `servicemanager.recovery`. The system servicemanager finds no VINTF manifest in recovery, so Weaver and Gatekeeper never register and decryption fails. |
+| `0002` | Waits for the QSEE listeners and KeyMint before decryption, and drops the startup `copySqliteDb()`. |
+| `0003` | OZIP returns unsupported when there is no key. |
+| `0004` | Follows Android's time zone until one is picked in OrangeFox. |
+| `0005` | Starts MTP after decryption (it never started on encrypted devices), and runs the pre-decrypt hook. |
+| `0006` | ORS `sideload` no longer installs the package twice, and the queue file is removed as soon as it is opened, so an unfinished run is not replayed by the next `twrp <cmd>`. |
+| `0007` | Reads the clock offset from `/mnt/vendor/persist/time` (the clock started at 1970), and unmounts sub-mounts first. |
+| `0008` | Passes `TW_X/Y/W/H_OFFSET` to the GUI build, so the phone-sized theme is drawn in the middle of the landscape screen, and keeps keyboard long-press labels inside their keys. |
+| `0009` | Defaults: Dark style, on-screen navigation buttons instead of gestures, and no broken `menu_text` style on the splash screen. |
+| `0010` | Fixes the recovery checksums used by the automatic self-reflash after an A/B ROM or OTA install. Without it, stock recovery is left in the new slot. |
+| `0011` | GUI actions: skips a Magisk zip queued after an A/B ROM or OTA (it would patch the old slot), and waits for a finishing action instead of dropping a new `twrp` command, which used to leave the command line stuck. |
+
+`ofox_system_core/0001` exports `libupdate_engine_headers` from libsnapshot
+(`cow_reader.h` includes `payload_consumer/file_descriptor.h`).
+
+The `build/make` changes in an OrangeFox checkout come from OrangeFox itself
+and are not part of this set.
+
 # Source patches — TWRP16 piano
 
 Applied to the build checkout (`~/android/twrp-16`), not to this device tree.

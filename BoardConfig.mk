@@ -75,6 +75,9 @@ BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
 # The recovery uses the active-slot ROM kernel, so no kernel is built or
 # packaged. No prebuilt kernel is carried, unlike the reference trees.
 TARGET_NO_KERNEL_OVERRIDE := true
+# No kernel source: hardware/qcom/bootctrl only needs generated kernel
+# headers to exist (see kernel-headers/Makefile).
+TARGET_KERNEL_SOURCE := $(DEVICE_PATH)/kernel-headers
 
 # RECOVERY RAMDISK SIZE BUDGET — hard constraint, see
 # docs/twrp14-frozen-reference.md.
@@ -172,7 +175,20 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 BOARD_RECOVERY_IMAGE_PREPARE = bash $(DEVICE_PATH)/tools/piano16-ramdisk-prune.sh $(TARGET_RECOVERY_ROOT_OUT)
 
 # Display / input, proven on hardware in the TWRP14 tree.
-TW_THEME := landscape_hdpi
+TW_THEME := portrait_hdpi
+
+# Landscape, phone-sized. OrangeFox ships only a phone (portrait) theme. Drawn
+# across the whole 3200x2136 panel it is stretched about 3x sideways, which
+# breaks image elements such as the battery icon and the logs slider. Instead
+# the theme is drawn into a 1202x2136 column in the middle of the screen, which
+# keeps its default 9:16 shape (1080x1920 * 1.1125):
+# width 3200 - 1998 = 1202, left edge at (3200 - 1202) / 2 = 999.
+# Touch keeps the landscape mapping below; the GUI adds the same offset to
+# every element, so taps line up.
+TW_X_OFFSET := 999
+TW_W_OFFSET := -1998
+RECOVERY_TOUCHSCREEN_SWAP_XY := true
+RECOVERY_TOUCHSCREEN_FLIP_Y := true
 
 # Backlight.
 #
@@ -184,8 +200,6 @@ TW_THEME := landscape_hdpi
 TW_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
 TW_MAX_BRIGHTNESS := 4095
 TW_DEFAULT_BRIGHTNESS := 2048
-RECOVERY_TOUCHSCREEN_SWAP_XY := true
-RECOVERY_TOUCHSCREEN_FLIP_Y := true
 
 # Device-specific Qualcomm USB ConfigFS setup replaces TWRP's default.
 TW_EXCLUDE_DEFAULT_USB_INIT := true
@@ -322,3 +336,18 @@ BOARD_AVB_RECOVERY_KEY_PATH := device/xiaomi/piano/security/recovery_avb.pem
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 0
+
+
+# Flashlight. OrangeFox defaults to led:torch_0 + led:switch_0, but this
+# device only has led:switch_2, so the torch never turned on.
+OF_FL_PATH1 := /sys/class/leds/led:torch_0
+OF_FL_PATH2 := /sys/class/leds/led:switch_2
+
+# A/B device with a separate recovery partition. OrangeFox then reflashes
+# itself to both recovery slots after a ROM/OTA install (tw_auto_reflashtwrp);
+# otherwise the OTA leaves stock recovery in the new slot.
+OF_AB_DEVICE_WITH_RECOVERY_PARTITION := 1
+
+# No vibration motor on piano (both haptics devicetree nodes are disabled).
+# Removes the vibration settings and the useless vibrate calls.
+TW_NO_HAPTICS := true
