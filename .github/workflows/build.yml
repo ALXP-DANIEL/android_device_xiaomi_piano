@@ -1,52 +1,40 @@
-name: TWRP 16 Builder (piano)
+name: OrangeFox R12 Builder (piano)
 
-# Xiaomi Pad 8 Pro (piano) TWRP16 recovery build.
+# Xiaomi Pad 8 Pro (piano) OrangeFox R12.0 (fox_16.0) recovery build.
 #
-# Adapted from the sm8750_thales workflow, with two differences that matter for
-# this device:
+# Source setup follows patches/README.md: the TWRP 16 minimal manifest, the
+# two local manifests in manifests/, OrangeFox's vendor/recovery, then the
+# device's source patches.
 #
-#   1. piano's bootloader refuses any recovery whose compressed ramdisk exceeds
-#      a measured bound of ~29.21 MB. The build is therefore gated on size and
-#      FAILS rather than publishing an unbootable image.
-#   2. ALLOW_MISSING_DEPENDENCIES lets Soong skip modules whose dependencies are
-#      absent, which can silently drop something the recovery needs. An ELF
-#      closure audit of the produced ramdisk gates that.
-#
-# Both gates run before any artifact is uploaded.
+# CI proves that the source builds. Released images are signed locally; the
+# private AVB key never enters GitHub Actions. A CI image is signed with a
+# disposable key and is not the tested release image.
 
 on:
   workflow_dispatch:
     inputs:
       MANIFEST_URL:
-        description: "TWRP manifest url"
+        description: "Base manifest url (TWRP 16 minimal manifest)"
         required: true
         default: "https://github.com/TWRP-Test/platform_manifest_twrp_aosp"
       MANIFEST_BRANCH:
-        description: "TWRP branch"
+        description: "Base manifest branch"
         required: true
         default: "twrp-16.0"
-      DEVICE_PATH:
-        description: "Device path under device/"
-        required: true
-        default: "xiaomi/piano"
-      DEVICE_NAME:
-        description: "Device name"
-        required: true
-        default: "piano"
       LUNCH_TARGET:
         description: "Full lunch target"
         required: true
         default: "twrp_piano-bp2a-eng"
-      BUILD_PARTITION:
-        description: "Build partition"
-        required: true
-        default: "recovery"
+
+env:
+  DEVICE_PATH: device/xiaomi/piano
+  DEVICE_NAME: piano
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - name: Free disk space
         uses: rokibhasansagar/slimhub_actions@main
@@ -59,9 +47,8 @@ jobs:
           remove-haskell: 'true'
           remove-codeql: 'true'
 
-      # Checked out AFTER maximize-build-space: that action remounts the
-      # workspace onto a new filesystem and discards anything already there,
-      # which is why an earlier checkout vanished before "Install device tree".
+      # Checked out after maximize-build-space, which remounts the workspace
+      # and discards anything already there.
       - name: Check out device tree
         uses: actions/checkout@v4
         with:
@@ -73,20 +60,10 @@ jobs:
           create-symlink: true
           max-size: 5G
 
-      # A GitHub runner has 16 GB of RAM. Soong's analysis phase for a full
-      # AOSP 16 tree peaked at 15.4 GB when measured on the local builder, so
-      # zram is not optional here - without it the runner OOM-kills soong_build
-      # exactly as the 15 GB VM did.
+      # A GitHub runner has 16 GB of RAM; Soong's analysis of an Android 16
+      # tree needs about 15-20 GB. Without zram the runner OOM-kills Soong.
       - name: Setup zram
         run: |
-          # linux-modules-extra is only installed if zram is not already
-          # available. Installing it regenerates an initramfs on a root
-          # filesystem that maximize-build-space has already shrunk, and that
-          # has filled the disk mid-step:
-          #   cp: error copying '/lib/x86_64-linux-gnu/libcrypto.so.3' ...
-          #       No space left on device
-          # On current runners zram is a built-in module and the package is
-          # unnecessary.
           df -h /
           sudo apt-get install -y --no-install-recommends zram-tools
           if ! sudo modprobe zram; then
@@ -104,89 +81,84 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get update
-          sudo apt-get install -y repo lz4 cpio python3
+          sudo apt-get install -y repo lz4 cpio python3 openssl
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Sync source
         run: |
           repo init -u ${{ inputs.MANIFEST_URL }} -b ${{ inputs.MANIFEST_BRANCH }} --depth=1
+          mkdir -p .repo/local_manifests
+          cp "$GITHUB_WORKSPACE"/device_tree/manifests/*.xml .repo/local_manifests/
           (while true; do echo "$(date +%T) syncing..."; sleep 60; done) &
           TIP=$!
           repo sync -c -j$(nproc) --no-clone-bundle --no-tags --force-sync
           kill $TIP || true
+          git clone --depth=1 -b fox_16.0 https://gitlab.com/OrangeFox/vendor/recovery.git vendor/recovery
 
       - name: Install device tree
         run: |
-          mkdir -p device/${{ inputs.DEVICE_PATH }}
+          mkdir -p "$DEVICE_PATH"
           rsync -a --exclude '.git' --exclude '.github' \
-            "$GITHUB_WORKSPACE/device_tree/" "device/${{ inputs.DEVICE_PATH }}/"
-          # The checkout sits inside the build root, so kati would parse its
-          # Android.mk a second time and fail with
-          #   error: device_tree: MODULE.TARGET.EXECUTABLES.piano_qseecomd
-          #          already defined by device/xiaomi/piano
+            "$GITHUB_WORKSPACE/device_tree/" "$DEVICE_PATH/"
+          # The checkout sits inside the build root; remove it so kati does not
+          # parse the device Android.mk twice.
           rm -rf "$GITHUB_WORKSPACE/device_tree"
-          ls -la device/${{ inputs.DEVICE_PATH }}
 
-      - name: Apply tested recovery and crypto patches
+      - name: Apply OrangeFox source patches
+        run: bash "$DEVICE_PATH/tools/apply-ofox-patches.sh" "$GITHUB_WORKSPACE"
+
+      - name: Generate disposable CI AVB key
         run: |
           set -euo pipefail
-          DEVICE=device/${{ inputs.DEVICE_PATH }}
-          # The recovery branch has advanced since the image validated on the
-          # tablet. Build from the exact source revision used for that image.
-          git -C bootable/recovery fetch --depth=1 https://github.com/TWRP-Test/android_bootable_recovery.git 580a0e89cb27007f4584cbb9649ba2607bb21d6a
-          git -C bootable/recovery checkout --detach 580a0e89cb27007f4584cbb9649ba2607bb21d6a
-          for patch in "$DEVICE"/patches/bootable_recovery/*.patch; do
-            git -C bootable/recovery apply --check "$GITHUB_WORKSPACE/$patch"
-            git -C bootable/recovery apply "$GITHUB_WORKSPACE/$patch"
-          done
-          git -C system/vold apply --check "$GITHUB_WORKSPACE/$DEVICE/patches/system_vold/0001-recovery-crypto-safety-invariants.patch"
-          git -C system/vold apply "$GITHUB_WORKSPACE/$DEVICE/patches/system_vold/0001-recovery-crypto-safety-invariants.patch"
-          git -C system/security apply --check "$GITHUB_WORKSPACE/$DEVICE/patches/system_security/0001-recovery-keymint-mutation-policy.patch"
-          git -C system/security apply "$GITHUB_WORKSPACE/$DEVICE/patches/system_security/0001-recovery-keymint-mutation-policy.patch"
+          umask 077
+          KEY="$DEVICE_PATH/security/recovery_avb.pem"
+          mkdir -p "$(dirname "$KEY")"
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out "$KEY" >/dev/null 2>&1
+          test -s "$KEY"
 
       - name: Build recovery
         run: |
-          source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
+          export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
+          export LC_ALL=C
           export CCACHE_EXEC=$(command -v ccache)
           export USE_CCACHE=1
-          export CCACHE_MAXSIZE=5G
           # ckati overflows the default 8 MB stack on a tree this size.
           ulimit -s unlimited
+          source build/envsetup.sh
           lunch ${{ inputs.LUNCH_TARGET }}
           (while true; do echo "$(date +%T) building..."; free -h | sed -n 2p; sleep 30; done) &
           TIP=$!
-          m ${{ inputs.BUILD_PARTITION }}image -j$(nproc)
+          m recoveryimage -j$(nproc)
           kill $TIP || true
 
-      # ---- gates ----------------------------------------------------------
-      # Nothing is published unless both pass.
+      # ---- gates: nothing is uploaded unless both pass --------------------
 
       - name: Gate - image invariants and size budget
-        run: |
-          IMG=out/target/product/${{ inputs.DEVICE_NAME }}/${{ inputs.BUILD_PARTITION }}.img
-          bash device/${{ inputs.DEVICE_PATH }}/tools/piano16-preflash-audit.sh "$IMG"
+        run: bash "$DEVICE_PATH/tools/piano16-preflash-audit.sh" "out/target/product/$DEVICE_NAME/recovery.img"
 
       - name: Gate - ELF closure
-        run: |
-          IMG=out/target/product/${{ inputs.DEVICE_NAME }}/${{ inputs.BUILD_PARTITION }}.img
-          python3 device/${{ inputs.DEVICE_PATH }}/tools/piano16-elf-closure-audit.py "$IMG"
+        run: python3 "$DEVICE_PATH/tools/piano16-elf-closure-audit.py" "out/target/product/$DEVICE_NAME/recovery.img"
 
-      - name: Record image identity
+      - name: Collect artifacts
         run: |
-          IMG=out/target/product/${{ inputs.DEVICE_NAME }}/${{ inputs.BUILD_PARTITION }}.img
+          P=out/target/product/$DEVICE_NAME
           mkdir -p artifacts
-          cp "$IMG" "artifacts/recovery-${{ inputs.DEVICE_NAME }}-$(date +%Y%m%d-%H%M%S).img"
-          (cd artifacts && sha256sum *.img | tee SHA256SUMS)
+          cp $P/OrangeFox-*.img $P/OrangeFox-*.zip artifacts/ 2>/dev/null || cp $P/recovery.img artifacts/
+          (cd artifacts && sha256sum * | tee SHA256SUMS)
+          echo 'CI build signed with a disposable key; this is not the tested release image.' > artifacts/CI_BUILD_NOTICE.txt
 
-      # Uploaded as a workflow artifact, not a public release. The ramdisk
-      # contains proprietary Xiaomi touch firmware, TFLite models and vendor
-      # libraries whose redistribution rights have not been established.
+      # A workflow artifact, not a public release: the ramdisk contains
+      # proprietary Xiaomi files whose redistribution rights are not settled.
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: recovery-${{ inputs.DEVICE_NAME }}
+          name: orangefox-${{ env.DEVICE_NAME }}-ci-testkey
           path: artifacts/
           retention-days: 14
           if-no-files-found: error
+
+      - name: Remove disposable CI AVB key
+        if: always()
+        run: rm -f "$DEVICE_PATH/security/recovery_avb.pem"
