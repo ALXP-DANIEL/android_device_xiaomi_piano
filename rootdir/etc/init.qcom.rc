@@ -1,0 +1,62 @@
+# SPDX-License-Identifier: Apache-2.0
+# Piano first-boot subset. Services in /vendor/etc/init are parsed automatically.
+import /vendor/etc/init/hw/init.qcom.usb.rc
+import /vendor/etc/init/hw/init.batterysecret.rc
+
+on early-init
+    symlink /vendor/firmware_mnt /firmware
+    symlink /vendor/dsp /dsp
+    symlink /vendor/bt_firmware /bt_firmware
+    exec_start gki.modprobe
+    start vendor.modprobe
+
+on fs
+    mount_all /vendor/etc/fstab.qcom --early
+    exec_start piano-persist-check
+
+on late-fs
+    mount_all /vendor/etc/fstab.qcom --late
+
+on post-fs-data
+    mkdir /data/vendor/tzstorage 0770 system system
+    mkdir /data/vendor/qtee 0770 system system
+    mkdir /data/vendor/display 0770 system graphics
+
+service gki.modprobe /vendor/bin/system_dlkm_modprobe.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+    stdio_to_kmsg
+    seclabel u:r:vendor_modprobe:s0
+
+service vendor.modprobe /vendor/bin/vendor_modprobe.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+    stdio_to_kmsg
+    seclabel u:r:vendor_modprobe:s0
+
+service piano-persist-check /vendor/bin/piano-persist-check.sh
+    class core
+    user root
+    group root
+    disabled
+    oneshot
+    stdio_to_kmsg
+
+# Stock piano peripheral manager starts DSP clients after filesystem setup.
+service vendor.per_mgr /vendor/bin/pm-service
+    class core
+    user system
+    group system
+    ioprio rt 4
+
+service vendor.per_proxy /vendor/bin/pm-proxy
+    class core
+    user system
+    group system
+    disabled

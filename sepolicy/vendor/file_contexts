@@ -1,0 +1,11 @@
+/vendor/bin/piano-persist-check\.sh u:object_r:piano_persist_check_exec:s0
+# Existing Qualcomm labels cover sda and sde; cover every other whole LUN too.
+/dev/block/sd[b-df-z] u:object_r:vendor_gpt_block_device:s0
+
+/vendor/bin/batterysecret u:object_r:batterysecret_exec:s0
+
+/odm/bin/hw/vendor\.xiaomi\.hw\.touchfeature-service u:object_r:piano_touch_default_exec:s0
+/odm/bin/toucheventcheck u:object_r:piano_tpevent_exec:s0
+/dev/xiaomi-touch u:object_r:piano_touch_device:s0
+/data/vendor/touch(_state)?(/.*)? u:object_r:piano_touch_data_file:s0
+/mnt/vendor/persist/touch(/.*)? u:object_r:piano_touch_persist_file:s0

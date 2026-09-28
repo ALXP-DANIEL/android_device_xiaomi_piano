@@ -1,0 +1,34 @@
+{
+  "firmware": "OS3.0.307.0.WPYCNXM",
+  "region": "china",
+  "files": {
+    "super-unpacked/vendor_a.img": {
+      "sha256": "2fd455563ee4e68e39dfbe87768c50c2826ff78ea41ea8d74c544f9800b5c9e8",
+      "size": 1762304000
+    },
+    "super-unpacked/odm_a.img": {
+      "sha256": "c8bda3269dcacefe9d3bbaed5774a01f2f5f17a2c73ee83ee9673e7b83db2a2f",
+      "size": 1611816960
+    },
+    "super-unpacked/vendor_dlkm_a.img": {
+      "sha256": "a0e1862f69224a85da97b38256106d130f1082215d43141156932bec2f25090f",
+      "size": 46882816
+    },
+    "super-unpacked/system_dlkm_a.img": {
+      "sha256": "72c1fad32a2e7a6f97426d3861aed4c11393d01d8dca1e792535521df789758b",
+      "size": 15286272
+    },
+    "images/boot.img": {
+      "sha256": "394a7d38f5ecfe3e95e44dedaade416c041b1e8b2df15474986ec7bf246cc41b",
+      "size": 100663296
+    },
+    "images/vendor_boot.img": {
+      "sha256": "4bd6773e3622bab455b9fc4c0d0f4caf9a45cdc8a5104ae61a220ac890936847",
+      "size": 100663296
+    },
+    "images/dtbo.img": {
+      "sha256": "7539296348522a226fab42aa09e8ba93a20ed23a1ed5719941b3ed27d1815648",
+      "size": 18874368
+    }
+  }
+}

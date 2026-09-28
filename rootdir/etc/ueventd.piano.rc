@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: Apache-2.0
+firmware_directories /odm/firmware /vendor/firmware /vendor/firmware_mnt/image /vendor/dsp
+
+subsystem dma_heap
+    devname uevent_devpath
+    dirname /dev/dma_heap
+
+/dev/kgsl-3d0             0666 system system
+/dev/ion                  0664 system system
+/dev/dma_heap/qcom,*       0444 system system
+/dev/qseecom              0660 system drmrpc
+/dev/qce                  0660 system drmrpc
+/dev/smcinvoke            0660 system drmrpc
+# Qualcomm boot HAL runs as root; whole-disk LUNs must be writable.
+/dev/block/sda 0600 root root
+/dev/block/sdb 0600 root root
+/dev/block/sdc 0600 root root
+/dev/block/sdd 0600 root root
+/dev/block/sde 0600 root root
+/dev/block/sdf 0600 root root
+/dev/block/sdg 0600 root root
+/dev/block/sdh 0600 root root
+/dev/block/sdi 0600 root root
+/dev/block/sdj 0600 root root
+/dev/block/sdk 0600 root root
+/dev/block/sdl 0600 root root
+/dev/block/sdm 0600 root root
+/dev/block/sdn 0600 root root
+/dev/block/sdo 0600 root root
+/dev/block/sdp 0600 root root
+/dev/block/sdq 0600 root root
+/dev/block/sdr 0600 root root
+/dev/block/sds 0600 root root
+/dev/block/sdt 0600 root root
+/dev/block/sdu 0600 root root
+/dev/block/sdv 0600 root root
+/dev/block/sdw 0600 root root
+/dev/block/sdx 0600 root root
+/dev/block/sdy 0600 root root
+/dev/block/sdz 0600 root root
+
+/dev/adsprpc-smd          0664 system system
+/dev/fastrpc-adsp         0664 system system
+/dev/adsprpc-smd-secure   0644 system system
+/dev/fastrpc-adsp-secure  0644 system system
+/dev/subsys_*            0640 system system
+/dev/remoteproc*         0640 system system
+/sys/class/remoteproc/remoteproc* state 0660 root system

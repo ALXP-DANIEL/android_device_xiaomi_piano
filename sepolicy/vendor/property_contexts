@@ -1,0 +1,5 @@
+vendor.piano.persist.ready u:object_r:vendor_piano_persist_ready_prop:s0 exact bool
+
+vendor.panel. u:object_r:vendor_piano_panel_prop:s0 prefix string
+vendor.touchfeature. u:object_r:vendor_piano_touch_prop:s0 prefix string
+persist.vendor.touchfeature. u:object_r:vendor_piano_touch_prop:s0 prefix string

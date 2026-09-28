@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- China OS3.0.307.0.WPYCNXM AospFrameworkResOverlay.apk values.
+     Keep automatic brightness and sensor-dependent tuning for later validation. -->
+<resources>
+    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_voice_capable">false</bool>
+    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.00170982</item>
+    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.00170982</item>
+    <item name="config_screenBrightnessSettingMaximumFloat" format="float" type="dimen">1.0</item>
+    <item name="config_screenBrightnessSettingDefaultFloat" format="float" type="dimen">0.0747435</item>
+</resources>

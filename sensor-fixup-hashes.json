@@ -1,0 +1,17 @@
+{
+  "odm/bin/hw/vendor.xiaomi.hw.touchfeature-service": "eef81685754a9e8efa7d24cdd75d7fa75644c6a8",
+  "odm/lib64/hw/displayfeature.default.so": "ef7bd58d59cded4f2bef848cf33d5464b5dd9593",
+  "odm/lib64/libadaptivehdr.so": "d9ea1ff2643223a1ef205d4f5bc87d558d2f2080",
+  "odm/lib64/libcolortempmode.so": "9598c760392b59101e78230cf3c5b3d6bf4cd729",
+  "odm/lib64/libdither.so": "ef2b9a87cf20ed46f18414aa559d62c3d9971f19",
+  "odm/lib64/libflatmode.so": "9acebb9b03793e5bec49524b4036b7b70ed14ef3",
+  "odm/lib64/libhistprocess.so": "10fbfd2fcab0a9fac3263b1fcfd20ec40fdb8669",
+  "odm/lib64/libmiBrightness.so": "c3bcec2889c212cd16ae9bdd2e658b5cb3313568",
+  "odm/lib64/libmiSensorCtrl.so": "853078f81bcab45c53b6de227caa542dd5b25e6f",
+  "odm/lib64/libpaperMode.so": "11dd8de1be5a29e75be1604c0135c07c0ac1f733",
+  "odm/lib64/librhytheyecare.so": "ee33fe41120a72bb77a0f828aeb4e802aade6162",
+  "odm/lib64/libsdr2hdr.so": "fcfac3a2b976c9454c3545f16875152c2fd66532",
+  "odm/lib64/libsre.so": "e50134ca5224c3495499348c4988da957744031a",
+  "odm/lib64/libtruetone.so": "682c63be09748991955b7bfad0e5b8e4cff81be7",
+  "odm/lib64/libvideomode.so": "39bbcb32c955ecfa7bfcba5d3f6960447665cf91"
+}
