@@ -1,5 +1,7 @@
 # LineageOS 23.2 piano — research tree
 
+LineageOS 23.2 device tree for the Xiaomi Pad 8 Pro (`piano`). Work in progress: it does not boot yet. Use it together with the [`common-16`](../../tree/common-16) branch at `device/xiaomi/sm8750-common`. Other projects: [`main`](../../tree/main).
+
 China HyperOS 3 `OS3.0.307.0.WPYCNXM` only. A Lineage `bacon` build is in
 progress on the builder; no completed or boot-tested ROM is claimed. See
 `docs/LINEAGE_RND.md` for findings and remaining gates.
