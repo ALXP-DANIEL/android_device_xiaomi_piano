@@ -2,7 +2,7 @@
 
 <img src="docs/piano.jpg" width="200" alt="Xiaomi Pad 8 Pro">
 
-Unofficial TWRP 16 device tree for Xiaomi Pad 8 Pro (piano, SM8750).
+Unofficial TWRP 16 device tree for Xiaomi Pad 8 Pro (piano, SM8750). OrangeFox and ROM trees are on the other branches; see [`main`](../../tree/main).
 
 ## Status
 
