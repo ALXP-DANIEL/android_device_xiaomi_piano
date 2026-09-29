@@ -588,3 +588,19 @@ successfully and installed 1,958 UAPI header files, including `linux/bsg.h`.
 The boot image and DLKM modules still use the pinned stock 307 prebuilts.
 Xiaomi OSS is based on 6.6.57 while the stock kernel is 6.6.77; success of
 header generation does not by itself establish runtime kernel ABI compatibility.
+
+Subsequent build checks found a dangling `include/linux/mca` symlink in the
+copied OSS tree. Its proprietary target is not available; the symlink was
+removed only from the builder's header-generation copy. `headers_install`
+still passed. Lineage's Make rules also require `TARGET_KERNEL_CONFIG` when
+source exists, so the device tree specifies `gki_defconfig` and forces the
+stock prebuilt kernel. An explicit clang version supplies the host compiler
+for Soong's isolated `headers_install` command.
+
+At 24% of Ninja, `libgptutils.qti` failed because its generated-kernel-header
+dependency placed `linux/sched/types.h` ahead of bionic's copy, redefining
+`sched_param`. The needed UFS BSG types already exist in bionic's UAPI headers.
+The builder's `hardware/qcom-caf/bootctrl/gpt-utils/Android.bp` now drops that
+dependency; the reproducible one-line patch is in
+`patches/0001-bootctrl-use-bionic-ufs-headers.patch`. A new build is running;
+this change and the ROM have not yet passed validation.
