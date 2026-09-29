@@ -40,6 +40,9 @@ INERT_OBJECTS = {
     "odm/lib64/sensors.touch.detect.so":
         "not referenced by any binary or .rc in the image; libtouchreport.so "
         "does not name it. Retained because the touch stack is kept complete.",
+    "vendor/odm/lib64/sensors.touch.detect.so":
+        "the same library at its OrangeFox R12 location; not referenced by "
+        "any binary or .rc in the image.",
     "system/bin/keystore_cli_v2":
         "TWRP manual CLI tool, not started by init. Its keystore libraries "
         "arrive only with TW_INCLUDE_CRYPTO.",
@@ -60,6 +63,14 @@ RUNTIME_MOUNT_OBJECTS = {
         "links libmi_weaver from the read-only odm view and the stock vendor "
         "runtime, resolved from /vendor/piano-stock-odm/lib64 and "
         "/vendor/piano-stock/lib64.",
+    "piano/bin/piano-weaver-hos4":
+        "HyperOS 4 Weaver; links libmi_weaver, misight and the Xiaomi "
+        "miauthsecretd/oldcredential interfaces, resolved from "
+        "/piano/odm-stock/lib64 and /piano/vendor-stock/lib64 (see its "
+        "LD_LIBRARY_PATH in init.recovery.qcom.rc).",
+    "piano/bin/piano-qwesd":
+        "links the stock QTI minkdescriptor, minksocket_vendor, qcbor and "
+        "qmi_csi libraries, resolved from /piano/vendor-stock/lib64.",
     "piano/bin/piano-keymint":
         "links the stock QTI KeyMint runtime (libqtikeymint, "
         "android.hardware.keymaster@4.0), resolved from /vendor/piano-stock/"
