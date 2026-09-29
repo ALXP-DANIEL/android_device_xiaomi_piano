@@ -71,9 +71,10 @@ odm                                                     /odm                   e
 /dev/block/by-name/persist                           /mnt/vendor/persist            ext4    ro,noatime,nosuid,nodev,barrier=1                                      wait
 /dev/block/by-name/userdata                  /data                  f2fs    noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065,fsync_mode=nobarrier,inlinecrypt,gc_merge,compress_mode=user,compress_cache,atgc,age_extent_cache   latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,metadata_encryption=aes-256-xts:wrappedkey_v0,quota,reservedsize=128M,sysfs_path=/sys/devices/platform/soc/1d84000.ufshc,checkpoint=fs
 /dev/block/by-name/misc                      /misc                  emmc    defaults                                             defaults
-/devices/platform/soc/8804000.sdhci/mmc_host*           /storage/sdcard1       vfat    nosuid,nodev                                         wait,voldmanaged=sdcard1:auto,encryptable=footer
 /devices/platform/soc/a600000.ssusb/*.dwc3/xhci-hcd.*.auto*   /storage/usbotg        vfat    nosuid,nodev                                         wait,voldmanaged=usbotg:auto
-# Not listed here on purpose: modem (/firmware), dsp, bluetooth, qmcs, spunvm,
-# logfs and rescue. Recovery init mounts /firmware itself (init.recovery.qcom.rc)
-# and nothing else needs the rest; listing them only filled the Mount page with
-# raw paths users should not touch.
+# Not listed here on purpose: microSD (piano has no slot), modem (/firmware),
+# dsp, bluetooth, qmcs, spunvm, logfs and rescue. Recovery init mounts
+# /firmware itself (init.recovery.qcom.rc) and nothing else needs the rest;
+# listing them only filled the Mount page with raw paths users should not
+# touch. Display names for persist and USB OTG are in
+# recovery/root/system/etc/twrp.flags (that parser does not skip comments).
