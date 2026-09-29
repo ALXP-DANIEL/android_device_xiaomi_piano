@@ -680,3 +680,30 @@ dtbo, vbmeta and vbmeta_system, and AVB algorithm, rollback indexes, flags and
 chain locations (boot 3, recovery 1, vbmeta_system 2). `super_empty.img` is
 present. This is a build result only; tablet boot and runtime behavior remain
 untested.
+
+### Boot bring-up on China 307 firmware (2026-09-29, Claude session)
+
+- Tablet moved to China OS3.0.307 with the official fastboot package
+  (`flash_all.sh`; data wiped). Stock 307 boots on slot A. OrangeFox R12.0_1
+  is on both recovery slots. Lineage `fa93691e…` installed to slot B.
+- The firmware region/version mismatch was not the cause: on matching 307
+  firmware slot B still fell back to A within about 24 s
+  (`ro.boot.bootreason=bootloader`).
+- Cause of the fallback: the Lineage `vbmeta` listed 10 partitions; stock
+  lists 13. `pvmfw` and `countrycode` were missing (`mi_ext` too, but Lineage
+  has no `mi_ext`). Adding the stock 307 hash descriptors for `pvmfw` and
+  `countrycode` (commit 2d46cf6, images in `piano-kernel/avb/`) makes the
+  bootloader accept slot B and hand over to the kernel.
+- New state: black screen, nothing on USB (no ADB, fastboot, or Qualcomm
+  9008/900E) for over 10 minutes. With
+  `androidboot.init_fatal_reboot_target=recovery` in bootconfig it still does
+  not reach OrangeFox, so it is a hang, not a first-stage mount failure.
+  ramoops is registered (0x400000@0xa3500000) but pstore is empty after a
+  warm reset into OrangeFox.
+- Compared with stock 307: kernel, DTB, dtbo, bootconfig and the whole vendor
+  ramdisk are byte-identical, except the first-stage `fstab.qcom` (mi_ext
+  overlays and `formattable` removed). The boot header gains os_version 16
+  and patch level 2026-09. `init_boot` differs (Lineage first-stage init,
+  1.69 MB vs stock 2.46 MB).
+- Next test: stock 307 `init_boot` on `init_boot_b` with the rest of slot B
+  Lineage, to split first-stage init from later stages.

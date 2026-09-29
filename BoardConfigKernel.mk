@@ -24,6 +24,8 @@ BOARD_PREBUILT_DTBOIMAGE := $(PIANO_KERNEL_PATH)/dtbo.img
 BOARD_BOOTCONFIG := androidboot.hardware=qcom androidboot.memcg=1 \
     androidboot.usbcontroller=a600000.dwc3 androidboot.load_modules_parallel=true \
     androidboot.hypervisor.protected_vm.supported=true androidboot.vendor.qspa=true
+# Bring-up: send fatal init errors to recovery (OrangeFox) instead of fastboot.
+BOARD_BOOTCONFIG += androidboot.init_fatal_reboot_target=recovery
 
 # Preserve the stock release directory, flattened layout and module metadata.
 BOARD_SYSTEM_DLKM_SRC := $(PIANO_KERNEL_PATH)/system_dlkm
