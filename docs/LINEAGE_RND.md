@@ -1,6 +1,7 @@
 # LineageOS 23.2 R&D — Xiaomi Pad 8 Pro (`piano`)
 
-Started 2026-09-27. Source preparation only; no Lineage images built or booted.
+Started 2026-09-27. The first ROM build completed on 2026-09-29, but its
+first boot failed; the tablet remains on stock Global 3.0.304 slot B.
 
 ## Safety and workspace
 
@@ -89,6 +90,45 @@ and ELF checks, then image assembly/AVB checks. Before starting Soong inspect
 `pgrep -a soong_ui`; use taskset -c 0-3, SOONG_GOMEMLIMIT=12GiB and -j2.
 Log only to ~/android/builds/lineage-piano-build.log. No /tmp/piano-build.log.
 Actual bootability remains unverified until separately authorized tablet testing.
+
+## First installation and boot result (2026-09-29)
+
+The user authorized installing the first Lineage ZIP and accepted a data wipe
+if needed. The ZIP is `lineage-23.2-20260929-UNOFFICIAL-piano.zip`, SHA256
+`fa93691e341c269306d8b1dcd1249c62eea2c3009186c61d75d7471c8fa2ff8a`.
+The tablet actually runs Global OS3.0.304.0.WPYMIXM on slot B, while this ZIP
+uses the China OS3.0.307.0.WPYCNXM boot, vendor and module set. Before install,
+the active slot-B boot, init_boot, vendor_boot, recovery, vbmeta,
+vbmeta_system and dtbo images were backed up and checked against the device;
+the copies are under `RND/artifacts/lineage/rollback/OS3.0.304-global-slot-b/`
+outside this Git repository.
+
+OrangeFox reported a successful A/B OTA install to inactive slot A. Its OTA
+partition list did not include protected bootloader/secure-firmware images.
+OrangeFox self-reflashed its own recovery to slot A afterward, so the loose
+Lineage recovery image was flashed to `recovery_a` and checked by readback.
+Booting slot A showed Mi splash, blank screen, then Mi splash again; the
+bootloader fell back to stock slot B and marked A unbootable. A separate
+Lineage recovery boot attempt behaved the same way. No ADB appeared on A and
+`/sys/fs/pstore` was empty. Stock Global304 on B then booted with
+`sys.boot_completed=1`. No data wipe or metadata-key change was performed.
+
+The stock Global304 boot kernel is `6.6.118-android15-8-ge56cf6b09cca`;
+the China307-based Lineage boot kernel is `6.6.77-android15-8-gf9a1d4bd8353`.
+The vendor_boot ramdisks and DTBs also differ. A controlled test signed the
+stock Global304 boot kernel with the local Lineage test key and placed it on
+slot A while retaining the China307 vendor_boot/DTB/modules. Recovery boot
+still fell back to B. This mismatched test does not isolate the kernel as a
+cause. The original Lineage boot_a was restored and verified afterward.
+AVB metadata parses correctly and the compared rollback indices do not show
+a lower-index explanation. Exact failure remains unknown; investigate the
+whole boot/vendor_boot/DTB/module/firmware pairing and early boot chain before
+another flash. A data wipe cannot explain the separate recovery boot failure.
+
+At the end of this investigation, the tablet was rebooted from OrangeFox B to
+stock Android B. `ro.boot.slot_suffix=_b`, build
+`OS3.0.304.0.WPYMIXM`, and `sys.boot_completed=1` were verified. Slot A
+remains a failed test installation, not a bootable Lineage release.
 
 ## Primary references
 
