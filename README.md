@@ -20,9 +20,9 @@ HyperOS 4 (OS4.0.0.42, Android 17). 26 feature checks pass on each.
 - Magisk queued after an OTA goes to the new slot
 - Battery percentage, clock and time zone
 - Flashlight
+- Charging at standard speed (fast charging not verified)
 
 **Not working**
-- Charging while in recovery
 - Vibration (the tablet has no vibration motor)
 
 ## Building
