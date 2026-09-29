@@ -1,9 +1,14 @@
 # LineageOS 23.2 piano — research tree
 
-LineageOS 23.2 device tree for the Xiaomi Pad 8 Pro (`piano`). Work in progress: it does not boot yet. Use it together with the [`device-common-16`](../../tree/device-common-16) branch at `device/xiaomi/sm8750-common`, plus `kernel-16`, `vendor-16` and `vendor-common-16` (see the manifest in `main`). Other projects: [`main`](../../tree/main).
+LineageOS 23.2 device tree for the Xiaomi Pad 8 Pro (`piano`). A ROM has built
+successfully, but bootability is untested. Use it together with the
+[`device-common-16`](../../tree/device-common-16) branch at
+`device/xiaomi/sm8750-common`, plus `kernel-16`, `vendor-16` and
+`vendor-common-16` (see the manifest in `main`). Other projects:
+[`main`](../../tree/main).
 
-China HyperOS 3 `OS3.0.307.0.WPYCNXM` only. A Lineage `bacon` build is in
-progress on the builder; no completed or boot-tested ROM is claimed. See
+China HyperOS 3 `OS3.0.307.0.WPYCNXM` only. The first `bacon` build completed
+on 2026-09-29; no boot-tested ROM is claimed. See
 `docs/LINEAGE_RND.md` for findings and remaining gates.
 
 The tree inherits the small adapted sm8750-common scaffold, not the complete
@@ -70,7 +75,7 @@ Root init/module loading and source USB/boot/health/power providers are now wire
 qseecomd starts only after an offline-tested persist mount guard. Twenty RCs pass
 parsing and 15 VINTF fragments assemble. Full policy, matrix/ABI compatibility and
 runtime behavior remain unverified. See the continuation section in the R&D log.
-The current user-authorized build uses `taskset -c 0-11`,
+The completed user-authorized build used `taskset -c 0-11`,
 `SOONG_GOMEMLIMIT=12GiB`, `-j8`, and
 `~/android/builds/lineage-piano-build.log`. The watcher status is
 `~/android/builds/lineage-piano-watch.status`. Check memory and other Soong
