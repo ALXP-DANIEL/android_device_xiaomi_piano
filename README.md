@@ -22,17 +22,17 @@ GitHub Actions workflows.
 | Branch | Contents | Status | Checkout path |
 | --- | --- | --- | --- |
 | [`lineage-23.2`](../../tree/lineage-23.2) | LineageOS 23.2 device tree | Work in progress, does not boot yet | `device/xiaomi/piano` |
-| [`device-common/16`](../../tree/device-common/16) | Shared SM8750 device tree | Work in progress | `device/xiaomi/sm8750-common` |
-| [`kernel/16`](../../tree/kernel/16) | Prebuilt kernel, DTB, DTBO and modules | From stock HyperOS | `device/xiaomi/piano-kernel` |
-| [`vendor/16`](../../tree/vendor/16) | Proprietary files for piano | From stock HyperOS | `vendor/xiaomi/piano` |
-| [`vendor-common/16`](../../tree/vendor-common/16) | Proprietary files shared by SM8750 | From stock HyperOS | `vendor/xiaomi/sm8750-common` |
+| [`device-common-16`](../../tree/device-common-16) | Shared SM8750 device tree | Work in progress | `device/xiaomi/sm8750-common` |
+| [`kernel-16`](../../tree/kernel-16) | Prebuilt kernel, DTB, DTBO and modules | From stock HyperOS | `device/xiaomi/piano-kernel` |
+| [`vendor-16`](../../tree/vendor-16) | Proprietary files for piano | From stock HyperOS | `vendor/xiaomi/piano` |
+| [`vendor-common-16`](../../tree/vendor-common-16) | Proprietary files shared by SM8750 | From stock HyperOS | `vendor/xiaomi/sm8750-common` |
 
 `16` is the Android version the branch is built for. The recoveries built from
 Android 16 source also work with Android 17 ROMs such as HyperOS 4. A ROM
 branch uses the ROM's own version (`lineage-23.2`).
 
-`device-common/16` holds build rules and config shared by SM8750 devices;
-`vendor-common/16` holds the matching stock binaries. Device trees and
+`device-common-16` holds build rules and config shared by SM8750 devices;
+`vendor-common-16` holds the matching stock binaries. Device trees and
 proprietary files are kept on separate branches, the usual Android layout.
 
 ## Tested firmware
@@ -51,10 +51,10 @@ run `repo sync`:
 <manifest>
   <remote name="piano" fetch="https://github.com/ALXP-DANIEL" />
   <project name="android_device_xiaomi_piano" path="device/xiaomi/piano" remote="piano" revision="lineage-23.2" />
-  <project name="android_device_xiaomi_piano" path="device/xiaomi/sm8750-common" remote="piano" revision="device-common/16" />
-  <project name="android_device_xiaomi_piano" path="device/xiaomi/piano-kernel" remote="piano" revision="kernel/16" clone-depth="1" />
-  <project name="android_device_xiaomi_piano" path="vendor/xiaomi/piano" remote="piano" revision="vendor/16" clone-depth="1" />
-  <project name="android_device_xiaomi_piano" path="vendor/xiaomi/sm8750-common" remote="piano" revision="vendor-common/16" clone-depth="1" />
+  <project name="android_device_xiaomi_piano" path="device/xiaomi/sm8750-common" remote="piano" revision="device-common-16" />
+  <project name="android_device_xiaomi_piano" path="device/xiaomi/piano-kernel" remote="piano" revision="kernel-16" clone-depth="1" />
+  <project name="android_device_xiaomi_piano" path="vendor/xiaomi/piano" remote="piano" revision="vendor-16" clone-depth="1" />
+  <project name="android_device_xiaomi_piano" path="vendor/xiaomi/sm8750-common" remote="piano" revision="vendor-common-16" clone-depth="1" />
 </manifest>
 ```
 
