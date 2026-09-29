@@ -3,6 +3,10 @@ PIANO_KERNEL_PATH := device/xiaomi/piano-kernel
 # Lineage's generated_kernel_includes still runs headers_install with a
 # prebuilt boot kernel. Keep Xiaomi's piano OSS source available there.
 TARGET_KERNEL_SOURCE := kernel/xiaomi/piano
+# The source is used only for UAPI headers. Keep the stock kernel image;
+# Lineage's kernel.mk requires a config when the source directory exists.
+TARGET_KERNEL_CONFIG := gki_defconfig
+TARGET_FORCE_PREBUILT_KERNEL := true
 # Required by Lineage version comparisons even when using a prebuilt.
 # Pinned stock release: 6.6.77-android15-8-gf9a1d4bd8353.
 TARGET_KERNEL_VERSION := 6.6
