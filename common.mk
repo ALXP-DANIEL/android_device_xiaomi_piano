@@ -24,7 +24,8 @@ PRODUCT_PACKAGES += \
     usb_compositions.conf \
     sh_vendor \
     toybox_vendor \
-    toolbox_vendor
+    toolbox_vendor \
+    vndservicemanager
 PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/bootctrl \
     vendor/qcom/opensource/usb/etc
