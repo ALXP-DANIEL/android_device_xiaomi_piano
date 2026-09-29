@@ -707,3 +707,31 @@ untested.
   1.69 MB vs stock 2.46 MB).
 - Next test: stock 307 `init_boot` on `init_boot_b` with the rest of slot B
   Lineage, to split first-stage init from later stages.
+
+### Boot logs: the Xiaomi `blackbox` partition (2026-09-30)
+
+pstore is always empty after a reset on piano, but the bootloader passes
+`bootmonitor.devname=/dev/block/by-name/blackbox` and Xiaomi's bootmonitor
+keeps UEFI logs, kernel logs and an event index there (164 MB, several boots,
+not in time order). Read it from OrangeFox:
+`dd if=/dev/block/by-name/blackbox of=/tmp/bb.img bs=1M` then `adb pull`.
+
+The event index (search for `|kpanic|`) records, for a Lineage test boot:
+`OS3.0.307.0.WPYCNXM|kpanic|Kernel panic - not syncing: Attempted to kill
+init! exitcode=0x00007f00` at ~0.70 s, right after `/metadata` (F2FS sda20)
+mounted. Exit status 127 from PID 1 means an exec'd program could not be
+started; that boot had the broken VAB snapshot `system_b`.
+
+Later tests (2026-09-30):
+- Lineage `system/system_ext/product/vendor/odm/*_dlkm` flashed directly to
+  `_b` in fastbootd (removes the `-cow` snapshot; also removed every `_a`
+  logical partition, see memory note). Boot: Mi splash, no USB, no fatal.
+- Lineage vendor has 22 init services vs 151 stock and 435 vs 3460 files;
+  `vndservicemanager` was missing (added in device-common-16 2c2c189). Still
+  Mi splash, no USB.
+- Lineage system + stock 307 vendor/odm/vendor_dlkm (+ Lineage then stock
+  init_boot/vendor_boot, verification disabled): goes to OrangeFox in 32-54 s
+  with an empty `misc`, PON `HARD_RESET`.
+
+Next: write a proper blackbox parser (split per boot index) to get the kernel
+log of the newest Lineage boot, then fix the failing init stage.
