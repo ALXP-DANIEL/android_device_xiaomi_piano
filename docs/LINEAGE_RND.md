@@ -623,3 +623,20 @@ The next failure was vendor VINTF assembly: the hand-written manifest fixed
 `target-level="202404"` remains. Running `assemble_vintf` with the build's
 environment now succeeds and emits policy version `202504`. Full VINTF and
 runtime compatibility still require the completed build and device testing.
+
+### First completed ROM build (2026-09-29)
+
+The guarded `bacon` build exited 0. Its last 100% line was followed by a
+false `FAILED` status from the watcher, which expected a success phrase absent
+from this build's log. The wrapper launch log records `Product evaluation
+exit: 0`; the watcher status has been corrected, and future wrappers will
+write an explicit exit marker to the build log.
+
+`lineage-23.2-20260929-UNOFFICIAL-piano.zip` is 844,829,226 bytes, SHA256
+`fa93691e341c269306d8b1dcd1249c62eea2c3009186c61d75d7471c8fa2ff8a`.
+Offline validation passed the ZIP CRC and piano A/B OTA metadata checks,
+presence and partition-size checks for boot, init_boot, vendor_boot, recovery,
+dtbo, vbmeta and vbmeta_system, and AVB algorithm, rollback indexes, flags and
+chain locations (boot 3, recovery 1, vbmeta_system 2). `super_empty.img` is
+present. This is a build result only; tablet boot and runtime behavior remain
+untested.
