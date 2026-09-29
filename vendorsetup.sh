@@ -7,6 +7,5 @@ export FOX_DELETE_AROMAFM=1
 
 # Maintainer name shown on the About page (and in the startup log line).
 export OF_MAINTAINER=ALXP
-# Version string: R12.0_1 [ALXP]. Raise the patch number for each release.
+# Version string: R12.0_1. Raise the patch number for each release.
 export FOX_MAINTAINER_PATCH_VERSION=1
-export FOX_VARIANT=ALXP
