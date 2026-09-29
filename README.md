@@ -28,6 +28,10 @@ this tree and the prepared common tree in their matching device paths. Pass the
 output `dump` directory to `device/xiaomi/piano/extract-files.py` using Python 3
 from the Lineage checkout. This invokes the branch-native extract-utils and
 generates `vendor/xiaomi/piano` and `vendor/xiaomi/sm8750-common`.
+Lineage also runs `generated_kernel_includes` even with the prebuilt boot
+kernel. Place Xiaomi's OSS `oss/kernel_piano` source at
+`kernel/xiaomi/piano` for its `headers_install` target. That header step does
+not replace the pinned stock kernel image or modules.
 The extraction entry point requires an offline directory and rejects any missing
 or mismatched blob before touching generated vendor files. It cannot default to ADB.
 

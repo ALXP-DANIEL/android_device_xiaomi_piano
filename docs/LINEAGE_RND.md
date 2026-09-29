@@ -576,3 +576,15 @@ than the builder's and was preserved. A current builder install-graph audit
 reported zero duplicate destinations across 72,026 Soong and 163 copy
 destinations. The offline persist gate still passes all six checks. These
 are source/build checks, not Android runtime validation.
+
+### Kernel header generation (2026-09-29)
+
+The first full `bacon` attempt stopped at `generated_kernel_includes` because
+Lineage's default `TARGET_KERNEL_SOURCE` resolved to `kernel/xiaomi/piano`,
+which was absent. The source tree now states that path explicitly. The
+existing Xiaomi OSS `oss/kernel_piano` was copied to the builder there without
+its Git history. An isolated `make ... ARCH=arm64 headers_install` completed
+successfully and installed 1,958 UAPI header files, including `linux/bsg.h`.
+The boot image and DLKM modules still use the pinned stock 307 prebuilts.
+Xiaomi OSS is based on 6.6.57 while the stock kernel is 6.6.77; success of
+header generation does not by itself establish runtime kernel ABI compatibility.
