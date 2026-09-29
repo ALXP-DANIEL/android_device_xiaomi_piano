@@ -1,0 +1,24 @@
+Label stock HyperOS as "HyperOS ROM" on the welcome screen
+
+Virtual A/B devices are always vanilla builds, so OrangeFox never detects
+MIUI/HyperOS and printed "Custom ROM" on stock HyperOS. Recognise the
+HyperOS incremental ("OS3.0.x", "OS4.0.x") for the label only; the MIUI
+features stay disabled.
+
+diff --git a/twrp-functions.cpp b/twrp-functions.cpp
+--- a/twrp-functions.cpp
++++ b/twrp-functions.cpp
+@@ -2647,6 +2647,13 @@
+   	     Fox_Current_ROM_IsMIUI = 1;
+   	     gui_msg(Msg("fox_miui_rom=* MIUI ROM (SDK:{1}, {2})")(rom_sdk)(sdknum_to_text(rom_sdk).c_str()));
+           } 
++  	else if (incr_version.rfind("OS", 0) == 0)
++     	  {
++     	     // Stock Xiaomi HyperOS (incremental "OS3.0.x" / "OS4.0.x"). On
++     	     // Virtual A/B OrangeFox is a vanilla build, so the MIUI features
++     	     // stay off; only the label changes.
++     	     gui_msg(Msg("fox_hyperos_rom=* HyperOS ROM (SDK:{1}, {2})")(rom_sdk)(sdknum_to_text(rom_sdk).c_str()));
++    	  }
+   	else
+      	  {
+      	     gui_msg(Msg("fox_custom_rom=* Custom ROM (SDK:{1}, {2})")(rom_sdk)(sdknum_to_text(rom_sdk).c_str()));

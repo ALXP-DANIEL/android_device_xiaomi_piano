@@ -25,3 +25,12 @@ apply_dir() {
 
 apply_dir bootable/recovery ofox_bootable_recovery
 apply_dir system/core ofox_system_core
+
+# Maintainer photo for the About page.
+cp "$PATCHES/../theme/maintainer.png" "$ROOT/bootable/recovery/gui/theme/portrait_hdpi/images/Default/About/maintainer.png"
+echo "copied    maintainer.png"
+
+# repo leaves projects on a detached HEAD, which OrangeFox reports as
+# "Branch: (no branch)". Name the branch; the patched working tree is kept.
+git -C "$ROOT/bootable/recovery" checkout -q -B fox_16.0
+echo "branch    bootable/recovery  fox_16.0"

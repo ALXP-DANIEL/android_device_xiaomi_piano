@@ -7,6 +7,9 @@
 # each justified by an observed dependency.
 
 on early-init
+    # Maintainer tag, visible in getprop and in the property dump of every log.
+    setprop ro.orangefox.maintainer ALXP
+
     # Stock vendor init mounts tracefs and makes its root searchable here.
     # Working stock qcrosvm holds trace_marker open for its default logger;
     # recovery otherwise has no trace_marker. No disk partition is involved.
