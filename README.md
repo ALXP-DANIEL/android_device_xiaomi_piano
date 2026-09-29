@@ -53,6 +53,15 @@ Existing keys are never overwritten. The current builder wrapper sets
 No private key belongs in device/vendor/kernel trees.
 The Mac and builder keys are different; builder images use the builder key.
 
+## Source patches
+
+This branch stores changes to other Lineage source projects under `patches/`.
+From the Lineage checkout root, run
+`device/xiaomi/piano/patches/apply-patches.sh` after syncing source. The script
+skips patches already applied. The boot-control patch removes a conflicting
+generated-header dependency; the display patch keeps the pinned stock init RCs.
+Both patches were checked against the builder's current source edits.
+
 ## Before building
 
 Finish validation of init/ueventd, VINTF, SELinux, framework ABI closure and

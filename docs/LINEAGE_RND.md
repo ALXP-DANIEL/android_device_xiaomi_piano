@@ -602,7 +602,9 @@ dependency placed `linux/sched/types.h` ahead of bionic's copy, redefining
 `sched_param`. The needed UFS BSG types already exist in bionic's UAPI headers.
 The builder's `hardware/qcom-caf/bootctrl/gpt-utils/Android.bp` now drops that
 dependency; the reproducible one-line patch is in
-`patches/0001-bootctrl-use-bionic-ufs-headers.patch`. A new build is running;
+`patches/hardware_qcom-caf_bootctrl/0001-drop-generated-kernel-headers.patch`.
+Run `patches/apply-patches.sh` from the Lineage root to restore source-project
+changes after a repo sync. A new build is running;
 this change and the ROM have not yet passed validation.
 
 The following attempt reached 69% of Ninja, then Android's ELF copy check
