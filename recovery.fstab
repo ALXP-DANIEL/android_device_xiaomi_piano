@@ -76,5 +76,5 @@ odm                                                     /odm                   e
 # dsp, bluetooth, qmcs, spunvm, logfs and rescue. Recovery init mounts
 # /firmware itself (init.recovery.qcom.rc) and nothing else needs the rest;
 # listing them only filled the Mount page with raw paths users should not
-# touch. Display names for persist and USB OTG are in
+# touch. The USB OTG display name is in
 # recovery/root/system/etc/twrp.flags (that parser does not skip comments).
