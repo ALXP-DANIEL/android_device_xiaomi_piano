@@ -59,6 +59,7 @@ run `repo sync`:
 ```
 
 ```
+device/xiaomi/piano/patches/apply-patches.sh
 source build/envsetup.sh
 breakfast piano
 m bacon
