@@ -10,5 +10,4 @@
         <version>1</version>
         <fqname>IMiHwcExtension/default</fqname>
     </hal>
-    <sepolicy><version>202404</version></sepolicy>
 </manifest>

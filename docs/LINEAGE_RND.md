@@ -614,3 +614,10 @@ source would break that pairing. `BoardConfigKernel.mk` now enables Android's
 This disables the ELF copy check for the device, so the final package must
 still be audited for unexpected ELF copies. The build was restarted; no ROM
 success or bootability is claimed yet.
+
+The next failure was vendor VINTF assembly: the hand-written manifest fixed
+`<sepolicy><version>` at `202404`, while this Lineage build exports
+`BOARD_SEPOLICY_VERS=202504`. The explicit element was removed; the existing
+`target-level="202404"` remains. Running `assemble_vintf` with the build's
+environment now succeeds and emits policy version `202504`. Full VINTF and
+runtime compatibility still require the completed build and device testing.
