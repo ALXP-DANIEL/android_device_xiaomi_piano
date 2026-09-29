@@ -53,7 +53,7 @@ INERT_OBJECTS = {
 # only valid while every missing library is confirmed present in the stock
 # vendor image, which is checked on device during Phase 3/4 validation.
 RUNTIME_MOUNT_OBJECTS = {
-
+    "piano/bin/piano-gatekeeper":
         "links the stock QTI Gatekeeper runtime, resolved from "
         "/vendor/piano-stock/lib64.",
     "piano/bin/piano-weaver-hos3":
