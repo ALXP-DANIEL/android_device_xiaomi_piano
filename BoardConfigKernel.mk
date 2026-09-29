@@ -27,3 +27,7 @@ BOARD_BOOTCONFIG := androidboot.hardware=qcom androidboot.memcg=1 \
 
 # Preserve the stock release directory, flattened layout and module metadata.
 BOARD_SYSTEM_DLKM_SRC := $(PIANO_KERNEL_PATH)/system_dlkm
+
+# Keep the stock .ko files and their modules.* metadata byte-for-byte.
+# They are copied into vendor_ramdisk/vendor_dlkm rather than relinked.
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true

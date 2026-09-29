@@ -604,3 +604,13 @@ The builder's `hardware/qcom-caf/bootctrl/gpt-utils/Android.bp` now drops that
 dependency; the reproducible one-line patch is in
 `patches/0001-bootctrl-use-bionic-ufs-headers.patch`. A new build is running;
 this change and the ROM have not yet passed validation.
+
+The following attempt reached 69% of Ninja, then Android's ELF copy check
+rejected stock `.ko` files in `PRODUCT_COPY_FILES`. `kernel.mk` deliberately
+copies the paired 307 vendor ramdisk and vendor DLKM modules alongside their
+`modules.*` metadata; rebuilding or running depmod against the 6.6.57 OSS
+source would break that pairing. `BoardConfigKernel.mk` now enables Android's
+`BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES` exception for this device.
+This disables the ELF copy check for the device, so the final package must
+still be audited for unexpected ELF copies. The build was restarted; no ROM
+success or bootability is claimed yet.
