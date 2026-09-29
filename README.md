@@ -17,8 +17,8 @@ Unofficial TWRP 16 device tree for Xiaomi Pad 8 Pro (piano, SM8750). OrangeFox a
 - Battery percentage
 - USB detection
 
-**Not working**
-- Charging in recovery
+**Not verified**
+- Charging in recovery (OrangeFox, which uses the same charger setup, charges at standard speed)
 
 ## Repository layout
 
