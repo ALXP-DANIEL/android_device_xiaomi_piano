@@ -18,9 +18,8 @@ binder_call(platform_app, hal_hypsys_vendor)
 allow platform_app hal_aidlbgservice_service:service_manager find;
 allow platform_app hal_quickcamera_service:service_manager find;
 
-# Xiaomi Camera runs its CDSP-backed AI/beauty algorithms from the app process.
-# Keep this read-only, matching stock haotian policy.
-allow platform_app vendor_xdsp_device:chr_file { ioctl read open };
+# Xiaomi Camera (not shipped in Lineage) opened vendor_xdsp_device from the app
+# process; Qualcomm's sepolicy_vndr neverallows that for platform_app.
 allow platform_app adsprpcd_file:dir { getattr search };
 
 # Camera's heap manager samples PSI to shed caches before memory pressure turns
