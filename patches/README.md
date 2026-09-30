@@ -11,7 +11,10 @@ matching the tested builder checkout.
 `bootable_recovery/0000` adds the pre-decryption device hook, `0001` waits for
 the secure stack, `0002` preserves init's persist mount, `0003` reads Android's
 time zone, and `0004` backs up and verifies recovery around a successful A/B
-OTA while filtering the Mount screen. The A/B restore path was validated on
+OTA while filtering the Mount screen. `0006` runs the device's
+`twrp-pre-unmap` hook before the logical partitions are destroyed, warns when
+a wipe will cancel an update that has not booted, and makes the time zone
+lookup release its temporary mounts. The A/B restore path was validated on
 the device with the option enabled during an OTA.
 
 ## system_vold
