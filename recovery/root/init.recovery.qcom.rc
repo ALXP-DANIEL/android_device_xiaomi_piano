@@ -199,8 +199,16 @@ on property:twrp.super.symlinks_created=true && property:vendor.piano.stock.moun
     mkdir /piano/odm-stock 0755 root root
     wait /dev/block/mapper/vendor${ro.boot.slot_suffix} 5
     mount erofs /dev/block/mapper/vendor${ro.boot.slot_suffix} /piano/vendor-stock ro
+    # Custom ROMs such as LineageOS build vendor as ext4. The erofs mount
+    # fails on them without a word, and the secure stack then had nothing to
+    # link against. Only one of the two can succeed.
+    mount ext4 /dev/block/mapper/vendor${ro.boot.slot_suffix} /piano/vendor-stock ro
     wait /dev/block/mapper/odm${ro.boot.slot_suffix} 5
     mount erofs /dev/block/mapper/odm${ro.boot.slot_suffix} /piano/odm-stock ro
+    # Custom ROMs such as LineageOS build odm as ext4. The erofs mount
+    # fails on them without a word, and the secure stack then had nothing to
+    # link against. Only one of the two can succeed.
+    mount ext4 /dev/block/mapper/odm${ro.boot.slot_suffix} /piano/odm-stock ro
 
     # Binder pair consistency.
     #
