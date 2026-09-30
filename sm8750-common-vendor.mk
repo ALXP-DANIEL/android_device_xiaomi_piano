@@ -1308,6 +1308,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm-service.xml \
     android.hardware.security.keymint-service-qti.xml \
     bluetooth-finder.xml \
+    audioeffectservice_qti_stock.xml \
+    manifest_audio_qti_services_stock.xml \
+    manifest_audiocorehal_default_stock.xml \
     bluetooth_audio_stock.xml \
     bluetooth_hci.xml \
     bluetooth_sar.xml \

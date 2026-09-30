@@ -24575,6 +24575,33 @@ prebuilt_etc_xml {
 }
 
 prebuilt_etc_xml {
+    name: "audioeffectservice_qti_stock.xml",
+    owner: "xiaomi",
+    src: "proprietary/vendor/etc/vintf/manifest/audioeffectservice_qti_stock.xml",
+    filename_from_src: true,
+    sub_dir: "vintf/manifest",
+    soc_specific: true,
+}
+
+prebuilt_etc_xml {
+    name: "manifest_audio_qti_services_stock.xml",
+    owner: "xiaomi",
+    src: "proprietary/vendor/etc/vintf/manifest/manifest_audio_qti_services_stock.xml",
+    filename_from_src: true,
+    sub_dir: "vintf/manifest",
+    soc_specific: true,
+}
+
+prebuilt_etc_xml {
+    name: "manifest_audiocorehal_default_stock.xml",
+    owner: "xiaomi",
+    src: "proprietary/vendor/etc/vintf/manifest/manifest_audiocorehal_default_stock.xml",
+    filename_from_src: true,
+    sub_dir: "vintf/manifest",
+    soc_specific: true,
+}
+
+prebuilt_etc_xml {
     name: "bluetooth_audio_stock.xml",
     owner: "xiaomi",
     src: "proprietary/vendor/etc/vintf/manifest/bluetooth_audio_stock.xml",
