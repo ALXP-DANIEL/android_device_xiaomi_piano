@@ -260,7 +260,7 @@ vendor/etc/vintf/manifest/bluetooth_sar.xml|6ecdea14f258c198ec1234d966c410beb291
 vendor/etc/vintf/manifest/bluetooth-finder.xml|8f260b0f53c28320ea87f49a0beec4415fcfe3d6
 vendor/etc/vintf/manifest/bt_lmp_event-saidl.xml|45bbd6f22553d4f1a8103f99d02e6a7be06b3994
 vendor/etc/vintf/manifest/bttpi-saidl.xml|a49eea4c62be9c856dfa842db8f08d2a87ff21dd
-vendor/etc/vintf/manifest/bluetooth_audio.xml|21bbe6ebabf502d470918a53b7ec785995cc258d
+vendor/etc/vintf/manifest/bluetooth_audio.xml:vendor/etc/vintf/manifest/bluetooth_audio_stock.xml|21bbe6ebabf502d470918a53b7ec785995cc258d
 vendor/etc/vintf/manifest/manifest_btaudiocoreservices_qti.xml|99c1c1cef69952852d30be97dd58067471825cbc
 vendor/etc/vintf/manifest/vendor.qti.hardware.bluetooth.xpanprovider.xml|75c9ba240b3d17821c8f40bfe5578be847627ba1
 vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so;DISABLE_CHECKELF|3aa475dc1921977350c22fff45f6dcd2203b1738
@@ -520,10 +520,10 @@ vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc|4bc1178af72d1af
 vendor/etc/init/vendor.qti.hardware.display.composer-service.rc|872f0bd25800805d5638c448d6bf868cc3c7f608
 vendor/etc/init/vendor.qti.hardware.display.demura-service.rc|debaf9e58cc86380b03eecf5525744793952f27d
 vendor/etc/snapdragon_color_libs_config.xml|3a6d7d5dccf9607c64c262abe277e0ab0d863944
-vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml|d6adf0203bf2419163fd673f46a7391f69abf272
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service_stock.xml|d6adf0203bf2419163fd673f46a7391f69abf272
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml|d1391f2da93930e372053f64c7eb75d4bcc35837
-vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml|f5bedbefb440a358ca5d2eedb3bdf9d57802ed27
-vendor/etc/vintf/manifest/mapper.qti.xml|80fa49006e0c00a0d14b73b29b22fc5505d6e983
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service_stock.xml|f5bedbefb440a358ca5d2eedb3bdf9d57802ed27
+vendor/etc/vintf/manifest/mapper.qti.xml:vendor/etc/vintf/manifest/mapper.qti_stock.xml|80fa49006e0c00a0d14b73b29b22fc5505d6e983
 vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so|8883dd112d3604126846902e683eb0b9233faa89
 vendor/lib64/hw/mapper.qti.so|515cf63f79cbabed12295589b1dedd61577a8f57
 vendor/lib64/libbacklight-calib.so|9b9a8b14f761d8dc9c73ace97480c341d9b78424
