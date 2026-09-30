@@ -1,8 +1,7 @@
 piano defaults: Dark theme style, on-screen navigation buttons instead of
 gestures (gesture back/console off). The user can still change both in
-Settings > Customization. Also drop the menu_text style from the splash
-page: it is not loaded there ("references unknown style" errors) and the
-text already sets its own font.
+Settings > Customization. (The splash menu_text fix that was here is now
+upstream as OrangeFox commit c239fc5.)
 
 diff --git a/gui/theme/portrait_hdpi/resources/vars.xml b/gui/theme/portrait_hdpi/resources/vars.xml
 index 8678f38..9b599b9 100644
@@ -21,26 +20,6 @@ index 8678f38..9b599b9 100644
  
  		<!-- Other... -->
  		<variable name="of_hide_data_hint" value="0" persist="1"/>
-diff --git a/gui/theme/portrait_hdpi/splash.xml b/gui/theme/portrait_hdpi/splash.xml
-index 788d80a..9249a30 100644
---- a/gui/theme/portrait_hdpi/splash.xml
-+++ b/gui/theme/portrait_hdpi/splash.xml
-@@ -43,13 +43,13 @@
- 				<placement x="540" y="%center_y%" placement="4"/>
- 			</image>
- 
--			<text style="menu_text">
-+			<text>
- 				<placement x="540" y="%of%" placement="4"/>
- 				<font resource="of" color="#ffffff"/>
- 				<text>OrangeFox</text>
- 			</text>
- 
--			<text style="menu_text">
-+			<text>
- 				<placement x="540" y="%rec%" placement="4"/>
- 				<font resource="recovery" color="#ffffff"/>
- 				<text>Recovery</text>
 diff --git a/gui/theme/portrait_hdpi/themes/navbar.xml b/gui/theme/portrait_hdpi/themes/navbar.xml
 index bd96477..6b97729 100644
 --- a/gui/theme/portrait_hdpi/themes/navbar.xml
