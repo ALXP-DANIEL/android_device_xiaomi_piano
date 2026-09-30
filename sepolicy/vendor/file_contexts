@@ -60,7 +60,7 @@
 
 # Charge
 /(vendor|system/vendor)/bin/hw/vendor.xiaomi.hardware.micharge-service u:object_r:hal_micharge_default_exec:s0
-/dev/smart_charge_cdev u:object_r:vendor_sysfs_xm_power:s0
+/dev/smart_charge_cdev u:object_r:vendor_smart_charge_device:s0
 
 # CitSensor
 /(odm|vendor/odm|vendor|system/vendor)/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl u:object_r:vendor_hal_citsensorservice_xiaomi_default_exec:s0

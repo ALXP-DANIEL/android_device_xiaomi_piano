@@ -17,3 +17,6 @@ type vendor_fingerprint_device, dev_type;
 
 # Touchfeature
 type touchfeature_device, dev_type;
+
+# /dev/smart_charge_cdev is a character device, not a sysfs node.
+type vendor_smart_charge_device, dev_type;
