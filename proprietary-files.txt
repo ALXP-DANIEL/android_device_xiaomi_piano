@@ -113,10 +113,14 @@ vendor/etc/models/acd/speech.eai|55e1392c90b8f320cf76db50d160ec969440a5f5
 vendor/etc/vintf/manifest/qasr_vintf.xml|36b945b6375bb257aa12783ba5b659444b752f98
 vendor/lib64/android.media.audio.common.types-V6-ndk.so|f4e0fb404f9460d0910a511892f577b8d9c9fa2b
 
-# Keep the stock audio VINTF fragments next to the HAL prebuilts and attach
-# them via cc_prebuilt_library_shared.vintf_fragments in the generated
-# vendor Android.bp. Do not list those XMLs here as standalone prebuilt_etc
-# modules; that duplicates the CAF source fragment install rules.
+# Stock audio VINTF fragments. The CAF source ships the same names, but only
+# on source modules that are not built here, because the stock audio HAL is
+# used as a prebuilt. Without these servicemanager refuses IModule/default,
+# IFactory/default and IAGM/default, audioserver crash-loops and the
+# system_server watchdog kills the boot. Renamed to _stock like the others.
+vendor/etc/vintf/manifest/audioeffectservice_qti.xml:vendor/etc/vintf/manifest/audioeffectservice_qti_stock.xml|3afcf17c6fe3792c83534507973d142a7cfad55b
+vendor/etc/vintf/manifest/manifest_audio_qti_services.xml:vendor/etc/vintf/manifest/manifest_audio_qti_services_stock.xml|0d75e0d883e384819f43a8c2b7599d9abe37cc23
+vendor/etc/vintf/manifest/manifest_audiocorehal_default.xml:vendor/etc/vintf/manifest/manifest_audiocorehal_default_stock.xml|e4c1c3b7dc72ecd193215c70a0c10b5cec34b0cc
 vendor/lib64/hw/libaudiocorehal.default.so;DISABLE_DEPS|d29b0d5aa9ee44f08c20969535024b48812bfd68
 vendor/lib64/hw/libaudiocorehal.qti.so;DISABLE_DEPS|62514f631dd39e353ce4c2fdeb98268828ddb627
 vendor/lib64/hw/libaudioeffecthal.qti.so;DISABLE_DEPS|0a398a8e66ae8dd16b3fb0c4f298e30b8adff3f6
