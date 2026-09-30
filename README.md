@@ -7,7 +7,7 @@ see the [`main`](../../tree/main) branch.
 
 ## Kernel headers
 
-`prebuilt_kernel_headers.tar.gz` and `kernel-headers/Makefile` come from
+`kernel-headers/include/prebuilt_kernel_headers.tar.gz` and `kernel-headers/Makefile` come from
 [xiaomi-haotian-devs/android_device_xiaomi_haotian-kernel](https://github.com/xiaomi-haotian-devs/android_device_xiaomi_haotian-kernel)
 (branch `bp4a`), an SM8750 Xiaomi tree. They are UAPI headers used only to build
 userspace HALs (for example `linux/msm_ipa.h`, which Xiaomi's piano OSS kernel
