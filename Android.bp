@@ -3412,8 +3412,10 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
-    name: "libmemunreachable",
+    name: "libmemunreachable_xiaomi",
     owner: "xiaomi",
+    // AOSP has a system module of the same name; keep the file name.
+    stem: "libmemunreachable",
     strip: {
         none: true,
     },
