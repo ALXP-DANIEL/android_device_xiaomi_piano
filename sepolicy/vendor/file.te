@@ -1,3 +1,0 @@
-# Piano charging nodes; stock uses these labels for the same subsystem.
-type vendor_sysfs_xm_power, sysfs_type, fs_type;
-type vendor_sysfs_qcom_battery, sysfs_type, fs_type;
