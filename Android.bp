@@ -24575,9 +24575,9 @@ prebuilt_etc_xml {
 }
 
 prebuilt_etc_xml {
-    name: "bluetooth_audio.xml",
+    name: "bluetooth_audio_stock.xml",
     owner: "xiaomi",
-    src: "proprietary/vendor/etc/vintf/manifest/bluetooth_audio.xml",
+    src: "proprietary/vendor/etc/vintf/manifest/bluetooth_audio_stock.xml",
     filename_from_src: true,
     sub_dir: "vintf/manifest",
     soc_specific: true,
@@ -24701,9 +24701,9 @@ prebuilt_etc_xml {
 }
 
 prebuilt_etc_xml {
-    name: "mapper.qti.xml",
+    name: "mapper.qti_stock.xml",
     owner: "xiaomi",
-    src: "proprietary/vendor/etc/vintf/manifest/mapper.qti.xml",
+    src: "proprietary/vendor/etc/vintf/manifest/mapper.qti_stock.xml",
     filename_from_src: true,
     sub_dir: "vintf/manifest",
     soc_specific: true,
@@ -24827,9 +24827,9 @@ prebuilt_etc_xml {
 }
 
 prebuilt_etc_xml {
-    name: "vendor.qti.hardware.display.allocator-service.xml",
+    name: "vendor.qti.hardware.display.allocator-service_stock.xml",
     owner: "xiaomi",
-    src: "proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml",
+    src: "proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service_stock.xml",
     filename_from_src: true,
     sub_dir: "vintf/manifest",
     soc_specific: true,
@@ -24845,9 +24845,9 @@ prebuilt_etc_xml {
 }
 
 prebuilt_etc_xml {
-    name: "vendor.qti.hardware.display.demura-service.xml",
+    name: "vendor.qti.hardware.display.demura-service_stock.xml",
     owner: "xiaomi",
-    src: "proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml",
+    src: "proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service_stock.xml",
     filename_from_src: true,
     sub_dir: "vintf/manifest",
     soc_specific: true,

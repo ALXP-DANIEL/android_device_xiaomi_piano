@@ -1313,7 +1313,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm-service.xml \
     android.hardware.security.keymint-service-qti.xml \
     bluetooth-finder.xml \
-    bluetooth_audio.xml \
+    bluetooth_audio_stock.xml \
     bluetooth_hci.xml \
     bluetooth_sar.xml \
     bt_lmp_event-saidl.xml \
@@ -1327,7 +1327,7 @@ PRODUCT_PACKAGES += \
     imsdcservice-saidl.xml \
     manifest_blackbox.xml \
     manifest_btaudiocoreservices_qti.xml \
-    mapper.qti.xml \
+    mapper.qti_stock.xml \
     media_c2_mi.xml \
     mwqem-saidl.xml \
     ozonotify-1.0.xml \
@@ -1341,9 +1341,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.alarm.xml \
     vendor.qti.hardware.bluetooth.xpanprovider.xml \
     vendor.qti.hardware.capabilityconfigstore-service.xml \
-    vendor.qti.hardware.display.allocator-service.xml \
+    vendor.qti.hardware.display.allocator-service_stock.xml \
     vendor.qti.hardware.display.composer-service3_v3.xml \
-    vendor.qti.hardware.display.demura-service.xml \
+    vendor.qti.hardware.display.demura-service_stock.xml \
     vendor.qti.hardware.dsp-service.xml \
     vendor.qti.hardware.embmssl.xml \
     vendor.qti.hardware.hexlp-service.xml \
