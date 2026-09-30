@@ -4,6 +4,10 @@ $(call inherit-product, device/xiaomi/sm8750-common/common.mk)
 
 PRODUCT_SHIPPING_API_LEVEL := 36
 
+# The stock kernel uses 4 KB pages (6.6.118-...-4k); prebuilt compat libraries
+# such as libtinyxml2-v34 are 4 KB aligned, so skip the 16 KB ELF check.
+PRODUCT_CHECK_PREBUILT_MAX_PAGE_SIZE := false
+
 PRODUCT_CHARACTERISTICS := tablet
 
 # Offline extraction must generate both vendor trees before product evaluation.
