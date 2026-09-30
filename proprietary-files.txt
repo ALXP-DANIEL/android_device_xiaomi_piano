@@ -135,6 +135,8 @@ vendor/lib64/libats.so|aafd873d3ed0bfdbc8cb171daed51d203b29e664
 vendor/lib64/libaudio_log_utils.so|aaf1411bcaad9b7417e5580df1004a145116b1fc
 vendor/lib64/libaudiocloudctrl.so|fc7db177acc9267dfb22de430f2273fed273f73b
 vendor/lib64/libaudioplatformconverter.qti.so;DISABLE_DEPS|52fa426bb2d401454a2727f0901b2bf62831309c
+# Needed by libaudiocorehal.qti.so; without it the audio HAL cannot load its core module.
+vendor/lib64/libmemunreachable.so|438226662bc8d8ef140702036456026da0eb5caa
 vendor/lib64/libaudioroute.so:vendor/lib64/libaudioroute-xiaomi.so;FIX_SONAME|74101ea1b33e4c487d865ce23e3ff282195f2b7a
 vendor/lib64/libaudioserviceexampleimpl.so;DISABLE_DEPS|c76c83ead863b43b9793ede79b100004d5626cf7
 vendor/lib64/libav_lvacfsencoder.so|91d582218edbee0938362f3de58d9bc65ac1be6b
