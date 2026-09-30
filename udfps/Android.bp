@@ -1,0 +1,23 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-FileCopyrightText: Paranoid Android
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library {
+    name: "libudfpshandler",
+    vendor: true,
+    srcs: ["UdfpsHandler.cpp"],
+    defaults: ["xiaomi_sm8750_fingerprint_v2_defaults"],
+    compile_multilib: "64",
+    shared_libs: [
+        "libbase",
+        "libdl",
+    ],
+    static_libs: [
+        "android.hardware.biometrics.fingerprint-V4-ndk",
+    ],
+    header_libs: [
+        "//device/xiaomi/sm8750-common/fingerprint:xiaomi_sm8750_fingerprint_headers",
+    ],
+}
