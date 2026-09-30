@@ -249,10 +249,7 @@ vendor/etc/init/hw/init.batterysecret.rc|a68afdaa49490ca1f79ace574f124937cb3006b
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@aidl-service-qti|033a9bc730c0bb2c2653e7a9fed690010c2fd1b0
-vendor/etc/aidl/hfp/hfp_codec_capabilities.xml|80c06361da497e38be03ed212bf950232e794b1f
-vendor/etc/aidl/le_audio/aidl_audio_set_configurations.bfbs|f756dfe5488770284c81ae3173a2ffec504210c1
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json|2bd92f2e4900e300698a9b4bd410147c5600c3ce
-vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.bfbs|b03017bd17caf89baac27fa7cd8113e609916691
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.json|5460fce517f2bf71b6c25e2e5ee74bd1432409a3
 vendor/etc/init/android.hardware.bluetooth@aidl-service-qti-debug.rc:vendor/etc/init/android.hardware.bluetooth@aidl-service-qti.rc|a744c805a7c5ba98377ea50a4f03017f15ae7ea2
 vendor/etc/vintf/manifest/bluetooth_hci.xml|13a5f20e77b01b8f78b916c6efbb4cf6bafa8205
@@ -518,7 +515,6 @@ vendor/etc/init/init.qti.display_boot.rc|d70c76f6f9c612be32d60f218421c5566b6e540
 vendor/etc/init/qdcmss.rc|53d78d686678c4f923a9ec4ace7d4d3575b13788
 vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc|4bc1178af72d1afc8daa38cc98fbb874d7e467d7
 vendor/etc/init/vendor.qti.hardware.display.composer-service.rc|872f0bd25800805d5638c448d6bf868cc3c7f608
-vendor/etc/init/vendor.qti.hardware.display.demura-service.rc|debaf9e58cc86380b03eecf5525744793952f27d
 vendor/etc/snapdragon_color_libs_config.xml|3a6d7d5dccf9607c64c262abe277e0ab0d863944
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service_stock.xml|d6adf0203bf2419163fd673f46a7391f69abf272
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml|d1391f2da93930e372053f64c7eb75d4bcc35837
@@ -1703,7 +1699,6 @@ vendor/etc/wifi/peach_v2/WCNSS_qcom_cfg.ini|e1370e2d380f0ad1b23f0d089e628e54c51e
 vendor/etc/wifi/peach/WCNSS_qcom_cfg.ini|047fb2dccc61188bedfad69edff620c3ddba5346
 vendor/etc/wifi/vendor_cmd.xml|fe29a298bfc90fbf75a30fd583525c4004b55654
 vendor/etc/wifi/wpa_supplicant_overlay.conf|8a08fe916b6e31b73e4eae65f7339f87839d4867
-vendor/etc/wifi/wpa_supplicant.conf|cf4c8da33043d8d6580ebb453411330aea185af6
 vendor/lib64/libWlanServiceJni.so|fec034cd2e7b4185702c1ae28ec9456301e792df
 
 # Wifi Display
