@@ -407,7 +407,6 @@ radio-i2c-rtc6226-qca.ko
 btfmcodec.ko
 btfm_slim_codec.ko
 bt_fm_swr.ko
-tango32.ko
 nt36532_touch.ko
 xiaomi_touch.ko
 qca_cld3_peach_v2.ko
