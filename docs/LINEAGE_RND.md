@@ -735,3 +735,46 @@ Later tests (2026-09-30):
 
 Next: write a proper blackbox parser (split per boot index) to get the kernel
 log of the newest Lineage boot, then fix the failing init stage.
+
+### Diagnostic vendor_boot test (2026-09-30)
+
+The pending builder `vendorbootimage` build completed successfully in 33:44.
+The resulting 100,663,296-byte image has SHA256
+`ef172a03a1c67b7bbb15678bc7ad9a65573210891a189b5e9450e718a1548c7e`.
+Its unpacked header/config confirms `lz4asm.support=1`,
+`androidboot.hypervisor.protected_vm.supported=0`,
+`androidboot.selinux=permissive`, and `androidboot.init_fatal_panic=true`.
+Only `vendor_boot_b` was flashed in bootloader fastboot; slot B was activated
+and rebooted at 20:46:35 UTC on September 29 (04:46:35 MYT September 30).
+By 20:47:55 UTC it was back in OrangeFox, without manual intervention.
+The previous vendor_boot was backed up before flashing.
+
+Blackbox was captured before and after. `RND/tools/parse-blackbox.py` extracts
+bounded textual DBGC kernel payloads, event strings, and the separate early
+boot kernel capture. It preserves byte offsets and does not infer chronology
+from physical ring order. The nine extracted historical crash payloads and
+25 event entries did not change. The early capture did change and contains
+the diagnostic command line and permissive denials. It records successful
+SELinux policy compilation/loading and init second stage at 1.154124 seconds.
+No captured fatal/panic explains the later reset. The evidence therefore
+rules out an immediate first-stage/SELinux-compilation failure for this boot,
+but does not establish the cause of the recovery return. The 16 MiB `oops`
+partition was also read; it contains mixed historical/recovery records and
+needs attribution before using it to diagnose this test.
+
+Evidence is saved under
+`RND/lineage-rnd/evidence/vendor-boot-diagnostic-20260930/`, with test metadata
+in the adjacent JSON file. Raw partition copies and the rollback image are
+in `/tmp/piano-{blackbox-before,blackbox-diagnostic,oops}.img` and
+`/tmp/vendor_boot_b-before.img`. Builder-only test settings were reverted to
+the checked-in BoardConfigKernel.mk after this unsuccessful diagnostic test.
+The flashed diagnostic image remains on slot B for further investigation.
+
+The haotian common tree was fetched at commit
+`1c858a2fae7f175cf3ec0b76dcc64aab608329a6`. Of its 1,809 blob entries,
+1,664 source paths exist in the China 307 dump and 145 are missing. The
+hash-pinned candidate and missing-file audit are in
+`RND/lineage-rnd/evidence/haotian-307-audit/`. This is an adaptation input,
+not a validated extraction manifest: upstream phone features, pinned fixups,
+renames, source-module ownership and piano-specific services still need
+review before replacing the minimal common tree and building the full ROM.

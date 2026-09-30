@@ -8,7 +8,10 @@ BOARD_AVB_ENABLE := true
 BOARD_AVB_KEY_PATH := $(PIANO_AVB_KEY_PATH)
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_ROLLBACK_INDEX := 0
-# Keep verification enabled in generated vbmeta. Unlocked bootloader testing only.
+# Bring-up requires verification disabled; tests with verification enabled hang
+# before init. This configuration is for an unlocked development device.
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 BOARD_AVB_BOOT_KEY_PATH := $(PIANO_AVB_KEY_PATH)
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_ROLLBACK_INDEX := 1769904000
