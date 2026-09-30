@@ -2,7 +2,8 @@
 genfscon sysfs "/devices/platform/soc/soc:mca_business_battery/power_supply/battery" u:object_r:vendor_sysfs_battery_supply:s0
 genfscon sysfs "/devices/platform/soc/soc:mca_business_charger/power_supply/wireless" u:object_r:vendor_sysfs_battery_supply:s0
 genfscon sysfs "/devices/platform/soc/soc:smart_charge" u:object_r:vendor_sysfs_qcom_battery:s0
-genfscon sysfs /class/qcom-battery u:object_r:vendor_sysfs_qcom_battery:s0
+# /class/qcom-battery is labelled vendor_sysfs_battery_supply by
+# device/qcom/sepolicy_vndr; a second entry here fails checkpolicy.
 
 # Camera
 genfscon sysfs /csiphy_umd_paras/csiphy_umd_paras u:object_r:sysfs_csiphy_umd_paras:s0
