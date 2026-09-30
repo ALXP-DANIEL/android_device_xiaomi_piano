@@ -1,9 +1,11 @@
-# China 307 stock tuple, produced by prepare-stock.py.
+# Global 304 stock tuple, produced by prepare-stock.py.
 PIANO_KERNEL_PATH := device/xiaomi/piano-kernel
 # Lineage's generated_kernel_includes still runs headers_install with a
-# prebuilt boot kernel. Keep Xiaomi's piano OSS source available there.
-TARGET_KERNEL_SOURCE := kernel/xiaomi/piano
-# The source is used only for UAPI headers. Keep the stock kernel image;
+# prebuilt boot kernel. Xiaomi's piano OSS source lacks the Qualcomm techpack
+# UAPI headers (linux/msm_ipa.h), so use the SM8750 prebuilt header export.
+TARGET_KERNEL_SOURCE := $(PIANO_KERNEL_PATH)/kernel-headers
+TARGET_PREBUILT_KERNEL_HEADERS := $(PIANO_KERNEL_PATH)/prebuilt_kernel_headers.tar.gz
+# The headers are used only for userspace. Keep the stock kernel image;
 # Lineage's kernel.mk requires a config when the source directory exists.
 TARGET_KERNEL_CONFIG := gki_defconfig
 TARGET_FORCE_PREBUILT_KERNEL := true
