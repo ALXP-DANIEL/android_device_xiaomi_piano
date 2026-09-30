@@ -28,6 +28,15 @@ PRODUCT_COPY_FILES += \
     device/xiaomi/piano/rootdir/debug/piano-bootlog.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/piano-bootlog.rc
 endif
 
+# Bring-up: authorize a developer adb key, so a boot that hangs before the
+# setup wizard can still be debugged. PIANO_ADB_KEYS is a source-relative path
+# to a public key kept outside every repository; leave it unset for releases.
+ifneq ($(TARGET_BUILD_VARIANT),user)
+ifneq ($(strip $(PIANO_ADB_KEYS)),)
+PRODUCT_ADB_KEYS := $(PIANO_ADB_KEYS)
+endif
+endif
+
 # China 307 vendor properties required by the selected providers.
 PRODUCT_VENDOR_PROPERTIES += \
     ro.hardware.egl=adreno \
