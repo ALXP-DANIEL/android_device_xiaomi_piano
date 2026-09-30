@@ -65,6 +65,11 @@ start_keymint() {
 }
 
 finish() {
+    # KeyMint first. The metadata layer needs only KeyMint, and TWRP gives it
+    # 30s; waiting for Weaver first spent that whole window whenever Weaver
+    # could not start (for example with no stock odm to link against), and
+    # OrangeFox then blocked forever in the metadata decrypt.
+    start_keymint
     if [ -n "${WEAVER_VARIANT}" ]; then
         service="vendor.weaver_${WEAVER_VARIANT}"
         i=0
@@ -81,7 +86,6 @@ finish() {
             log_msg "${service} did not reach running within 30s"
         fi
     fi
-    start_keymint
     setprop vendor.piano.prepdecrypt.done 1
 }
 trap finish EXIT
