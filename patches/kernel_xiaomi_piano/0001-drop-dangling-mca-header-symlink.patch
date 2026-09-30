@@ -1,0 +1,8 @@
+diff --git a/include/linux/mca b/include/linux/mca
+deleted file mode 120000
+index e5930b1195af..0000000
+--- a/include/linux/mca
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../vendor/xiaomi/proprietary/mca/include/mca
+\ No newline at end of file
