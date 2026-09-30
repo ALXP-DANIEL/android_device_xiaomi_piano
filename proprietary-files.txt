@@ -524,11 +524,6 @@ vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml|d6ad
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml|d1391f2da93930e372053f64c7eb75d4bcc35837
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml|f5bedbefb440a358ca5d2eedb3bdf9d57802ed27
 vendor/etc/vintf/manifest/mapper.qti.xml|80fa49006e0c00a0d14b73b29b22fc5505d6e983
-vendor/lib/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so|7b90138e3b879383b37165c19fc71cba908a2c6d
-vendor/lib/hw/mapper.qti.so|aa7d35e96affaa2c6dccd4bd47ae2f6e1dcdb7b1
-vendor/lib/libgralloccore.so|aa725a34164a4718745915c50697da64df0c5a50
-vendor/lib/libgrallocutils.so|a0cac819cc269004d98d2ed5b0fdb272bf097cba
-vendor/lib/libmapperutils.so|60fe39aa236c2e1f614e771004750f9fc0e1e2ed
 vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so|8883dd112d3604126846902e683eb0b9233faa89
 vendor/lib64/hw/mapper.qti.so|515cf63f79cbabed12295589b1dedd61577a8f57
 vendor/lib64/libbacklight-calib.so|9b9a8b14f761d8dc9c73ace97480c341d9b78424
@@ -693,7 +688,7 @@ vendor/etc/init/android.hardware.gatekeeper-service-qti.rc|ca6d70f6e04cebf079d25
 vendor/lib64/hw/libqtigatekeeper.so|f6fe8e6d72682187570ab7a1d12b9b556993c9e1
 
 # GNSS
-odm/etc/izat_device.conf|c4a59021db39ea37356d86ff375ffa9748b25d61
+odm/etc/izat_device.conf|337bf62bc32a3d7f95ffcdaec937f3abb407a20c
 vendor/app/CACertService/CACertService.apk|8a41c2c5aa03d94dfaea921d998bf4af11fa1dbf
 vendor/bin/edgnss-daemon|eee0ab335199af8058e337e20a389d7a16c34cf7
 vendor/bin/engine-service|71db82c8cbecce36e86acb0d3bcd12b68453435f
@@ -827,7 +822,7 @@ odm/bin/idmanager|e28bb24d6323bc58a891957001edc108b4898569
 odm/etc/init/vendor.xiaomi.hardware.idmanager.rc|2dc581c0a55b9fc46a2603574d776fe71238ddb7
 odm/etc/vintf/manifest/vendor.xiaomi.hardware.idmanager.xml|493726743f011976f1c5441ee4f0b22ab9d592b5
 odm/lib64/vendor.xiaomi.hardware.idmanager-V1-ndk.so|6122370e572a9532efe20088391d74333172212d
-odm/lib64/libidprovision.so|7102044059d225fc058d72733b0c91793619d21b
+odm/lib64/libidprovision.so|3cc733b0d184bb8a70df997b1698ee6f6a700b7e
 odm/lib64/libsecid.so|78b130b79408355d90273a3c6a5011b8886d178c
 vendor/bin/hw/vendor.xiaomi.hardware.misys.core-service|7298e7a3de3203022701abf01b3a3f38b6a7e02d
 vendor/etc/init/vendor.xiaomi.hardware.misys.core-service.rc|c14195922f1dda68a9e673b1eac1d2948eac2653
@@ -1437,8 +1432,8 @@ vendor/lib64/libqrtrclient.so|bf47667cee41a4ad300a8e93a79bb5d11196f2fd
 vendor/lib64/libqsocket.so|2ad43b0fef17d481bcd3696ecf87b328ef2becc7
 vendor/lib64/libril-db.so|62d51e15a7d270aa10894485aa9c9b72364693b0
 vendor/lib64/libril-legacy.so|aa31fe875633f0e5a5eee436322e57f0738552af
-vendor/lib64/libril-qc-ltedirectdisc.so|2538d144362f48786ffc28533a3a63d5c79289ac
-vendor/lib64/libril-qc-radioconfig.so|42122293a6e6340866cc80a6b80821584a48aa26
+vendor/lib64/libril-qc-ltedirectdisc.so|48a5dfe8fc21c1b5e68424400ed6259bebbe0170
+vendor/lib64/libril-qc-radioconfig.so|331807aaf5039d8ef65f7f7032b1aaed478b029f
 vendor/lib64/librilqmimiscservices.so|db397e724f8dddec3c3ef58256b7d01b1601e452
 vendor/lib64/libsmemlog.so|fb0bfa306ec75fe00779acb69b23cc4b010e7adc
 vendor/lib64/libtlpd_configmgr.so|ad8cd4b91adba688fd4914f244665179408de056
@@ -1704,8 +1699,8 @@ vendor/lib64/libtrustedapploader.so|d08ac215699a6b93aab443b9b5259dd48256e939
 vendor/bin/cnss-daemon|2b71dd51111aa5bdcd3889d57ebedf2a94bb1ed5
 vendor/etc/init/init.vendor.wlan.rc|69ce33d935070be28a9b04ce2256b33326568f8c
 vendor/etc/wifi/p2p_supplicant_overlay.conf|4c7abbf7a716bf765bba5160c6b192cb8133d71f
-vendor/etc/wifi/peach_v2/WCNSS_qcom_cfg.ini|feca7fd765ccc40f7a455a4b48228ba5fbf90a92
-vendor/etc/wifi/peach/WCNSS_qcom_cfg.ini|9fd72653c399a0cbfec9fe5750e0dd663d31fbc3
+vendor/etc/wifi/peach_v2/WCNSS_qcom_cfg.ini|e1370e2d380f0ad1b23f0d089e628e54c51ead67
+vendor/etc/wifi/peach/WCNSS_qcom_cfg.ini|047fb2dccc61188bedfad69edff620c3ddba5346
 vendor/etc/wifi/vendor_cmd.xml|fe29a298bfc90fbf75a30fd583525c4004b55654
 vendor/etc/wifi/wpa_supplicant_overlay.conf|8a08fe916b6e31b73e4eae65f7339f87839d4867
 vendor/etc/wifi/wpa_supplicant.conf|cf4c8da33043d8d6580ebb453411330aea185af6

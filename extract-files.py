@@ -339,7 +339,7 @@ module = ExtractUtilsModule(
 
 if __name__ == '__main__':
     if len(sys.argv) != 2 or not Path(sys.argv[1]).is_dir():
-        raise SystemExit('Supply exactly one offline China 307 dump directory')
+        raise SystemExit('Supply exactly one offline Global 304 dump directory')
     source = Path(sys.argv[1])
     for line in Path(__file__).with_name('proprietary-files.txt').read_text().splitlines():
         if not line or line.startswith('#'):
@@ -348,6 +348,6 @@ if __name__ == '__main__':
         name = spec.lstrip('-').split(';')[0].split(':')[0]
         path = source / name
         if not path.is_file() or hashlib.sha1(path.read_bytes()).hexdigest() != expected:
-            raise SystemExit(f'Missing or mismatched China 307 input: {name}')
+            raise SystemExit(f'Missing or mismatched Global 304 input: {name}')
     utils = ExtractUtils.device(module)
     utils.run()
