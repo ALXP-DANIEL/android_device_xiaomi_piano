@@ -42,15 +42,18 @@ TARGET_BOARD_PLATFORM := sun
 
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 
-# Initial generated filesystem policy; existing dual-format fstab supports ext4.
+# Filesystems follow the official LineageOS split (xiaomi sm8550-common,
+# oneplus sm8650/sm8750-common): the Lineage-built partitions stay ext4, the
+# device partitions are erofs as on stock. Recovery then mounts vendor and odm
+# the same way for HyperOS and for this build. fstab.qcom lists both formats.
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_USES_VENDOR_DLKMIMAGE := true
 BOARD_USES_SYSTEM_DLKMIMAGE := true
 TARGET_COPY_OUT_VENDOR := vendor
