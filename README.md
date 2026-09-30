@@ -7,8 +7,9 @@ successfully, but bootability is untested. Use it together with the
 `vendor-common-16` (see the manifest in `main`). Other projects:
 [`main`](../../tree/main).
 
-China HyperOS 3 `OS3.0.307.0.WPYCNXM` only. The first `bacon` build completed
-on 2026-09-29; no boot-tested ROM is claimed. See
+Global HyperOS 3 `OS3.0.304.0.WPYMIXM` blobs and kernel (branch `global-304`;
+the China 307 variant is on `lineage-23.2`). Flash Global 304 firmware first.
+The first China `bacon` build completed on 2026-09-29; no boot-tested ROM is claimed. See
 `docs/LINEAGE_RND.md` for findings and remaining gates.
 
 The tree inherits the small adapted sm8750-common scaffold, not the complete
@@ -22,8 +23,8 @@ On the Mac, from the project root (requires Python 3, fsck.erofs, lz4 and cpio):
 
 ```sh
 rtk proxy python3 lineage-rnd/device/xiaomi/piano/prepare-stock.py \
-  stock/hyperos3/china/OS3.0.307.0.WPYCNXM/super-unpacked \
-  --output lineage-rnd/new-prepared-307 \
+  stock/hyperos3/global/OS3.0.304.0.WPYMIXM/super-unpacked \
+  --output lineage-rnd/new-prepared-global-304 \
   --unpack-bootimg tools/mkbootimg/unpack_bootimg.py
 ```
 

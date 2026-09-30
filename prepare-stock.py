@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""Verify China 307 images and prepare offline userspace/kernel input directories.
+"""Verify pinned stock images and prepare offline userspace/kernel input directories.
 Does not invoke adb, fastboot, Soong, flash or modify the input firmware.
 """
 import argparse
