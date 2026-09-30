@@ -1,5 +1,19 @@
 # TWRP for Xiaomi Pad 8 Pro (piano)
 
+## Unreleased
+
+- Format Data no longer fails with "Unable to unmap dynamic partitions". The
+  new `twrp-pre-unmap` hook (patch 0015) stops the secure stack and
+  `batterysecret`, which run from the installed ROM's vendor, and unmounts the
+  stock vendor and odm views before the logical partitions are destroyed.
+  Touch is unaffected: `touch_report` runs from the ramdisk.
+- The time zone lookup mounts each partition in its own directory and detaches
+  it afterwards. A leftover `/tmp/tz_system` mount also blocked Format Data.
+- Wiping data after installing a ROM that has not booted yet now shows a
+  warning. AOSP cancels that update during the wipe and marks its slot
+  unbootable, so the device boots the previous slot.
+- Ported from `twrp-16`. Not yet tested on the device.
+
 ## 3.7.1_16-1(ALXP) — Android 16/17 compatibility candidate
 
 - Selects the matching HyperOS 3 or HyperOS 4 Weaver service and touch modules.
