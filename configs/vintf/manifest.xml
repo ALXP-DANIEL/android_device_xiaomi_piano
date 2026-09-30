@@ -5,9 +5,4 @@
         <version>1</version>
         <fqname>IGatekeeper/default</fqname>
     </hal>
-    <hal format="aidl">
-        <name>vendor.xiaomi.hardware.display.mihwcextension</name>
-        <version>1</version>
-        <fqname>IMiHwcExtension/default</fqname>
-    </hal>
 </manifest>

@@ -39,5 +39,5 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 # China 307 product/etc/build.prop.
 PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 
-# Composer VINTF is installed by the common vendor list; Xiaomi extension
-# remains in the device manifest.
+# Composer VINTF (including the Xiaomi IMiHwcExtension) is installed by the
+# common vendor list; the device manifest must not declare it again.
