@@ -35,6 +35,7 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/aud_dev/state
 
 service set_diag_state /vendor/bin/set_diag_state
+    user root
     oneshot
     disabled
     seclabel u:r:set_diag_state:s0

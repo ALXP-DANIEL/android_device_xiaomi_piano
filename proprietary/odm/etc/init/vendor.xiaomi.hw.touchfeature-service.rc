@@ -141,6 +141,7 @@ service panel-info-sh /system/vendor/bin/sh /odm/etc/init.panel_info.sh
     seclabel u:r:vendor_touch_init_shell:s0
 
 service touch-kmsg-init-sh /system/vendor/bin/sh /odm/etc/tp_kmsg_init.sh
+    user root
     class main
     group root system
     oneshot

@@ -21,6 +21,7 @@ on post-fs-data
     chown radio radio /data/vendor/nicmd/nicm_recovery
 
 service vendor.nicmd /system/vendor/bin/nicmd
+    user root
     class main
 
 on property:persist.vendor.data.shs_ko_load=1
