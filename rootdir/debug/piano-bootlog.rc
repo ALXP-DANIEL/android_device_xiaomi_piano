@@ -1,0 +1,10 @@
+# Bring-up only (userdebug): see piano-bootlog.sh.
+service piano-bootlog /system/bin/sh /system_ext/bin/piano-bootlog.sh
+    user root
+    group root log
+    seclabel u:r:su:s0
+    oneshot
+    disabled
+
+on post-fs
+    start piano-bootlog
