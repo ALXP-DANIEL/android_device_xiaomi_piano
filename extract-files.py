@@ -145,6 +145,23 @@ blob_fixups: blob_fixups_user_type = {
             'android.hardware.sensors-V2-ndk.so',
             'android.hardware.sensors-V2-ndk_xiaomi.so'
         ),
+    # host_init_verifier requires an explicit user; these stock services
+    # already ran as root by default.
+    'vendor/etc/init/audiohalservice_qti.rc': blob_fixup()
+        .regex_replace(
+            r'(service set_diag_state [^\n]*\n)',
+            r'\1    user root\n'
+        ),
+    'vendor/etc/init/nicmd.rc': blob_fixup()
+        .regex_replace(
+            r'(service vendor\.nicmd [^\n]*\n)',
+            r'\1    user root\n'
+        ),
+    'odm/etc/init/vendor.xiaomi.hw.touchfeature-service.rc': blob_fixup()
+        .regex_replace(
+            r'(service touch-kmsg-init-sh [^\n]*\n)',
+            r'\1    user root\n'
+        ),
     'odm/etc/init/init.mfp-daemon.aidl.rc': blob_fixup()
         .regex_replace(
             r'\n    seclabel u:r:vendor_mfp-daemon:s0',
