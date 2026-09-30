@@ -475,11 +475,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/sm8750-common/proprietary/vendor/gpu/kbc/unified_ksqs_a730.bin:$(TARGET_COPY_OUT_VENDOR)/gpu/kbc/unified_ksqs_a730.bin
 
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@4.0-impl-qti-display \
-    mapper.qti \
-    libgralloccore \
-    libgrallocutils \
-    libmapperutils \
     android.hardware.audio.core.sounddose-V2-ndk_xiaomi \
     android.hardware.biometrics.fingerprint-V5-ndk_xiaomi \
     android.hardware.bluetooth.audio-impl_xiaomi \
@@ -511,11 +506,13 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl-qti \
     android.hardware.bluetooth@aidl-impl-qti \
     android.hardware.gnss-aidl-impl-qti \
+    android.hardware.graphics.mapper@4.0-impl-qti-display \
     libEseUtils \
     libaudiocorehal.default \
     libaudiocorehal.qti \
     libaudioeffecthal.qti \
     libqtigatekeeper \
+    mapper.qti \
     mbedtls_qti \
     sensors.dynamic_sensor_hal \
     vendor.qti.hardware.alarm-impl \
@@ -696,6 +693,8 @@ PRODUCT_PACKAGES += \
     libgpu_tonemapper \
     libgpudataproducer \
     libgralloc.qti \
+    libgralloccore \
+    libgrallocutils \
     libgsl \
     libhdcp1prov \
     libhdcp2p2prov \
@@ -752,6 +751,7 @@ PRODUCT_PACKAGES += \
     liblvacfs_wrapper \
     liblx-ar_util \
     liblx-osal \
+    libmapperutils \
     libmcs \
     libmdmdetect \
     libmdsprpc \
