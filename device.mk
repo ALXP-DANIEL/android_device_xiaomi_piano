@@ -72,3 +72,6 @@ PRODUCT_PACKAGES += \
 # Core features (app widgets, device admin, home screen, input methods, ...)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml
+
+# MiuiCamera (optional, from vendor/xiaomi/piano-miuicamera)
+$(call inherit-product-if-exists, vendor/xiaomi/piano-miuicamera/miuicamera.mk)
