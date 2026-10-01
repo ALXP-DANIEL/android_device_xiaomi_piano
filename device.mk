@@ -19,7 +19,8 @@ PRODUCT_COPY_FILES += \
     device/xiaomi/piano/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
 
 PRODUCT_COPY_FILES += \
-    device/xiaomi/piano/rootdir/bin/piano-persist-check.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-persist-check.sh
+    device/xiaomi/piano/rootdir/bin/piano-persist-check.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-persist-check.sh \
+    device/xiaomi/piano/rootdir/bin/piano-body-color.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-body-color.sh
 
 # Bring-up boot log catcher (userdebug only).
 ifneq ($(TARGET_BUILD_VARIANT),user)

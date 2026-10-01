@@ -1563,3 +1563,8 @@ odm/lib64/libmiocr.so|c8a28c1552ff78fdb9f29a1e36e0285a262daeb0
 vendor/lib64/libSEGModel.so|8100a0f4d5a026caae929dca2e1aba7111821bc1
 vendor/lib64/libopencv_core_se.so|68487ae61fc9a50a44cc8dc363805d846fcd63a3
 vendor/lib64/libopencv_imgproc_se.so|21c6145230c381bd838a3d81e85f2331947db439
+
+# Wallpapers (stock picks the one matching the body colour)
+product/media/wallpaper/wallpaper_BU.jpg
+product/media/wallpaper/wallpaper_DG.jpg
+product/media/wallpaper/wallpaper_TA.jpg

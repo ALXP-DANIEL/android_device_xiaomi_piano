@@ -5,6 +5,7 @@
     android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <application
         android:name=".PianoPartsApp"
@@ -60,6 +61,17 @@
             android:name=".TrueToneTileService"
             android:icon="@drawable/ic_true_tone_tile"
             android:label="@string/true_tone_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".BypassChargingTileService"
+            android:icon="@drawable/ic_bypass_tile"
+            android:label="@string/bypass_charging_title"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
