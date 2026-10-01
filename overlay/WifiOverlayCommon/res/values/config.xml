@@ -49,7 +49,8 @@
 
     <!-- Enable concurrent internet connectivity + internet connectivity
          Note: this is conditional on the device supporting dual concurrent STAs. -->
-    <bool name="config_wifiMultiStaMultiInternetConcurrencyEnabled">true</bool>
+    <bool name="config_wifiMultiStaMultiInternetConcurrencyEnabled">false</bool>
+    <bool name="config_wifiUseHalApiToDisableFwRoaming">true</bool>
 
     <!-- Indicates that the framework should auto append lower bands to band configuration for
          avoiding coexistence handling. For example: 5g only band will change to 2.4g|5g and
