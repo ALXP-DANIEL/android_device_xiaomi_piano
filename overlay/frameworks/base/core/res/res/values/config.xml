@@ -11,4 +11,8 @@
 
     <!-- Tablet: let the lock screen follow the device orientation. -->
     <bool name="config_enableLockScreenRotation">true</bool>
+
+    <!-- The smart cover's hall sensor reports SW_LID: sleep when it closes,
+         wake when it opens. -->
+    <bool name="config_lidControlsSleep">true</bool>
 </resources>

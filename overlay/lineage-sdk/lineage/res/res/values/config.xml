@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- Piano has no hardware navigation keys. -->
+    <integer name="config_deviceHardwareKeys">0</integer>
+
+    <!-- The QTI lights HAL maps the button and keyboard backlights onto the
+         RGB status LED, which then glows white whenever the screen is on.
+         Keep both off by default. -->
+    <dimen name="config_buttonBrightnessSettingDefaultFloat">0.0</dimen>
+    <dimen name="config_keyboardBrightnessSettingDefaultFloat">0.0</dimen>
+</resources>
