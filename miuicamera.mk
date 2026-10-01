@@ -12,6 +12,12 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.miui.notch=0 \
     ro.product.mod_device=piano_global
 
+# Global OS3.0.303.0 values MiuiCamera reads to pick its tablet layout.
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.miui.build.region=global \
+    ro.miui.ui.version.code=816 \
+    ro.miui.ui.version.name=V816
+
 # Let the camera HAL expose its private and logical cameras to MiuiCamera.
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.camera.privapp.list=com.android.camera,org.lineageos.aperture \
