@@ -1553,3 +1553,6 @@ vendor/lib64/rfs/dsp/libvpt_action_recognition.so|c9a79942e70e7457be68b64904bdae
 vendor/lib64/rfs/dsp/libworker_pool.so|cd3d287a3534fe7c7386ed28fb17960b9157fe93
 vendor/lib64/libSNPESample.so|7f45c63ab8a92c2a3d6e44fede45a8b8747365c3
 vendor/lib64/libopencl_loader.so|204af1d5e0c07145c39ebd1b6ba98139719eb6e3
+
+# Stock libui, installed to odm (see Android.bp)
+vendor/lib64/libui.so|69f9f83e8b6d0d17eaa6b0b3935c729890ab2309
