@@ -1312,3 +1312,9 @@ vendor/lib64/libQnnHtpV73CalculatorStub.so|7bab6b0ab76ff1e8e8d95068a54b64bb57214
 vendor/lib64/libQnnHtpV73Stub.so|c2434d651d34ad2e495fff3377c09262da02fb73
 vendor/lib64/libQnnHtpV79CalculatorStub.so|da9719d4404f3975ac92d5468c4c6321a8ea4c70
 vendor/lib64/libQnnHtpV79Stub.so|c1424c1acd6f26781b6790d59d00df570a9f2fa3
+
+# Xiaomi's UltraHDR and JPEG helpers: the camera plugins (gainmap, jpegrAggr)
+# need symbols the AOSP builds of these libraries no longer export (Global 304)
+vendor/lib64/libjpegdecoder.so|1d075cddc09be47ad6df7296d2eded5c6f4e3e60
+vendor/lib64/libjpegencoder.so|db0cc31dded92c2ed682b1861a9df981e11f7973
+vendor/lib64/libultrahdr.so|51e39a34818d354121ba1278f96aca3f03cb79b2
