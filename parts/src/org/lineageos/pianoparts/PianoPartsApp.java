@@ -40,15 +40,12 @@ public class PianoPartsApp extends Application {
     // IDisplayFeature.setFeature(displayId, featureId, value, cookie)
     private static final int TRANSACTION_SET_FEATURE = IBinder.FIRST_CALL_TRANSACTION + 6;
     private static final int FEATURE_PAPER_MODE = 31;
-    static final int FEATURE_SUNLIGHT_SCREEN = 12;
 
     private static final String PREFS_NAME = "piano_parts";
     private static final String KEY_TOUCH_GAME_MODE = "touch_game_mode";
     private static final String KEY_READING_MODE = "reading_mode";
-    private static final String KEY_SUNLIGHT_MODE = "sunlight_mode";
 
     private DisplayManager mDisplayManager;
-    private SunlightModeController mSunlightModeController;
     private ITouchFeature mTouchFeature;
     private int mRotation = -1;
 
@@ -81,8 +78,6 @@ public class PianoPartsApp extends Application {
         if (isReadingMode()) {
             setDisplayFeature(FEATURE_PAPER_MODE, 1);
         }
-        mSunlightModeController = new SunlightModeController(this);
-        mSunlightModeController.setEnabled(isSunlightMode());
     }
 
     private SharedPreferences getPrefs() {
@@ -121,16 +116,7 @@ public class PianoPartsApp extends Application {
         setDisplayFeature(FEATURE_PAPER_MODE, enabled ? 1 : 0);
     }
 
-    boolean isSunlightMode() {
-        return getPrefs().getBoolean(KEY_SUNLIGHT_MODE, false);
-    }
-
-    void setSunlightMode(boolean enabled) {
-        getPrefs().edit().putBoolean(KEY_SUNLIGHT_MODE, enabled).apply();
-        mSunlightModeController.setEnabled(enabled);
-    }
-
-    void setDisplayFeature(int feature, int value) {
+    private void setDisplayFeature(int feature, int value) {
         IBinder binder = ServiceManager.waitForDeclaredService(DISPLAY_FEATURE_SERVICE);
         if (binder == null) {
             Log.e(TAG, "DisplayFeature service is not available");
