@@ -61,7 +61,7 @@ PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 # Composer VINTF (including the Xiaomi IMiHwcExtension) is installed by the
 # common vendor list; the device manifest must not declare it again.
 
-# Shims
+# Shims (hardware/lineage/compat)
 PRODUCT_PACKAGES += \
     libprocessgroup_shim
 

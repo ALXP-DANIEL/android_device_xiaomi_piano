@@ -1,8 +1,0 @@
-// SPDX-License-Identifier: Apache-2.0
-
-cc_library_shared {
-    name: "libprocessgroup_shim",
-    srcs: ["processgroup_shim.cpp"],
-    shared_libs: ["libprocessgroup"],
-    vendor: true,
-}
