@@ -12,6 +12,10 @@ android_app {
         local_include_dirs: ["aidl"],
     },
     resource_dirs: ["res"],
+    static_libs: [
+        "SettingsLib",
+        "androidx.preference_preference",
+    ],
     certificate: "platform",
     platform_apis: true,
     privileged: true,

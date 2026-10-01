@@ -13,8 +13,12 @@
     <string name="pen_battery_level">Battery <xliff:g id="level" example="80">%1$d</xliff:g>%%</string>
     <string name="true_tone_title">True tone</string>
     <string name="bypass_charging_title">Bypass charging</string>
-    <string name="keyboard_backlight_title">Keyboard light</string>
+    <string name="keyboard_settings_title">Keyboard cover</string>
+    <string name="keyboard_settings_summary">Backlight and touchpad</string>
+    <string name="keyboard_not_connected">Attach the keyboard cover to change these settings</string>
+    <string name="keyboard_backlight_auto_title">Automatic backlight</string>
+    <string name="keyboard_backlight_auto_summary">Follow the screen brightness</string>
+    <string name="keyboard_backlight_title">Backlight brightness</string>
     <string name="keyboard_touchpad_title">Touchpad</string>
-    <string name="keyboard_not_connected">Keyboard not connected</string>
-    <string name="keyboard_off">Off</string>
+    <string name="keyboard_touchpad_summary">Use the keyboard cover touchpad</string>
 </resources>
