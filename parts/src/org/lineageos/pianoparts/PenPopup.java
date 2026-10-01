@@ -4,6 +4,7 @@
 
 package org.lineageos.pianoparts;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -56,6 +57,8 @@ class PenPopup {
     private final Runnable mHideRunnable = this::hide;
 
     private FrameLayout mView;
+    private WindowManager.LayoutParams mParams;
+    private ValueAnimator mAnimator;
     private LevelView mLevelView;
     private ImageView mBolt;
     private TextView mText;
@@ -77,12 +80,10 @@ class PenPopup {
             mText.setText(String.valueOf(level));
             mHandler.removeCallbacks(mHideRunnable);
             if (!mView.isAttachedToWindow()) {
-                mWindowManager.addView(mView, createLayoutParams());
-                mView.setTranslationY(-dp(WINDOW_HEIGHT_DP + MARGIN_TOP_DP));
+                mParams = createLayoutParams();
+                mWindowManager.addView(mView, mParams);
             }
-            mView.animate().translationY(0).setDuration(ANIMATION_MS)
-                    .setInterpolator(new PathInterpolator(0.25f, 0.1f, 0.25f, 1f))
-                    .withEndAction(null).start();
+            slideTo(dp(MARGIN_TOP_DP), false);
             mHandler.postDelayed(mHideRunnable, SHOW_MS);
         });
     }
@@ -91,13 +92,35 @@ class PenPopup {
         if (mView == null || !mView.isAttachedToWindow()) {
             return;
         }
-        mView.animate().translationY(-dp(WINDOW_HEIGHT_DP + MARGIN_TOP_DP))
-                .setDuration(ANIMATION_MS)
-                .withEndAction(() -> {
+        slideTo(-dp(WINDOW_HEIGHT_DP), true);
+    }
+
+    // Moves the whole window, so the card is never clipped by its own bounds.
+    private void slideTo(int y, boolean remove) {
+        if (mAnimator != null) {
+            mAnimator.cancel();
+        }
+        mAnimator = ValueAnimator.ofInt(mParams.y, y);
+        mAnimator.setDuration(ANIMATION_MS);
+        mAnimator.setInterpolator(new PathInterpolator(0.25f, 0.1f, 0.25f, 1f));
+        mAnimator.addUpdateListener(animation -> {
+            if (!mView.isAttachedToWindow()) {
+                return;
+            }
+            mParams.y = (int) animation.getAnimatedValue();
+            mWindowManager.updateViewLayout(mView, mParams);
+        });
+        if (remove) {
+            mAnimator.addListener(new android.animation.AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(android.animation.Animator animation) {
                     if (mView.isAttachedToWindow()) {
                         mWindowManager.removeView(mView);
                     }
-                }).start();
+                }
+            });
+        }
+        mAnimator.start();
     }
 
     private void createView() {
@@ -158,10 +181,12 @@ class PenPopup {
                 WindowManager.LayoutParams.TYPE_SECURE_SYSTEM_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                         | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                        | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-        params.y = dp(MARGIN_TOP_DP);
+        // Start above the screen; show() slides it down.
+        params.y = -dp(WINDOW_HEIGHT_DP);
         params.setTitle("PianoPenPopup");
         return params;
     }
