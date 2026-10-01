@@ -27,7 +27,6 @@ dontaudit {
     vendor_qti_init_shell
 } default_prop:file { getattr map open read };
 dontaudit hal_graphics_composer_default system_prop:file { getattr map open read };
-dontaudit mediacodec custom_version_prop:file { getattr map open read };
 dontaudit { platform_app untrusted_app } vendor_default_prop:file { getattr map open read };
 
 # Stock vendor_init sets system properties that Lineage keeps for itself.
