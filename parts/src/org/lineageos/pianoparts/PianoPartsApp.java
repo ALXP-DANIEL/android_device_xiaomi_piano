@@ -11,6 +11,7 @@ import android.hardware.display.DisplayManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Parcel;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Log;
@@ -32,8 +33,17 @@ public class PianoPartsApp extends Application {
     private static final int MODE_GAME = 0;
     private static final int MODE_PANEL_ORIENTATION = 8;
 
+    private static final String DISPLAY_FEATURE_SERVICE =
+            "vendor.xiaomi.hardware.displayfeature_aidl.IDisplayFeature/default";
+    private static final String DISPLAY_FEATURE_DESCRIPTOR =
+            "vendor.xiaomi.hardware.displayfeature_aidl.IDisplayFeature";
+    // IDisplayFeature.setFeature(displayId, featureId, value, cookie)
+    private static final int TRANSACTION_SET_FEATURE = IBinder.FIRST_CALL_TRANSACTION + 6;
+    private static final int FEATURE_PAPER_MODE = 31;
+
     private static final String PREFS_NAME = "piano_parts";
     private static final String KEY_TOUCH_GAME_MODE = "touch_game_mode";
+    private static final String KEY_READING_MODE = "reading_mode";
 
     private DisplayManager mDisplayManager;
     private ITouchFeature mTouchFeature;
@@ -65,6 +75,9 @@ public class PianoPartsApp extends Application {
         if (isTouchGameMode()) {
             applyTouchGameMode(true);
         }
+        if (isReadingMode()) {
+            setDisplayFeature(FEATURE_PAPER_MODE, 1);
+        }
     }
 
     private SharedPreferences getPrefs() {
@@ -91,6 +104,39 @@ public class PianoPartsApp extends Application {
         } catch (RemoteException e) {
             Log.e(TAG, "Failed to set the touch game mode", e);
             mTouchFeature = null;
+        }
+    }
+
+    boolean isReadingMode() {
+        return getPrefs().getBoolean(KEY_READING_MODE, false);
+    }
+
+    void setReadingMode(boolean enabled) {
+        getPrefs().edit().putBoolean(KEY_READING_MODE, enabled).apply();
+        setDisplayFeature(FEATURE_PAPER_MODE, enabled ? 1 : 0);
+    }
+
+    private void setDisplayFeature(int feature, int value) {
+        IBinder binder = ServiceManager.waitForDeclaredService(DISPLAY_FEATURE_SERVICE);
+        if (binder == null) {
+            Log.e(TAG, "DisplayFeature service is not available");
+            return;
+        }
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        try {
+            data.writeInterfaceToken(DISPLAY_FEATURE_DESCRIPTOR);
+            data.writeInt(Display.DEFAULT_DISPLAY);
+            data.writeInt(feature);
+            data.writeInt(value);
+            data.writeInt(255);
+            binder.transact(TRANSACTION_SET_FEATURE, data, reply, 0);
+            reply.readException();
+        } catch (RemoteException | RuntimeException e) {
+            Log.e(TAG, "Failed to set display feature " + feature, e);
+        } finally {
+            data.recycle();
+            reply.recycle();
         }
     }
 
