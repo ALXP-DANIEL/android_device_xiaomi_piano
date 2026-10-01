@@ -6,6 +6,8 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/odm/lib64/libxmi_slow_motion_mein.so:$(TARGET_COPY_OUT_ODM)/lib64/libxmi_slow_motion_mein.so \
+    vendor/xiaomi/piano/proprietary/odm/lib64/libmiocr.so:$(TARGET_COPY_OUT_ODM)/lib64/libmiocr.so \
     vendor/xiaomi/piano/proprietary/odm/lib/rfsa/adsp/libmialgo_tracker_cdsp_skel.so:$(TARGET_COPY_OUT_ODM)/lib/rfsa/adsp/libmialgo_tracker_cdsp_skel.so \
     vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libCalculator_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libCalculator_skel.so \
     vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libDspIOProxy_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libDspIOProxy_skel.so \
