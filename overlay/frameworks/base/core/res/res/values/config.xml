@@ -8,4 +8,7 @@
     <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.00170982</item>
     <item name="config_screenBrightnessSettingMaximumFloat" format="float" type="dimen">1.0</item>
     <item name="config_screenBrightnessSettingDefaultFloat" format="float" type="dimen">0.0747435</item>
+
+    <!-- Tablet: let the lock screen follow the device orientation. -->
+    <bool name="config_enableLockScreenRotation">true</bool>
 </resources>
