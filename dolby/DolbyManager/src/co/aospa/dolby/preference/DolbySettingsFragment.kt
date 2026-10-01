@@ -219,11 +219,14 @@ class DolbySettingsFragment : SettingsBasePreferenceFragment(),
             }
         }
 
-        val deValue = dolbyController.getDialogueEnhancerAmount(currentProfile).toString()
+        // Stock profiles use amounts between the listed levels (1, 4, 5...),
+        // so show the closest level instead of "Unknown".
+        val deAmount = dolbyController.getDialogueEnhancerAmount(currentProfile)
         dialoguePref.apply {
-            if (entryValues.contains(deValue)) {
+            val closest = entryValues.minByOrNull { Math.abs(it.toString().toInt() - deAmount) }
+            if (closest != null) {
                 summary = "%s"
-                value = deValue
+                value = closest.toString()
             } else {
                 summary = unknownRes
             }
