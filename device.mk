@@ -20,7 +20,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/piano/rootdir/bin/piano-persist-check.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-persist-check.sh \
-    device/xiaomi/piano/rootdir/bin/piano-body-color.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-body-color.sh
+    device/xiaomi/piano/rootdir/bin/piano-body-color.sh:$(TARGET_COPY_OUT_VENDOR)/bin/piano-body-color.sh \
+    device/xiaomi/piano/rootdir/etc/init.piano.wallpaper.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.piano.wallpaper.rc
 
 # Bring-up boot log catcher (userdebug only).
 ifneq ($(TARGET_BUILD_VARIANT),user)

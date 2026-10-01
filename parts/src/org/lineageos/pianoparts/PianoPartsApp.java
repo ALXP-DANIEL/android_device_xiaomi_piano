@@ -87,7 +87,6 @@ public class PianoPartsApp extends Application {
             setDisplayFeature(FEATURE_TRUE_TONE, 1);
         }
         new PenBatteryNotifier(this);
-        DefaultWallpaper.applyOnce(this, getPrefs());
         mSunlightModeController = new SunlightModeController(this);
         mSunlightModeController.setEnabled(isSunlightMode());
     }
