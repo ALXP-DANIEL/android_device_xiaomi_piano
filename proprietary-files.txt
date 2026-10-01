@@ -1285,3 +1285,33 @@ odm/lib64/libgf_hal.so|eb18a6de330bbe785d2368c82f4faeda529ef866
 odm/lib64/libgoodixhwfingerprint.so|86a54bdd2ee524390379719d4df76921cc64e717
 vendor/lib64/libmmfp.so|e3c561cad1d855d78f56e9701b9b663752601b38
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so|bbd56cce435a40d5453ec06f835d11fbce8a074e
+
+# Camera ISP striping libraries (Global 304)
+vendor/lib64/libipebpsstriping170.so|d1e43a27f60596043d6b6dd875c1ac6cf392ab55
+vendor/lib64/libipebpsstriping480.so|cdfa1a66b7f3c1b227f76b77bd00cec12638f5fe
+vendor/lib64/libipebpsstriping.so|11218f3df0f908bc69ad95afafb6708eeb77da8a
+vendor/lib64/libofestriping.so|5982ad6e84a345701766ae50d4dfd34085297443
+vendor/lib64/libopestriping.so|3f8948630af216644704c6c5cd5560c032740df1
+vendor/lib64/libtfestriping.so|79893ecaa56df692e7fa8362851791ace987777f
+
+# Camera algorithm libraries loaded with dlopen (Global 304)
+vendor/lib64/libDISAlgos.so|a33c93d318dcaa0ba6d34e6d92df550f055f9d4c
+vendor/lib64/libHISCppAlgos.so|b9a3651374367e33d367ef6ce359fc8e1d6cc248
+vendor/lib64/libMiMotion.so|19e53e77b099ff070dc4bfa6dd713ee741cb604e
+vendor/lib64/libcom.xiaomi.offlinefeatureintf.so|fdd719a72155ec838acae0a69a8367aa24d2b88c
+vendor/lib64/libecoengine.so|a8daac92f80d72d902c15a08d9aa2a352e0d96b9
+vendor/lib64/libmfGhostDetection.so|9c0ae203e97733584c9a482ca7b83ec86e800620
+vendor/lib64/libmis_platform.so|85bfda3bd601c394698e364fcdeb10d3ca0b28ce
+vendor/lib64/libmis_plugin_dummy.so|a10d914e829f5c98c2b93afa955a8be68a4da156
+vendor/lib64/libmis_plugin_his.so|25400f639694ea3a5805f9fc831ca7439d161c8a
+vendor/lib64/libqfdservice.so|7579e319f55bc53fa2603db397087e72eeaaf785
+vendor/lib64/libshadowhook.so|40099ebea4875dc812658b92a45be0f8c554d157
+vendor/lib64/libsnpe_config.so|595c08743d2bd0b4783f2625b5242ebf4a506bcd
+vendor/lib64/vendor.xiaomi.hardware.aidl.intentaware-V1-impl.so|f5d830e382d317aa5edcecf50fab752c35c1731a
+vendor/lib64/vendor.xiaomi.hardware.aidl.intentaware-V1-ndk_platform.so|015677199746aa40380ceb195d1c9d320cacbf1d
+
+# QNN HTP stubs (Global 304)
+vendor/lib64/libQnnHtpV73CalculatorStub.so|7bab6b0ab76ff1e8e8d95068a54b64bb57214c3b
+vendor/lib64/libQnnHtpV73Stub.so|c2434d651d34ad2e495fff3377c09262da02fb73
+vendor/lib64/libQnnHtpV79CalculatorStub.so|da9719d4404f3975ac92d5468c4c6321a8ea4c70
+vendor/lib64/libQnnHtpV79Stub.so|c1424c1acd6f26781b6790d59d00df570a9f2fa3
