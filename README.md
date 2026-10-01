@@ -1,87 +1,98 @@
-# LineageOS 23.2 piano — research tree
+# LineageOS 23.2 for the Xiaomi Pad 8 Pro (piano)
 
-LineageOS 23.2 device tree for the Xiaomi Pad 8 Pro (`piano`). A ROM has built
-successfully, but bootability is untested. Use it together with the
-[`device-common-16`](../../tree/device-common-16) branch at
-`device/xiaomi/sm8750-common`, plus `kernel-16`, `vendor-16` and
-`vendor-common-16` (see the manifest in `main`). Other projects:
-[`main`](../../tree/main).
+Device tree for the Xiaomi Pad 8 Pro (`piano`, Snapdragon 8 Elite / SM8750),
+LineageOS 23.2 (Android 16). Unofficial and in active bring-up: it boots and
+most hardware works, but it is not a release yet.
 
-Global HyperOS 3 `OS3.0.304.0.WPYMIXM` blobs and kernel (branch `global-304`;
-the China 307 variant is on `lineage-23.2`). Flash Global 304 firmware first.
-The first China `bacon` build completed on 2026-09-29; no boot-tested ROM is claimed. See
-`docs/LINEAGE_RND.md` for findings and remaining gates.
+Proprietary blobs, firmware and the prebuilt kernel come from the Global
+HyperOS 3 firmware `OS3.0.304.0.WPYMIXM`. Flash that firmware before
+installing a build.
 
-The tree inherits the small adapted sm8750-common scaffold, not the complete
-phone donor. `proprietary-files.txt` adds piano assets to the common first-boot
-list. Both lists are pinned to the same stock input; ELF checking stays enabled.
-No source HAL substitutions, SONAME rewrites or donor check bypasses are implied.
+## Status
 
-## Offline preparation
+Tested on hardware with build 12 (2026-10-01):
 
-On the Mac, from the project root (requires Python 3, fsck.erofs, lz4 and cpio):
+| Area | Status |
+| --- | --- |
+| Boot, setup wizard, launcher | Works |
+| Display (3200x2136, 120 Hz LCD), touch | Works |
+| Rotation | Works with auto-rotate (on by default); natural orientation is portrait for now |
+| Wi-Fi, Bluetooth | Works |
+| Audio | Works (speakers and mic not fully tested) |
+| Sensors | Works (55 sensors) |
+| Camera (Aperture, front and rear) | Works |
+| Fingerprint (power button, Goodix) | Works, including lock screen unlock |
+| Charging | Works |
+| Stylus, keyboard cover | Untested |
+| SELinux | Permissive; enforcing is in progress |
 
-```sh
-rtk proxy python3 lineage-rnd/device/xiaomi/piano/prepare-stock.py \
-  stock/hyperos3/global/OS3.0.304.0.WPYMIXM/super-unpacked \
-  --output lineage-rnd/new-prepared-global-304 \
-  --unpack-bootimg tools/mkbootimg/unpack_bootimg.py
-```
+Known issues:
 
-Output must be new. Seven image SHA256 hashes are checked before extraction.
-Copy output `piano-kernel` into `device/xiaomi/piano-kernel` in Lineage. Place
-this tree and the prepared common tree in their matching device paths. Pass the
-output `dump` directory to `device/xiaomi/piano/extract-files.py` using Python 3
-from the Lineage checkout. This invokes the branch-native extract-utils and
-generates `vendor/xiaomi/piano` and `vendor/xiaomi/sm8750-common`.
-Lineage also runs `generated_kernel_includes` even with the prebuilt boot
-kernel. Place Xiaomi's OSS `oss/kernel_piano` source at
-`kernel/xiaomi/piano` for its `headers_install` target. That header step does
-not replace the pinned stock kernel image or modules.
-The extraction entry point requires an offline directory and rejects any missing
-or mismatched blob before touching generated vendor files. It cannot default to ADB.
+- The stock Xiaomi camera app (MiuiCamera) is not included; Aperture is the
+  camera app.
+- The video enhancement service (`videoservice`) is dropped: it needs a `libgui`
+  symbol Android 16 no longer exports.
 
-`stock-inputs.json` pins image SHA256/size; proprietary lists use extract-utils
-SHA1 syntax. `blob-audit.json` records missing donor seeds and unresolved ABI edges.
-Do not interpret successful extraction as successful ELF linking or bootability.
+## Branches
 
-## Kernel and signing
+All trees live in this repository as separate branches:
 
-Preserve all stock ramdisk/vendor/system module files and metadata. System DLKM
-keeps both release-tree and flattened module layouts; stock etc/build.prop and
-fs_config are excluded so the build can generate its own metadata.
+| Path in the Lineage source | Branch |
+| --- | --- |
+| `device/xiaomi/piano` | `lineage-23.2` |
+| `device/xiaomi/sm8750-common` | `device-common-16` |
+| `vendor/xiaomi/piano` | `vendor-16` |
+| `vendor/xiaomi/sm8750-common` | `vendor-common-16` |
+| `device/xiaomi/piano-kernel` | `kernel-16` |
+| TWRP 16 recovery tree | `twrp-16` |
+| OrangeFox R12 recovery tree | `ofox-16` |
 
-Run `generate-test-key.py` once per host. It exclusively creates an external
-RSA4096 key under `~/.local/share/xiaomi-pad-8-pro/keys/lineage-23.2-avb.pem`.
-Existing keys are never overwritten. The current builder wrapper sets
-`PIANO_AVB_KEY_PATH=piano-local-keys/lineage-23.2-avb.pem`, where
-`piano-local-keys` is a source-root symlink to the external key directory.
-No private key belongs in device/vendor/kernel trees.
-The Mac and builder keys are different; builder images use the builder key.
+The common trees started from the Xiaomi 15 Pro (`haotian`) LineageOS trees and
+were adapted to piano's hardware. Piano is an LCD tablet with a side
+fingerprint sensor, so display, fingerprint, sensor and camera configuration
+come from the piano stock firmware, not from the donor.
 
-## Source patches
+## Building
 
-This branch stores changes to other Lineage source projects under `patches/`.
-From the Lineage checkout root, run
-`device/xiaomi/piano/patches/apply-patches.sh` after syncing source. The script
-skips patches already applied. The boot-control patch removes a conflicting
-generated-header dependency; the display patch keeps the pinned stock init RCs.
-Both patches were checked against the builder's current source edits.
+1. Sync LineageOS 23.2 and check out the branches above at their paths.
+   `hardware/xiaomi` (LineageOS) is also required.
+2. Apply the source patches after every sync:
 
-## Before building
+   ```sh
+   bash device/xiaomi/piano/patches/apply-patches.sh
+   ```
 
-Finish validation of init/ueventd, VINTF, SELinux, framework ABI closure and
-tablet overlays.
-Root init/module loading and source USB/boot/health/power providers are now wired.
-qseecomd starts only after an offline-tested persist mount guard. Twenty RCs pass
-parsing and 15 VINTF fragments assemble. Full policy, matrix/ABI compatibility and
-runtime behavior remain unverified. See the continuation section in the R&D log.
-The completed user-authorized build used `taskset -c 0-11`,
-`SOONG_GOMEMLIMIT=12GiB`, `-j8`, and
-`~/android/builds/lineage-piano-build.log`. The watcher status is
-`~/android/builds/lineage-piano-watch.status`. Check memory and other Soong
-processes before restarting it; do not start a duplicate Lineage build.
+   They keep the stock display and audio init scripts and remove a conflicting
+   generated-header dependency in boot control.
+3. Build:
 
-No Lineage image has been flashed. Userdata formatting, secure firmware
-packaging, bootloader relocking, commits and remote pushes remain outside this
-preparation phase.
+   ```sh
+   source build/envsetup.sh
+   breakfast piano userdebug
+   m bacon
+   ```
+
+   Optional environment variables:
+   - `PIANO_AVB_KEY_PATH`: a private AVB key kept outside every repository.
+   - `PIANO_ADB_KEYS`: a public adb key, so a userdebug build can be debugged
+     before setup finishes. Leave it unset for releases.
+
+The proprietary file list (`proprietary-files.txt`) pins every blob by SHA1 to
+the Global 304 firmware. Many stock HALs load libraries by path at runtime, so
+a blob missing from the list fails only on the device, not at build time.
+
+## Installing
+
+1. Flash Global HyperOS 3 `OS3.0.304.0.WPYMIXM` firmware.
+2. Boot a piano recovery (TWRP or OrangeFox from the `twrp-16` / `ofox-16`
+   branches) and install the LineageOS zip.
+3. Format data on first install.
+
+Never relock the bootloader with an unofficial build, and do not flash
+bootloader firmware (`xbl`, `abl`, `tz`, `hyp`) from other sources.
+
+## Recovery
+
+The TWRP and OrangeFox trees decrypt both HyperOS and custom ROM data using the
+stock KeyMint, Gatekeeper and Weaver services. Recovery is still being worked
+on; see the `twrp-16` and `ofox-16` branches for the current state.
