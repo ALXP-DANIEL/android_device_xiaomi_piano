@@ -6,6 +6,80 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/odm/etc/init/init.cirrus.rc:$(TARGET_COPY_OUT_ODM)/etc/init/init.cirrus.rc \
+    vendor/xiaomi/piano/proprietary/odm/etc/init/init.foursemi.rc:$(TARGET_COPY_OUT_ODM)/etc/init/init.foursemi.rc \
+    vendor/xiaomi/piano/proprietary/odm/etc/init/init.tfa.rc:$(TARGET_COPY_OUT_ODM)/etc/init/init.tfa.rc \
+    vendor/xiaomi/piano/proprietary/odm/etc/init/init.xiaomi_hall.rc:$(TARGET_COPY_OUT_ODM)/etc/init/init.xiaomi_hall.rc \
+    vendor/xiaomi/piano/proprietary/odm/etc/init/vendor.qti.hardware.lights.service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.qti.hardware.lights.service.rc \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/chre_dynamic_sensors.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/chre_dynamic_sensors.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/json.lst:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/json.lst \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/lsm6dso_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/lsm6dso_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/pakala_ccd_base.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/pakala_ccd_base.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qmc6308_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qmc6308_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qsh_camera_aon_front_i_1.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qsh_camera_aon_front_i_1.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qsh_camera_common.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qsh_camera_common.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qsh_camera_imx688_6.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qsh_camera_imx688_6.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qsh_camera_imx688_6_actuator.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qsh_camera_imx688_6_actuator.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/qsh_camera_ov32c4c_4.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/qsh_camera_ov32c4c_4.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sip1328.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sip1328.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_default_sensors.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_default_sensors.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_dynamic_sensors.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_dynamic_sensors.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_irq.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_irq.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_lsm6dso_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_lsm6dso_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_power_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_power_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_qmc6308_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_qmc6308_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_sip1328.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_sip1328.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_stk3bcx_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_stk3bcx_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sm8750_sx937x_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sm8750_sx937x_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_amd.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_amd.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_aont.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_aont.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v1_0_amd.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v1_0_amd.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v3_1_walk.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v3_1_walk.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v4_0_sensors.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v4_0_sensors.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v5_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v5_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v5_1_te_cd_regs.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v5_1_te_cd_regs.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v6_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v6_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v6_0_sensors.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v6_0_sensors.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_ccd_v6_0_te_cd_regs.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_ccd_v6_0_te_cd_regs.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_cm.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_cm.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_collision_detection.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_collision_detection.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_dae.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_dae.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_device_orient.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_device_orient.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_diag_filter.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_diag_filter.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_direct_channel.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_direct_channel.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_distance_bound.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_distance_bound.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_dpc.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_dpc.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_facing.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_facing.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_flight_md.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_flight_md.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_fmv.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_fmv.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_geomag_rv.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_geomag_rv.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_gyro_cal.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_gyro_cal.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_gyro_cal_dynamic.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_gyro_cal_dynamic.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_healthy_use_of_mobile.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_healthy_use_of_mobile.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_mag_cal.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_mag_cal.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_oem_hall.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_oem_hall.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_offbody_detect_phone.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_offbody_detect_phone.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_pedometer.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_pedometer.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_rmd.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_rmd.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_rotv.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_rotv.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_sar_algo.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_sar_algo.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_screen_down.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_screen_down.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_smd.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_smd.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_tilt.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_tilt.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_tilt_to_wake.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_tilt_to_wake.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sns_transport_ppe.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sns_transport_ppe.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/stk3bcx_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/stk3bcx_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sx937x_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sx937x_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sx937x_reg_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sx937x_reg_0.json \
+    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml \
+    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.qti.MemHal-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.MemHal-service.rc \
+    vendor/xiaomi/piano/proprietary/vendor/etc/sensors/config/qsh_camera_common_sm8735.json:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/config/qsh_camera_common_sm8735.json \
+    vendor/xiaomi/piano/proprietary/vendor/etc/sensors/config/qsh_camera_ov32c4c_4_sm8735.json:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/config/qsh_camera_ov32c4c_4_sm8735.json \
+    vendor/xiaomi/piano/proprietary/vendor/etc/sensors/javalibs/odpmanagerlib-aar:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/javalibs/odpmanagerlib-aar \
+    vendor/xiaomi/piano/proprietary/vendor/etc/sensors/sns_odp_config:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sns_odp_config \
+    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/mapper.qti.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/mapper.qti.xml \
+    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.MemHal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.MemHal.xml \
+    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/Mi_acdb_cal.acdb:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/Mi_acdb_cal.acdb \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/Mi_workspaceFileXml.qwsp:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/Mi_workspaceFileXml.qwsp \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/model924_twoBlocks_eai_int8_8750.eai:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/model924_twoBlocks_eai_int8_8750.eai \
@@ -237,4 +311,7 @@ PRODUCT_PACKAGES += \
     vendor.xiaomi.hw.touchfeature-service.xml \
     android.hardware.weaver \
     vendor.xiaomi.hw.touchfeature-service \
-    toucheventcheck
+    toucheventcheck \
+    vendor.qti.hardware.lights.service \
+    vendor.qti.MemHal-service \
+    vendor.qti.MemHal-V1-ndk
