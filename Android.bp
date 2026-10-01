@@ -87,6 +87,7 @@ cc_prebuilt_library_shared {
 prebuilt_etc {
     name: "privapp-permissions-miuicamera",
     src: "configs/privapp-permissions-miuicamera.xml",
+    filename_from_src: true,
     sub_dir: "permissions",
     product_specific: true,
 }
@@ -94,6 +95,7 @@ prebuilt_etc {
 prebuilt_etc {
     name: "miuicamera-hiddenapi-package-allowlist",
     src: "configs/miuicamera-hiddenapi-package-allowlist.xml",
+    filename_from_src: true,
     sub_dir: "sysconfig",
     product_specific: true,
 }
