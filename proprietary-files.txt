@@ -1187,7 +1187,6 @@ vendor/lib/rfsa/adsp/libQnnHtpV79.so|9d782f9ba5990c1dc8a4c9a7fb5bac45b0416fcb
 vendor/lib/rfsa/adsp/libQnnSaver.so|3f1bfa77fbc4fca0b73b7cee50d9b8874015b084
 
 # Camera runtime components loaded with dlopen (Global 304)
-vendor/lib64/camera.device-external-impl.so|09a67f559a7439ead8dac01e72b357ab9b07cb44
 vendor/lib64/camx.provider-impl.so|c75378c961a8355a2ec6a130f95e413f5df23d50
 vendor/lib64/com.qti.chiusecaseselector.so|3d2c97858d2f71d1c4a11f4638bab8c93be36feb
 vendor/lib64/com.qti.feature2.afbrckt.so|38c38c238e16eaaf1137411cadf973d33dbc9d7f
@@ -1243,8 +1242,6 @@ vendor/lib64/libmmcamera_mfnr.so|0ca854f7c65660ce73a03cd42666b4df966edbc7
 vendor/lib64/libmmcamera_mfnr_t4.so|5e398b15b4c34e85218b70adcc907ae671e47420
 vendor/lib64/libmmcamera_pdpc.so|c4dbb4e3829357062dcdfcae4a750d74b56c975a
 vendor/lib64/libqvrcamera_client.qti.so|fb2cd283b7141c239ea9c7a02135778019976a3b
-vendor/lib64/vendor.qti.hardware.camera.aon-V1-ndk.so|4b0306c1749715ba80eba7dc70ededd861f62eba
-vendor/lib64/vendor.qti.hardware.camera.offlinecamera-V1-ndk.so|107168289abc56c11f4268ba2d54ffed4e06c19f
 vendor/lib64/vendor.xiaomi.hardware.camera.companion-impl.so|02159c54b417685b8e5ad365c9aeead2389729f2
 vendor/lib64/vendor.xiaomi.hardware.camera.companion-V1-ndk.so|c38373750d041528c1ee0617cd29afbf2781fa5c
 vendor/lib64/vendor.xiaomi.sensor.camera-V1-ndk.so|4f0d00a64fe4c06f99e747e4696ff7fea37309e5
