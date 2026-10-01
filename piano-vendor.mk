@@ -1207,3 +1207,118 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qsap_dcfd.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qsap_dcfd.policy \
     vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qsap_sensors.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qsap_sensors.policy \
     vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qwesd@2.0.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qwesd@2.0.policy
+
+# Camera QNN HTP runtime
+PRODUCT_PACKAGES += \
+    libQnnHtp \
+    libQnnHtpPrepare \
+    libQnnSystem
+
+# QNN HTP DSP skeletons (Global 304)
+PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnHtpV73QemuDriver.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnHtpV73QemuDriver.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnHtpV73Skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnHtpV73Skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnHtpV73.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnHtpV73.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnHtpV79Skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnHtpV79Skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnHtpV79.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnHtpV79.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libQnnSaver.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libQnnSaver.so
+
+# Camera runtime components loaded with dlopen
+PRODUCT_PACKAGES += \
+    camera.device-external-impl_vendor_lib64 \
+    camx.provider-impl \
+    com.qti.chiusecaseselector \
+    com.qti.feature2.afbrckt \
+    com.qti.feature2.anchorsync \
+    com.qti.feature2.demux \
+    com.qti.feature2.derivedoffline \
+    com.qti.feature2.frc \
+    com.qti.feature2.fusion \
+    com.qti.feature2.generic.sm8750 \
+    com.qti.feature2.generic \
+    com.qti.feature2.gs.sm8750 \
+    com.qti.feature2.hdr \
+    com.qti.feature2.mcreprocrt.sm8750 \
+    com.qti.feature2.mcreprocrt \
+    com.qti.feature2.memcpy \
+    com.qti.feature2.metadataserializer \
+    com.qti.feature2.mfsr.sm8750 \
+    com.qti.feature2.mfsr \
+    com.qti.feature2.ml \
+    com.qti.feature2.mux \
+    com.qti.feature2.offlinestatsregeneration \
+    com.qti.feature2.qcfa \
+    com.qti.feature2.raw2yuvhdr \
+    com.qti.feature2.rawhdr \
+    com.qti.feature2.realtimeserializer \
+    com.qti.feature2.rtmcx.sm8750 \
+    com.qti.feature2.rtmcx \
+    com.qti.feature2.rtpostproc.sm8750 \
+    com.qti.feature2.rtpostproc \
+    com.qti.feature2.rt \
+    com.qti.feature2.serializer \
+    com.qti.feature2.statsregeneration \
+    com.qti.feature2.stub \
+    com.qti.feature2.swmf \
+    com.qti.settings.sm7750 \
+    com.qti.settings.sm8750 \
+    com.xiaomi.camhal.submodel.camxfrag \
+    com.xiaomi.camhal.submodel.chifrag \
+    com.xiaomi.immunesystem.hook.camx \
+    com.xiaomi.immunesystem.hook.chi \
+    libcamxexternalformatutils \
+    libcamxhwlipedriver \
+    libcamxifestriping \
+    libcamxncsdatafactory \
+    libcamxqsatalgo \
+    libcamxswprocessalgo \
+    libcamxtintlessalgo \
+    libmicamera_hal_policy \
+    libmmcamera_bestats \
+    libmmcamera_cac \
+    libmmcamera_lscv35 \
+    libmmcamera_mfnr \
+    libmmcamera_mfnr_t4 \
+    libmmcamera_pdpc \
+    libqvrcamera_client.qti \
+    vendor.qti.hardware.camera.aon-V1-ndk_vendor_lib64 \
+    vendor.qti.hardware.camera.offlinecamera-V1-ndk_vendor_lib64 \
+    vendor.xiaomi.hardware.camera.companion-impl \
+    vendor.xiaomi.hardware.camera.companion-V1-ndk \
+    vendor.xiaomi.sensor.camera-V1-ndk \
+    libmialgo_aio_seg \
+    libmseccam \
+    vendor.xiaomi.hardware.aidl.midevauth-V1-ndk \
+    vendor.xiaomi.hardware.micrtk-V1-ndk_platform \
+    vendor.xiaomi.hardware.misauth-V1-ndk \
+    vendor.xiaomi.hardware.misecmedia-V1-ndk \
+    vendor.xiaomi.hardware.mitrustedui-V2-ndk \
+    vendor.xiaomi.hardware.mrm-V1-ndk \
+    vendor.xiaomi.hardware.otrpagent@2.0-impl \
+    vendor.xiaomi.hardware.seccam-V1-ndk \
+    android.frameworks.cameraservice.common-V1-ndk.vendor \
+    android.frameworks.cameraservice.device-V2-ndk.vendor \
+    android.frameworks.cameraservice.service-V2-ndk.vendor \
+    libhidlmemory.vendor \
+    libziparchive.vendor \
+    libcamera2ndk_vendor
+
+# Camera HAL Xiaomi submodels, immune system and MCX
+PRODUCT_PACKAGES += \
+    com.qualcomm.mcx.distortionmapper \
+    com.qualcomm.mcx.linearmapper \
+    com.qualcomm.mcx.nonlinearmapper \
+    com.qualcomm.mcx.policy.mfl \
+    com.qualcomm.mcx.policy.sfl \
+    com.qualcomm.qti.mcx.usecase.extension \
+    com.xiaomi.camhal.extmodel.catch_log_sys \
+    com.xiaomi.camhal.extmodel.ec_diag_sys \
+    com.xiaomi.camhal.extmodel.ec_executor \
+    com.xiaomi.camhal.extmodel.intent_aware_sys \
+    com.xiaomi.camhal.overlap \
+    com.xiaomi.immunesystem.bigdata2 \
+    com.xiaomi.immunesystem.core \
+    com.xiaomi.immunesystem.hook.mivi \
+    com.xiaomi.immunesystem.hook.mtkhal \
+    com.xiaomi.messagecenter \
+    immunesystem.db.sqlite3
