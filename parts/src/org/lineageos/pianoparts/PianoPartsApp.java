@@ -40,11 +40,13 @@ public class PianoPartsApp extends Application {
     // IDisplayFeature.setFeature(displayId, featureId, value, cookie)
     private static final int TRANSACTION_SET_FEATURE = IBinder.FIRST_CALL_TRANSACTION + 6;
     private static final int FEATURE_PAPER_MODE = 31;
+    private static final int FEATURE_TRUE_TONE = 32;
     static final int FEATURE_SUNLIGHT_SCREEN = 12;
 
     private static final String PREFS_NAME = "piano_parts";
     private static final String KEY_TOUCH_GAME_MODE = "touch_game_mode";
     private static final String KEY_READING_MODE = "reading_mode";
+    private static final String KEY_TRUE_TONE = "true_tone";
     private static final String KEY_SUNLIGHT_MODE = "sunlight_mode";
 
     private DisplayManager mDisplayManager;
@@ -80,6 +82,9 @@ public class PianoPartsApp extends Application {
         }
         if (isReadingMode()) {
             setDisplayFeature(FEATURE_PAPER_MODE, 1);
+        }
+        if (isTrueTone()) {
+            setDisplayFeature(FEATURE_TRUE_TONE, 1);
         }
         new PenBatteryNotifier(this);
         mSunlightModeController = new SunlightModeController(this);
@@ -120,6 +125,15 @@ public class PianoPartsApp extends Application {
     void setReadingMode(boolean enabled) {
         getPrefs().edit().putBoolean(KEY_READING_MODE, enabled).apply();
         setDisplayFeature(FEATURE_PAPER_MODE, enabled ? 1 : 0);
+    }
+
+    boolean isTrueTone() {
+        return getPrefs().getBoolean(KEY_TRUE_TONE, false);
+    }
+
+    void setTrueTone(boolean enabled) {
+        getPrefs().edit().putBoolean(KEY_TRUE_TONE, enabled).apply();
+        setDisplayFeature(FEATURE_TRUE_TONE, enabled ? 1 : 0);
     }
 
     boolean isSunlightMode() {

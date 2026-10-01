@@ -63,4 +63,9 @@
 
     <!-- Global stock: offer the microphone privacy toggle. -->
     <bool name="config_supportsMicToggle">true</bool>
+
+    <!-- Like the HyperOS workstation mode: let the tablet screen host
+         Android desktop windowing (resizable, floating app windows). -->
+    <bool name="config_canInternalDisplayHostDesktops">true</bool>
+    <bool name="config_isDesktopModeDevOptionSupported">true</bool>
 </resources>

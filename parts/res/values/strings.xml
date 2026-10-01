@@ -11,4 +11,5 @@
     <string name="pen_battery_channel">Pen battery</string>
     <string name="pen_battery_title">Pen</string>
     <string name="pen_battery_level">Battery <xliff:g id="level" example="80">%1$d</xliff:g>%%</string>
+    <string name="true_tone_title">True tone</string>
 </resources>
