@@ -1141,7 +1141,7 @@ vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.fbo.xml|42e83679145f21
 vendor/etc/vintf/manifest/vendor.qti.hardware.minkipcbinder-service.xml|8a5bd3223463b5dfcf6baf1cf6fa936565302fff
 vendor/etc/vintf/manifest/vendor.qti.hardware.wifi.wifilearner-service.xml|9736918037f42947643a63196c74dcf8da70b2c0
 vendor/etc/vintf/manifest/vendor.qti.memory.pasrmanager-service.xml|9be807e6b82d063e8089f5c682d601a12ef01277
-vendor/etc/vintf/manifest/vendor.qti.qspa-service.xml|13ed2f0082f4435b7a41bf195ec51f2067064e58
+# QSPA VINTF comes from vendor/qcom/opensource/core-utils-vendor/qspaservice.
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.aidl.intentaware-service.xml|347fe4f31f348893499686c1a546d15e7b2d0500
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.aidlbgservice-service.xml|2b13e84fc336a494e99fe950d39d046022c56460
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.batteryantiaging.xml|02e0c125f4a0be5b439187c6a061451da66dbe12
