@@ -162,6 +162,13 @@ blob_fixups: blob_fixups_user_type = {
             r'(service touch-kmsg-init-sh [^\n]*\n)',
             r'\1    user root\n'
         ),
+    # idmanager's attestation check crashes on unlocked devices; it is still
+    # started on demand through its AIDL interfaces.
+    'odm/etc/init/vendor.xiaomi.hardware.idmanager.rc': blob_fixup()
+        .regex_replace(
+            r'    start vendor.idmanger\n',
+            ''
+        ),
     'odm/etc/init/init.mfp-daemon.aidl.rc': blob_fixup()
         .regex_replace(
             r'\n    seclabel u:r:vendor_mfp-daemon:s0',

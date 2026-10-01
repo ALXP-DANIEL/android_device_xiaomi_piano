@@ -820,7 +820,7 @@ vendor/lib64/vendor.qti.hardware.hexlp-V1-ndk.so|a34aa758e3e7fd1efe8871ea63f527d
 
 # Idmanager
 odm/bin/idmanager|e28bb24d6323bc58a891957001edc108b4898569
-odm/etc/init/vendor.xiaomi.hardware.idmanager.rc|2dc581c0a55b9fc46a2603574d776fe71238ddb7
+odm/etc/init/vendor.xiaomi.hardware.idmanager.rc|2dc581c0a55b9fc46a2603574d776fe71238ddb7|3b0dcce440a8cec11423be9b9ded002541af3c29
 odm/etc/vintf/manifest/vendor.xiaomi.hardware.idmanager.xml|493726743f011976f1c5441ee4f0b22ab9d592b5
 odm/lib64/vendor.xiaomi.hardware.idmanager-V1-ndk.so|6122370e572a9532efe20088391d74333172212d
 odm/lib64/libidprovision.so|3cc733b0d184bb8a70df997b1698ee6f6a700b7e
