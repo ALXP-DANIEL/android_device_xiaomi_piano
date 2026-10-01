@@ -10784,3 +10784,60 @@ cc_prebuilt_library_shared {
     prefer: true,
     soc_specific: true,
 }
+
+cc_prebuilt_library_shared {
+    name: "libultrahdr_stock",
+    stem: "libultrahdr",
+    owner: "xiaomi",
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libultrahdr.so",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libjpegencoder_stock",
+    stem: "libjpegencoder",
+    owner: "xiaomi",
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libjpegencoder.so",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libjpegdecoder_stock",
+    stem: "libjpegdecoder",
+    owner: "xiaomi",
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libjpegdecoder.so",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    soc_specific: true,
+}

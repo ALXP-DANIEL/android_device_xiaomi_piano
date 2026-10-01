@@ -651,7 +651,9 @@ PRODUCT_PACKAGES += \
     libimage_io.vendor \
     libjpeg.vendor \
     libpiex.vendor \
-    libultrahdr.vendor \
+    libjpegdecoder_stock \
+    libjpegencoder_stock \
+    libultrahdr_stock \
     libyuv.vendor \
     vendor.qti.hardware.camera.aon-V2-ndk.vendor \
     vendor.qti.hardware.camera.offlinecamera-V2-ndk.vendor \
