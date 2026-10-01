@@ -10801,7 +10801,7 @@ cc_prebuilt_library_shared {
     strip: {
         none: true,
     },
-    soc_specific: true,
+    device_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -10820,7 +10820,7 @@ cc_prebuilt_library_shared {
     strip: {
         none: true,
     },
-    soc_specific: true,
+    device_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -10839,5 +10839,5 @@ cc_prebuilt_library_shared {
     strip: {
         none: true,
     },
-    soc_specific: true,
+    device_specific: true,
 }
