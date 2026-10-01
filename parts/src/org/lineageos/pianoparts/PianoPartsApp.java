@@ -5,6 +5,8 @@
 package org.lineageos.pianoparts;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager;
 import android.os.Handler;
 import android.os.IBinder;
@@ -27,7 +29,11 @@ public class PianoPartsApp extends Application {
     private static final String TOUCH_FEATURE_SERVICE =
             "vendor.xiaomi.hw.touchfeature.ITouchFeature/default";
     private static final int TOUCH_ID = 0;
+    private static final int MODE_GAME = 0;
     private static final int MODE_PANEL_ORIENTATION = 8;
+
+    private static final String PREFS_NAME = "piano_parts";
+    private static final String KEY_TOUCH_GAME_MODE = "touch_game_mode";
 
     private DisplayManager mDisplayManager;
     private ITouchFeature mTouchFeature;
@@ -56,6 +62,36 @@ public class PianoPartsApp extends Application {
         mDisplayManager.registerDisplayListener(mDisplayListener,
                 new Handler(Looper.getMainLooper()));
         updateRotation();
+        if (isTouchGameMode()) {
+            applyTouchGameMode(true);
+        }
+    }
+
+    private SharedPreferences getPrefs() {
+        Context context = createDeviceProtectedStorageContext();
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    boolean isTouchGameMode() {
+        return getPrefs().getBoolean(KEY_TOUCH_GAME_MODE, false);
+    }
+
+    void setTouchGameMode(boolean enabled) {
+        getPrefs().edit().putBoolean(KEY_TOUCH_GAME_MODE, enabled).apply();
+        applyTouchGameMode(enabled);
+    }
+
+    private void applyTouchGameMode(boolean enabled) {
+        ITouchFeature touchFeature = getTouchFeature();
+        if (touchFeature == null) {
+            return;
+        }
+        try {
+            touchFeature.setTouchMode(TOUCH_ID, MODE_GAME, enabled ? 1 : 0);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Failed to set the touch game mode", e);
+            mTouchFeature = null;
+        }
     }
 
     private void updateRotation() {

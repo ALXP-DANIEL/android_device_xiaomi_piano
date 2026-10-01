@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- China OS3.0.307.0.WPYCNXM AospFrameworkResOverlay.apk values.
+<!-- Global OS3.0.303.0.WPYMIXM AospFrameworkResOverlay.apk values (hardware
+     values match China OS3.0.307.0.WPYCNXM).
      Keep automatic brightness and sensor-dependent tuning for later validation. -->
 <resources>
     <bool name="config_showNavigationBar">true</bool>
@@ -56,4 +57,10 @@
         <item>2</item>
         <item>3</item>
     </integer-array>
+
+    <!-- Global stock: allow light and deep idle (Doze). -->
+    <bool name="config_enableAutoPowerModes">true</bool>
+
+    <!-- Global stock: offer the microphone privacy toggle. -->
+    <bool name="config_supportsMicToggle">true</bool>
 </resources>
