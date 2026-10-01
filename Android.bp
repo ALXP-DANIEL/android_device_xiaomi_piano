@@ -8535,3 +8535,57 @@ prebuilt_etc_xml {
     sub_dir: "vintf/manifest",
     soc_specific: true,
 }
+
+prebuilt_etc {
+    name: "piano_camera_enhance_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/enhance_motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "piano_camera_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "piano_camera_snsc_bokeh_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/snsc_bokeh_motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "piano_camera_snsc_enhance_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/snsc_enhance_motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "piano_camera_snsc_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/snsc_motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "piano_camera_snsc_noface_motiontuning",
+    owner: "xiaomi",
+    src: "proprietary/odm/etc/camera/snsc_noface_motiontuning.xml",
+    filename_from_src: true,
+    sub_dir: "camera",
+    device_specific: true,
+}

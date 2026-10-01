@@ -745,7 +745,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/cameraopt_reclaim.json:$(TARGET_COPY_OUT_ODM)/etc/camera/cameraopt_reclaim.json \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/camerascene.json:$(TARGET_COPY_OUT_ODM)/etc/camera/camerascene.json \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/camxoverridesettings.txt:$(TARGET_COPY_OUT_ODM)/etc/camera/camxoverridesettings.txt \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/enhance_motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/enhance_motiontuning.xml \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/facefocus_models/Vega_Attribute.model:$(TARGET_COPY_OUT_ODM)/etc/camera/facefocus_models/Vega_Attribute.model \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/facefocus_models/Vega_Attribute_Face_RGB_qnn2.24.15_int8_3.2.6_arm64.model:$(TARGET_COPY_OUT_ODM)/etc/camera/facefocus_models/Vega_Attribute_Face_RGB_qnn2.24.15_int8_3.2.6_arm64.model \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/facefocus_models/Vega_Detect.model:$(TARGET_COPY_OUT_ODM)/etc/camera/facefocus_models/Vega_Detect.model \
@@ -779,7 +778,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/model_front.dlc:$(TARGET_COPY_OUT_ODM)/etc/camera/model_front.dlc \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/model_glass.dlc:$(TARGET_COPY_OUT_ODM)/etc/camera/model_glass.dlc \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/model_indoor.dlc:$(TARGET_COPY_OUT_ODM)/etc/camera/model_indoor.dlc \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/motiontuning.xml \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/ocr_aio:$(TARGET_COPY_OUT_ODM)/etc/camera/ocr_aio \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/previewbokeh_config.bin:$(TARGET_COPY_OUT_ODM)/etc/camera/previewbokeh_config.bin \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/reduceframerate.json:$(TARGET_COPY_OUT_ODM)/etc/camera/reduceframerate.json \
@@ -798,10 +796,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/smartae_Arbitrator.json:$(TARGET_COPY_OUT_ODM)/etc/camera/smartae_Arbitrator.json \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/smartae_hardware_config.json:$(TARGET_COPY_OUT_ODM)/etc/camera/smartae_hardware_config.json \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/smartaeconfig.json:$(TARGET_COPY_OUT_ODM)/etc/camera/smartaeconfig.json \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/snsc_bokeh_motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/snsc_bokeh_motiontuning.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/snsc_enhance_motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/snsc_enhance_motiontuning.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/snsc_motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/snsc_motiontuning.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/camera/snsc_noface_motiontuning.xml:$(TARGET_COPY_OUT_ODM)/etc/camera/snsc_noface_motiontuning.xml \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/style/arcbeauty_param_config.json:$(TARGET_COPY_OUT_ODM)/etc/camera/style/arcbeauty_param_config.json \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/style/style_xiaomi_p2p3.hdcg:$(TARGET_COPY_OUT_ODM)/etc/camera/style/style_xiaomi_p2p3.hdcg \
     vendor/xiaomi/piano/proprietary/odm/etc/camera/supervq_model:$(TARGET_COPY_OUT_ODM)/etc/camera/supervq_model \
@@ -1202,3 +1196,12 @@ PRODUCT_PACKAGES += \
     piano_vintf_vendor.xiaomi.hardware.mimd2-service \
     piano_vintf_vendor.xiaomi.hardware.miperf2-service \
     piano_vintf_vendor.xiaomi.hardware.videoservice-service
+
+# Stock XML with a malformed declaration; installed without the xmllint check.
+PRODUCT_PACKAGES += \
+    piano_camera_enhance_motiontuning \
+    piano_camera_motiontuning \
+    piano_camera_snsc_bokeh_motiontuning \
+    piano_camera_snsc_enhance_motiontuning \
+    piano_camera_snsc_motiontuning \
+    piano_camera_snsc_noface_motiontuning
