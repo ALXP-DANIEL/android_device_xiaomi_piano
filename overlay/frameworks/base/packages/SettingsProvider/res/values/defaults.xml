@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The keyboard cover driver registers an alphabetic keyboard even when
+         no cover is attached, so keep the on-screen keyboard available. -->
+    <bool name="def_show_ime_with_hard_keyboard">true</bool>
+</resources>
