@@ -41,6 +41,10 @@
     <integer name="config_brightness_ramp_rate_fast">180</integer>
     <integer name="config_brightness_ramp_rate_slow">60</integer>
 
+    <!-- Stock panel corner radius. -->
+    <dimen name="rounded_corner_radius">20dp</dimen>
+    <dimen name="rounded_corner_content_padding">0dp</dimen>
+
     <!-- Stock: shut down when the battery reaches 58 C. -->
     <integer name="config_shutdownBatteryTemperature">580</integer>
 
