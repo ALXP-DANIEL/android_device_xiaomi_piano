@@ -140,8 +140,8 @@ persist.vendor.dpm.vndr.idletimer.mode=default
 drm.service.enabled=true
 vendor.wv.oemcrypto.debug.enable_hlos_data_path=true
 
-# Fingerprint
-persist.vendor.fingerprint.type=udfps
+# Fingerprint: power-button sensor (Global 304 mfp daemon)
+persist.vendor.fingerprint.type=side
 ro.vendor.extension_library=libqti-perfd-client.so
 
 # FUSE
