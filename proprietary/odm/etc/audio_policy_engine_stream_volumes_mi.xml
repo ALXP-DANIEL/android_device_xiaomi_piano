@@ -33,18 +33,6 @@ volume index from 0 to 100.
               <point>66,-1400</point>
               <point>100,0</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-              <point>0,-4200</point>
-              <point>33,-2800</point>
-              <point>66,-1400</point>
-              <point>100,0</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
-              <point>0,-4200</point>
-              <point>33,-2800</point>
-              <point>66,-1400</point>
-              <point>100,0</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER">
             <point>0,-3300</point>
             <point>10,-3000</point>
@@ -92,24 +80,6 @@ volume index from 0 to 100.
              <point>66,-2200</point>
              <point>100,-1800</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-             <point>1,-3000</point>
-             <point>33,-2600</point>
-             <point>66,-2200</point>
-             <point>100,-1800</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
-             <point>1,-3000</point>
-             <point>33,-2600</point>
-             <point>66,-2200</point>
-             <point>100,-1800</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP_CE">
-             <point>1,-3000</point>
-             <point>33,-2600</point>
-             <point>66,-2200</point>
-             <point>100,-1800</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_DEVICE_CATEGORY_EXT_MEDIA_VOLUME_CURVE"/>
@@ -119,18 +89,6 @@ volume index from 0 to 100.
              <point>66,-1000</point>
              <point>100,0</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_HEADSET_CE">
-            <point>1,-7200</point>
-            <point>33,-4900</point>
-            <point>73,-2300</point>
-            <point>100,-900</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB_CE">
-            <point>1,-7200</point>
-            <point>33,-4900</point>
-            <point>73,-2300</point>
-            <point>100,-900</point>
-        </volume>
     </volumeGroup>
 
     <volumeGroup>
@@ -138,8 +96,6 @@ volume index from 0 to 100.
         <indexMin>0</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER">
             <point>1,-2970</point>
             <point>33,-2010</point>
@@ -172,64 +128,6 @@ volume index from 0 to 100.
             <point>93,-660</point>
             <point>100,-340</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-            <point>1,-6500</point>
-            <point>13,-5500</point>
-            <point>20,-4800</point>
-            <point>27,-4300</point>
-            <point>33,-3800</point>
-            <point>40,-3400</point>
-            <point>47,-3000</point>
-            <point>53,-2600</point>
-            <point>60,-2200</point>
-            <point>66,-1800</point>
-            <point>73,-1400</point>
-            <point>80,-1050</point>
-            <point>87,-700</point>
-            <point>93,-350</point>
-            <point>100,-50</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
-            <point>1,-4900</point>
-            <point>13,-4000</point>
-            <point>20,-3500</point>
-            <point>27,-3100</point>
-            <point>33,-2700</point>
-            <point>40,-2300</point>
-            <point>47,-2000</point>
-            <point>53,-1700</point>
-            <point>60,-1400</point>
-            <point>66,-1100</point>
-            <point>73,-850</point>
-            <point>80,-600</point>
-            <point>87,-400</point>
-            <point>93,-200</point>
-            <point>100,-50</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP_CE">
-            <point>1,-5400</point>
-            <point>7,-5200</point>
-            <point>13,-5000</point>
-            <point>20,-4600</point>
-            <point>27,-4250</point>
-            <point>33,-3900</point>
-            <point>40,-3550</point>
-            <point>47,-3200</point>
-            <point>53,-2850</point>
-            <point>60,-2550</point>
-            <point>66,-2250</point>
-            <point>73,-1950</point>
-            <point>80,-1650</point>
-            <point>87,-1350</point>
-            <point>93,-1050</point>
-            <point>100,-750</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP_SPATIALIZER_CE">
-            <point>1,-5000</point>
-            <point>33,-3500</point>
-            <point>73,-2350</point>
-            <point>100,-990</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER">
             <point>0,-75800</point>
             <point>1,-7300</point>
@@ -251,42 +149,6 @@ volume index from 0 to 100.
             <point>140,-250</point>
             <point>150,-30</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB_CE">
-            <point>1,-5400</point>
-            <point>7,-5200</point>
-            <point>13,-5000</point>
-            <point>20,-4600</point>
-            <point>27,-4250</point>
-            <point>33,-3900</point>
-            <point>40,-3550</point>
-            <point>47,-3200</point>
-            <point>53,-2850</point>
-            <point>60,-2550</point>
-            <point>66,-2250</point>
-            <point>73,-1950</point>
-            <point>80,-1650</point>
-            <point>87,-1350</point>
-            <point>93,-1050</point>
-            <point>100,-750</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB_SPATIALIZER_CE">
-            <point>1,-6450</point>
-            <point>33,-3910</point>
-            <point>73,-2250</point>
-            <point>100,-1040</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_HEADSET_CE">
-             <point>1,-6450</point>
-            <point>33,-3550</point>
-            <point>73,-1980</point>
-            <point>100,-770</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_HEADSET_SPATIALIZER_CE">
-            <point>1,-6450</point>
-            <point>33,-3550</point>
-            <point>73,-2740</point>
-            <point>100,-1380</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_HEARING_AID"  ref="DEFAULT_HEARING_AID_VOLUME_CURVE"/>
@@ -297,8 +159,6 @@ volume index from 0 to 100.
         <indexMin>0</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="DEFAULT_DEVICE_CATEGORY_SPEAKER_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
@@ -310,8 +170,6 @@ volume index from 0 to 100.
         <indexMin>1</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="DEFAULT_NON_MUTABLE_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="DEFAULT_NON_MUTABLE_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="DEFAULT_NON_MUTABLE_HEADSET_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER">
             <point>0,-2970</point>
             <point>33,-2010</point>
@@ -328,8 +186,6 @@ volume index from 0 to 100.
         <indexMin>0</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="DEFAULT_DEVICE_CATEGORY_HEADSET_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER">
             <point>1,-2970</point>
             <point>33,-2010</point>
@@ -346,18 +202,6 @@ volume index from 0 to 100.
         <indexMin>1</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET">
-            <point>0,-420</point>
-            <point>33,-280</point>
-            <point>66,-140</point>
-            <point>100,0</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-            <point>0,-420</point>
-            <point>33,-280</point>
-            <point>66,-140</point>
-            <point>100,0</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
             <point>0,-420</point>
             <point>33,-280</point>
             <point>66,-140</point>
@@ -394,18 +238,6 @@ volume index from 0 to 100.
             <point>66,-2200</point>
             <point>100,-1800</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-            <point>1,-3000</point>
-            <point>33,-2600</point>
-            <point>66,-2200</point>
-            <point>100,-1800</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
-            <point>1,-3000</point>
-            <point>33,-2600</point>
-            <point>66,-2200</point>
-            <point>100,-1800</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_DEVICE_CATEGORY_EXT_MEDIA_VOLUME_CURVE"/>
@@ -422,18 +254,6 @@ volume index from 0 to 100.
             <point>66,-2200</point>
             <point>100,-1800</point>
         </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_USB">
-            <point>1,-3000</point>
-            <point>33,-2600</point>
-            <point>66,-2200</point>
-            <point>100,-1800</point>
-        </volume>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP">
-            <point>1,-3000</point>
-            <point>33,-2600</point>
-            <point>66,-2200</point>
-            <point>100,-1800</point>
-        </volume>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_SYSTEM_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_DEVICE_CATEGORY_EXT_MEDIA_VOLUME_CURVE"/>
@@ -445,8 +265,6 @@ volume index from 0 to 100.
         <indexMin>0</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="SILENT_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="SILENT_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="SILENT_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="FULL_SCALE_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="SILENT_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="SILENT_VOLUME_CURVE"/>
@@ -458,8 +276,6 @@ volume index from 0 to 100.
         <indexMin>1</indexMin>
         <indexMax>15</indexMax>
         <volume deviceCategory="DEVICE_CATEGORY_HEADSET" ref="DEFAULT_NON_MUTABLE_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_USB" ref="DEFAULT_NON_MUTABLE_VOLUME_CURVE"/>
-        <volume deviceCategory="DEVICE_CATEGORY_A2DP" ref="DEFAULT_NON_MUTABLE_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_SPEAKER" ref="DEFAULT_NON_MUTABLE_SPEAKER_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_NON_MUTABLE_VOLUME_CURVE"/>
         <volume deviceCategory="DEVICE_CATEGORY_EXT_MEDIA" ref="DEFAULT_NON_MUTABLE_VOLUME_CURVE"/>
