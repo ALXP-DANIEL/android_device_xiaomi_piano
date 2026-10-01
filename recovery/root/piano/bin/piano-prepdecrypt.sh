@@ -138,7 +138,9 @@ SYSTEM_DEV="/dev/block/mapper/system${SLOT_SUFFIX}"
 SYSTEM_MOUNTED=0
 if [ ! -f "${SYSTEM_MNT}/system/build.prop" ]; then
     if [ -b "${SYSTEM_DEV}" ] || [ -L "${SYSTEM_DEV}" ]; then
-        if mount -t erofs -o ro "${SYSTEM_DEV}" "${SYSTEM_MNT}" 2>/dev/null; then
+        # Stock HyperOS ships erofs; Lineage and other custom ROMs may use ext4.
+        if mount -t erofs -o ro "${SYSTEM_DEV}" "${SYSTEM_MNT}" 2>/dev/null ||
+                mount -t ext4 -o ro "${SYSTEM_DEV}" "${SYSTEM_MNT}" 2>/dev/null; then
             SYSTEM_MOUNTED=1
         else
             log_msg "cannot mount ${SYSTEM_DEV}"
@@ -166,7 +168,10 @@ fi
 #
 # HyperOS 3 / Android 16 uses the older miweaver service and libmi_weaver.so.
 # HyperOS 4 / Android 17 uses Xiaomi's newer miauthsecretd/oldcredential stack.
-case "${SYSTEM_REL}" in
+# If the system view could not be read, fall back to the release recovery
+# already carries rather than leaving Weaver unstarted.
+WEAVER_REL="${SYSTEM_REL:-$(getprop ro.build.version.release)}"
+case "${WEAVER_REL}" in
     16)
         WEAVER_VARIANT=hos3
         ;;
@@ -175,7 +180,7 @@ case "${SYSTEM_REL}" in
         ;;
     *)
         WEAVER_VARIANT=
-        log_msg "unsupported Android release for Weaver selection: ${SYSTEM_REL}"
+        log_msg "unsupported Android release for Weaver selection: ${WEAVER_REL}"
         ;;
 esac
 
