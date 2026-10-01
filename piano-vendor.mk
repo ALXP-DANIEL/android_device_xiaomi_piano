@@ -6,6 +6,8 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libopencv_core_se.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libopencv_core_se.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libopencv_imgproc_se.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libopencv_imgproc_se.so \
     vendor/xiaomi/piano/proprietary/vendor/lib64/libSEGModel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libSEGModel.so \
     vendor/xiaomi/piano/proprietary/odm/lib64/libxmi_slow_motion_mein.so:$(TARGET_COPY_OUT_ODM)/lib64/libxmi_slow_motion_mein.so \
     vendor/xiaomi/piano/proprietary/odm/lib64/libmiocr.so:$(TARGET_COPY_OUT_ODM)/lib64/libmiocr.so \
