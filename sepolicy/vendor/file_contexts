@@ -44,3 +44,7 @@
 /(odm|vendor/odm)/bin/hw/android\.hardware\.weaver           u:object_r:vendor_hal_weaver_default_exec:s0
 /(odm|vendor/odm)/bin/hw/dvs-aidl-service                    u:object_r:dvs_aidl_default_exec:s0
 /(odm|vendor/odm)/bin/hw/vendor\.qti\.hardware\.lights\.service u:object_r:hal_light_default_exec:s0
+
+# Xiaomi character devices
+/dev/miev          u:object_r:miev_device:s0
+/dev/io_monitor    u:object_r:io_monitor_device:s0
