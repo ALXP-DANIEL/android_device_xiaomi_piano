@@ -89,11 +89,6 @@ SPDX-License-Identifier: BSD-3-Clause-Clear
             <profile samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000 96000 192000" channelLayouts="LAYOUT_MONO LAYOUT_STEREO LAYOUT_FRONT_BACK" channelMasks="INDEX_MASK_3 INDEX_MASK_4" formatType="PCM" pcmType="INT_24_BIT" />
             <profile samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000 96000 192000" channelLayouts="LAYOUT_MONO LAYOUT_STEREO LAYOUT_FRONT_BACK" channelMasks="INDEX_MASK_3 INDEX_MASK_4" formatType="PCM" pcmType="FIXED_Q_8_24" />
         </mixPort>
-        <!-- MIUI ADD: Audio_MultiRoute -->
-        <mixPort name="virtual_deep_buffer" role="source" flags="VIRTUAL_DEEP_BUFFER">
-            <profile samplingRates="48000" channelLayouts="LAYOUT_STEREO" formatType="PCM" pcmType="INT_24_BIT"/>
-        </mixPort>
-        <!-- END Audio_MultiRoute -->
         <mixPort name="voice_rx" role="sink">
             <profile samplingRates="8000 16000 48000" channelLayouts="LAYOUT_MONO LAYOUT_STEREO" formatType="PCM" pcmType="INT_16_BIT" />
         </mixPort>
@@ -140,11 +135,6 @@ SPDX-License-Identifier: BSD-3-Clause-Clear
         <devicePort tagName="proxy_out" deviceType="OUT_AFE_PROXY" connection="virtual" role="sink">
             <profile samplingRates="8000 11025 16000 22050 32000 44100 48000 64000 88200 96000 128000 176400 192000" channelLayouts="LAYOUT_MONO LAYOUT_STEREO" formatType="PCM" pcmType="INT_16_BIT" />
         </devicePort>
-        <!-- MIUI ADD: Audio_MultiRoute -->
-        <devicePort tagName="Multiroute" deviceType="OUT_DEVICE" connection="multiroute" role="sink">
-            <profile samplingRates="8000 11025 16000 22050 32000 44100 48000 64000 88200 96000 128000 176400 192000" channelLayouts="LAYOUT_STEREO" formatType="PCM" pcmType="INT_16_BIT"/>
-        </devicePort>
-        <!-- END Audio_MultiRoute -->
         <!-- OUT_DEVICE(ip-v4): Usage are not as per android expectation. Due to minimal use of device in regular use case, it is getting used for proxy device in playback usecase -->
         <devicePort tagName="ip_out" deviceType="OUT_DEVICE" connection="ip-v4" role="sink">
             <profile samplingRates="8000 11025 16000 22050 32000 44100 48000 64000 88200 96000 128000 176400 192000" channelLayouts="LAYOUT_MONO LAYOUT_STEREO" formatType="PCM" pcmType="INT_16_BIT" />
@@ -241,10 +231,7 @@ SPDX-License-Identifier: BSD-3-Clause-Clear
 
         <route type="mix" sink="hdmi_out" sources="low_latency_out,deep_buffer_out,direct_pcm_out,compress_offload_out,voip_playback,raw_out,haptics_out,spatial_out" />
 
-        <!-- MIUI ADD: Audio_MultiRoute -->
-        <route type="mix" sink="proxy_out" sources="low_latency_out,deep_buffer_out,direct_pcm_out,compress_offload_out,virtual_deep_buffer" />
-        <route type="mix" sink="Multiroute"  sources="virtual_deep_buffer"/>
-        <!-- END Audio_MultiRoute -->
+        <route type="mix" sink="proxy_out" sources="low_latency_out,deep_buffer_out,direct_pcm_out,compress_offload_out" />
 
         <route type="mix" sink="ip_out" sources="low_latency_out,deep_buffer_out,direct_pcm_out,compress_offload_out,haptics_out" />
 
