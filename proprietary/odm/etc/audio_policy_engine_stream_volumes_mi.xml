@@ -132,21 +132,17 @@ volume index from 0 to 100.
             <point>0,-75800</point>
             <point>1,-7300</point>
             <point>2,-6450</point>
-            <point>5,-6000</point>
-            <point>7,-5800</point>
-            <point>13,-4700</point>
-            <point>20,-3950</point>
-            <point>27,-3650</point>
-            <point>33,-3300</point>
-            <point>40,-2950</point>
-            <point>47,-2600</point>
-            <point>53,-2250</point>
-            <point>60,-1900</point>
-            <point>67,-1550</point>
-            <point>73,-1200</point>
-            <point>80,-850</point>
-            <point>87,-550</point>
-            <point>93,-250</point>
+            <point>7,-6000</point>
+            <point>10,-5800</point>
+            <point>20,-4700</point>
+            <point>30,-3950</point>
+            <point>40,-3650</point>
+            <point>50,-3300</point>
+            <point>59,-2950</point>
+            <point>69,-2600</point>
+            <point>79,-2250</point>
+            <point>89,-1900</point>
+            <point>99,-1550</point>
             <point>100,-30</point>
         </volume>
         <volume deviceCategory="DEVICE_CATEGORY_EARPIECE" ref="DEFAULT_MEDIA_VOLUME_CURVE"/>
