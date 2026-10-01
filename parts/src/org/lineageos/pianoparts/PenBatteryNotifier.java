@@ -7,6 +7,7 @@ package org.lineageos.pianoparts;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -138,8 +139,17 @@ class PenBatteryNotifier extends BroadcastReceiver {
             return false;
         }
         try {
+            // Third-party styluses: match by name, or by the pointing device class.
             String name = device.getName();
-            return name != null && name.toLowerCase(Locale.ROOT).contains("pen");
+            if (name != null) {
+                String lower = name.toLowerCase(Locale.ROOT);
+                if (lower.contains("pen") || lower.contains("stylus")) {
+                    return true;
+                }
+            }
+            BluetoothClass btClass = device.getBluetoothClass();
+            return btClass != null
+                    && btClass.getDeviceClass() == BluetoothClass.Device.PERIPHERAL_POINTING;
         } catch (SecurityException e) {
             Log.e(TAG, "Cannot read the Bluetooth device name", e);
             return false;
