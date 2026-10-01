@@ -58,4 +58,16 @@ dontaudit system_server sysfs:file { getattr open read };
 dontaudit netutils_wrapper minetd:fd use;
 dontaudit netutils_wrapper minetd:fifo_file write;
 dontaudit netutils_wrapper minetd:unix_stream_socket { read write };
-dontaudit permissioncontroller_app vendor_hal_qspmhal_service:service_manager find;
+
+# Second pass (build from the friend server, 2026-10-02).
+allow vendor_init miev_device:chr_file getattr;
+
+# The camera HAL reads a zoom remap table from /data/misc/camera, which is a
+# core data directory that vendor code may not access.
+dontaudit hal_camera_default system_data_file:file { getattr open read };
+dontaudit hal_fingerprint_default { rootfs system_data_root_file }:dir { open read };
+dontaudit vendor_cacertservice_app system_data_file:dir { add_name create remove_name };
+dontaudit vendor_cacertservice_app system_data_file:file { create open rename setattr write };
+dontaudit { platform_app system_app } { vendor_audio_prop vendor_default_prop }:file { getattr map open read };
+dontaudit platform_app proc_pressure_io:file { getattr open read };
+dontaudit system_server vendor_file:dir read;
