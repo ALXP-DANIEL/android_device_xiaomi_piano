@@ -16,7 +16,7 @@ Tested on hardware with build 12 (2026-10-01):
 | --- | --- |
 | Boot, setup wizard, launcher | Works |
 | Display (3200x2136, 120 Hz LCD), touch | Works |
-| Rotation | Works with auto-rotate (on by default); natural orientation is portrait for now |
+| Rotation | Works; landscape is the natural orientation, auto-rotate on by default |
 | Wi-Fi, Bluetooth | Works |
 | Audio | Works (speakers and mic not fully tested) |
 | Sensors | Works (55 sensors) |

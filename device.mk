@@ -44,11 +44,12 @@ PRODUCT_VENDOR_PROPERTIES += \
     vendor.gatekeeper.disable_spu=true \
     vendor.gatekeeper.is_security_level_spu=0
 
-# Global 304 vendor/build.prop: the panel is mounted rotated; the NVT touch
-# grid is portrait.
-PRODUCT_VENDOR_PROPERTIES += \
-    debug.sf.ignore_hwc_physical_display_orientation=true \
-    ro.surface_flinger.primary_display_orientation=ORIENTATION_270
+# The display runs in its native landscape orientation; the NVT digitizer
+# and pens report portrait coordinates, so rotate them in their IDC files.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/idc/NVTCapacitiveTouchScreen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitiveTouchScreen.idc \
+    $(LOCAL_PATH)/idc/NVTCapacitivePenP81c.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitivePenP81c.idc \
+    $(LOCAL_PATH)/idc/NVTCapacitivePenM80p.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitivePenM80p.idc
 
 # Stock touchfeature init is installed by the adapted common vendor list.
 
