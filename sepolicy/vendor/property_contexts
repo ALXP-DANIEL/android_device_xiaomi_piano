@@ -16,3 +16,6 @@ ro.vendor.codec.resourcectl.enable          u:object_r:vendor_video_mi_prop:s0
 ro.vendor.video.freshmanager.enable         u:object_r:vendor_video_mi_prop:s0
 vendor.miwild.enabled u:object_r:vendor_miwild_prop:s0
 vendor.minetd.enabled u:object_r:vendor_minetd_prop:s0
+
+# mi_thermald
+vendor.sys.thermal.bcl.  u:object_r:vendor_thermal_normal_prop:s0

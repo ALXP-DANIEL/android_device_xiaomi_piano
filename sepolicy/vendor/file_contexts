@@ -48,3 +48,4 @@
 # Xiaomi character devices
 /dev/miev          u:object_r:miev_device:s0
 /dev/io_monitor    u:object_r:io_monitor_device:s0
+/dev/metis_link    u:object_r:migt_dev:s0
