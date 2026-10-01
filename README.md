@@ -28,8 +28,8 @@ Tested on hardware with build 12 (2026-10-01):
 
 Known issues:
 
-- The stock Xiaomi camera app (MiuiCamera) is not included; Aperture is the
-  camera app.
+- MiuiCamera (the stock Xiaomi camera app) comes from the optional
+  `miuicamera-16` branch; without it, Aperture is the camera app.
 - The video enhancement service (`videoservice`) is dropped: it needs a `libgui`
   symbol Android 16 no longer exports.
 
@@ -43,6 +43,7 @@ All trees live in this repository as separate branches:
 | `device/xiaomi/sm8750-common` | `device-common-16` |
 | `vendor/xiaomi/piano` | `vendor-16` |
 | `vendor/xiaomi/sm8750-common` | `vendor-common-16` |
+| `vendor/xiaomi/piano-miuicamera` (optional) | `miuicamera-16` |
 | `device/xiaomi/piano-kernel` | `kernel-16` |
 | TWRP 16 recovery tree | `twrp-16` |
 | OrangeFox R12 recovery tree | `ofox-16` |
