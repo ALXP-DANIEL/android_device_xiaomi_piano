@@ -233,28 +233,28 @@ volume index from 0 to 100.
             <point>0,-75800</point>
             <point>1,-7317</point>
             <point>2,-6450</point>
-            <point>7,-5730</point>
-            <point>13,-5097</point>
-            <point>20,-4566</point>
-            <point>27,-4008</point>
-            <point>33,-3830</point>
-            <point>40,-3196</point>
-            <point>47,-2705</point>
-            <point>53,-2590</point>
-            <point>60,-2329</point>
-            <point>66,-2002</point>
-            <point>73,-1894</point>
-            <point>80,-1660</point>
-            <point>87,-1460</point>
-            <point>93,-1290</point>
-            <point>100,-1160</point>
-            <point>109,-960</point>
-            <point>116,-850</point>
-            <point>122,-640</point>
-            <point>130,-500</point>
-            <point>137,-350</point>
-            <point>143,-200</point>
-            <point>150,-30</point>
+            <point>5,-5730</point>
+            <point>9,-5097</point>
+            <point>13,-4566</point>
+            <point>18,-4008</point>
+            <point>22,-3830</point>
+            <point>27,-3196</point>
+            <point>31,-2705</point>
+            <point>35,-2590</point>
+            <point>40,-2329</point>
+            <point>44,-2002</point>
+            <point>49,-1894</point>
+            <point>53,-1660</point>
+            <point>58,-1460</point>
+            <point>62,-1290</point>
+            <point>67,-1160</point>
+            <point>73,-960</point>
+            <point>77,-850</point>
+            <point>81,-640</point>
+            <point>87,-500</point>
+            <point>91,-350</point>
+            <point>95,-200</point>
+            <point>100,-30</point>
         </volume>
         <volume deviceCategory="DEVICE_CATEGORY_USB_CE">
             <point>1,-6550</point>
