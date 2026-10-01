@@ -1561,3 +1561,5 @@ vendor/lib64/libui.so|69f9f83e8b6d0d17eaa6b0b3935c729890ab2309
 odm/lib64/libxmi_slow_motion_mein.so|8ca13832f34e391a31f6a35ecf44b00981c99b39
 odm/lib64/libmiocr.so|c8a28c1552ff78fdb9f29a1e36e0285a262daeb0
 vendor/lib64/libSEGModel.so|8100a0f4d5a026caae929dca2e1aba7111821bc1
+vendor/lib64/libopencv_core_se.so|68487ae61fc9a50a44cc8dc363805d846fcd63a3
+vendor/lib64/libopencv_imgproc_se.so|21c6145230c381bd838a3d81e85f2331947db439
