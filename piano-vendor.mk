@@ -6,6 +6,9 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_BU.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_BU.jpg \
+    vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_DG.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_DG.jpg \
+    vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_TA.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_TA.jpg \
     vendor/xiaomi/piano/proprietary/vendor/lib64/libopencv_core_se.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libopencv_core_se.so \
     vendor/xiaomi/piano/proprietary/vendor/lib64/libopencv_imgproc_se.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libopencv_imgproc_se.so \
     vendor/xiaomi/piano/proprietary/vendor/lib64/libSEGModel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libSEGModel.so \
