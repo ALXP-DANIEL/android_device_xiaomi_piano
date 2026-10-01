@@ -6,6 +6,7 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/vendor/etc/media_profiles_piano.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_piano.xml \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.qti.smp2p.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.smp2p.rc \
     vendor/xiaomi/piano/proprietary/odm/etc/thermal-4k.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-4k.conf \
     vendor/xiaomi/piano/proprietary/odm/etc/thermal-boost.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-boost.conf \
