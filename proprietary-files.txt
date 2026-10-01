@@ -1500,3 +1500,6 @@ vendor/etc/thermal-map.conf|02df4479de2cd82497d5d06ae98ad83f75b27dd2
 
 # DSP wakeups (smp2p)
 vendor/etc/init/vendor.qti.smp2p.rc|30cb611274c7ea8510b6ca0bcbda20961e90cab4
+
+# Camcorder profiles
+vendor/etc/media_profiles_piano.xml|2bdf8776f393c72ca7c893d6a513097f2a7b7417
