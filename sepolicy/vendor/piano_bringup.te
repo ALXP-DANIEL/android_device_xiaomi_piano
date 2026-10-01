@@ -26,3 +26,8 @@ allow vendor_wcnss_service vendor_persist_bluetooth_file:file { open read };
 binder_call(bootanim, vendor_hal_qspmhal_default)
 binder_call(surfaceflinger, vendor_hal_qspmhal_default)
 allow servicemanager vendor_hal_poweroptservice_qti:binder call;
+
+# Denials seen on build 11.
+binder_use(hal_minetaidlservice_default)
+wakelock_use(hal_hypsys_vendor)
+r_dir_file(hal_hypsys_vendor, vendor_sysfs_battery_supply)
