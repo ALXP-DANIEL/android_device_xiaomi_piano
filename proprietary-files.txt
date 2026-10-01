@@ -1497,3 +1497,6 @@ odm/etc/thermal-yuanshen.conf|85bca25c498f5061606f20a1f8d3111fb5bd092b
 vendor/etc/thermald-devices.conf|862f74a20ae63b724dab9bff09a47630e00b63a6
 vendor/etc/thermal-engine.conf|c6c9312b7c7b52926cf7d0fc9bff933d90967100
 vendor/etc/thermal-map.conf|02df4479de2cd82497d5d06ae98ad83f75b27dd2
+
+# DSP wakeups (smp2p)
+vendor/etc/init/vendor.qti.smp2p.rc|30cb611274c7ea8510b6ca0bcbda20961e90cab4
