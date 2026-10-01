@@ -37,14 +37,14 @@ PRODUCT_ADB_KEYS := $(PIANO_ADB_KEYS)
 endif
 endif
 
-# China 307 vendor properties required by the selected providers.
+# Global 304 vendor properties required by the selected providers.
 PRODUCT_VENDOR_PROPERTIES += \
     ro.hardware.egl=adreno \
     vendor.gralloc.enable_snapalloc=1 \
     vendor.gatekeeper.disable_spu=true \
     vendor.gatekeeper.is_security_level_spu=0
 
-# China 307 vendor/build.prop: the panel is mounted rotated; the NVT touch
+# Global 304 vendor/build.prop: the panel is mounted rotated; the NVT touch
 # grid is portrait.
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.ignore_hwc_physical_display_orientation=true \
@@ -55,7 +55,7 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Minimal tablet values traced to the pinned stock framework overlay.
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-# China 307 product/etc/build.prop.
+# Global 304 product/etc/build.prop.
 PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 
 # Composer VINTF (including the Xiaomi IMiHwcExtension) is installed by the
