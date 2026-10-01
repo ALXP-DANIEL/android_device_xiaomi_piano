@@ -10841,3 +10841,25 @@ cc_prebuilt_library_shared {
     },
     device_specific: true,
 }
+
+// Xiaomi's camera and display blobs were built against the stock libui;
+// the source-built one crashes libmicamera_hal_core. odm is searched before
+// vendor, so vendor processes load this copy.
+cc_prebuilt_library_shared {
+    name: "libui_stock",
+    stem: "libui",
+    owner: "xiaomi",
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libui.so",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    device_specific: true,
+}

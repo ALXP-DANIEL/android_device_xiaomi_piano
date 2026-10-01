@@ -878,6 +878,7 @@ PRODUCT_PACKAGES += \
     libpiex.vendor \
     libjpegdecoder_stock \
     libjpegencoder_stock \
+    libui_stock \
     libultrahdr_stock \
     libyuv.vendor \
     vendor.qti.hardware.camera.aon-V2-ndk.vendor \
