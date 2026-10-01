@@ -42,26 +42,26 @@ type nanoapp_aidl, domain;
 type nanoapp_aidl_exec, exec_type, file_type, vendor_file_type;
 type ntag_device, dev_type;
 type procfs_memory, fs_type;
-type snapshot_prop, property_type;
+vendor_restricted_prop(snapshot_prop)
 type sysfs_memory, fs_type, sysfs_type;
 type sysfs_mimdtrigger, fs_type, sysfs_type;
-type vendor_batteryantiaging_prop, property_type;
-type vendor_ddr_freq_prop, property_type;
+vendor_restricted_prop(vendor_batteryantiaging_prop)
+vendor_restricted_prop(vendor_ddr_freq_prop)
 type vendor_dtool, domain;
 type vendor_dtool_exec, exec_type, file_type, vendor_file_type;
-type vendor_fbo_prop, property_type;
-type vendor_ffu_prop, property_type;
+vendor_restricted_prop(vendor_fbo_prop)
+vendor_restricted_prop(vendor_ffu_prop)
 type vendor_hal_fingerprint_dtool1_service, service_manager_type;
 type vendor_hal_fingerprint_hwservice_xiaomi, hwservice_manager_type;
 type vendor_mfp-daemon, domain;
-type vendor_minetd_prop, property_type;
-type vendor_miwild_prop, property_type;
+vendor_restricted_prop(vendor_minetd_prop)
+vendor_restricted_prop(vendor_miwild_prop)
 type vendor_ntagtool, domain;
 type vendor_ntagtool_exec, exec_type, file_type, vendor_file_type;
 type vendor_proc_global_reclaim, fs_type;
 type vendor_proc_mimdlog, fs_type;
-type vendor_video_mi_prop, property_type;
-type vendor_wlan_chip_prop, property_type;
+vendor_restricted_prop(vendor_video_mi_prop)
+vendor_restricted_prop(vendor_wlan_chip_prop)
 init_daemon_domain(ddr_freq)
 init_daemon_domain(ffu)
 init_daemon_domain(hal_batteryantiaging_default)
