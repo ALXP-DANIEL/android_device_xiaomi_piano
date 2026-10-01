@@ -52,7 +52,7 @@ Tested revisions:
 
 | Patch | What it fixes |
 | --- | --- |
-| `0001` | Adds the `update_engine` headers that TWRP's libsnapshot needs, and uses `servicemanager.recovery`. The system servicemanager finds no VINTF manifest in recovery, so Weaver and Gatekeeper never register and decryption fails. |
+| `0001` | Adds the `update_engine` headers that TWRP's libsnapshot needs, and uses `servicemanager.recovery`. The system servicemanager finds no VINTF manifest in recovery, so Weaver and Gatekeeper never register and decryption fails. It also stops OrangeFox relinking the system `libvintf.so`, which would replace the recovery variant that `servicemanager.recovery` needs. |
 | `0002` | Waits for the QSEE listeners and KeyMint before decryption, and drops the startup `copySqliteDb()`. |
 | `0003` | OZIP returns unsupported when there is no key. |
 | `0004` | Follows Android's time zone until one is picked in OrangeFox. |
