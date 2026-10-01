@@ -1121,12 +1121,10 @@ vendor/etc/init/qesdk-secmanager.rc|a09609d0f24b82682add17cd911736d8dc79a10c
 vendor/etc/init/qwesd.rc|e1af363d8301a84db78533e1ef846b061f010de0
 vendor/etc/init/vendor.qsap.location.rc|3b95c6ee5b19974fa90fccfa8dfd498828356a8f
 vendor/etc/init/vendor.qsap.sensors.rc|65a1095ce3c72d712afef27fd54f587110a7dec0
-vendor/etc/init/vendor.qti.hardware.display.demura-service.rc|debaf9e58cc86380b03eecf5525744793952f27d
 vendor/etc/init/vendor.qti.hardware.minkipcbinder@1.0-service.rc|6e78beaed7c1de2503fac945779f49cf15b4ea12
 vendor/etc/init/vendor.qti.hardware.wifi.wifilearner-service.rc|3161e9322b0df06c7caa5e472f6174915b35c0f8
 vendor/etc/init/vendor.qti.memory.pasrmanager-service.rc|46a4b2d1a9b88eaf8800db32e9db4e5a8f136994
 vendor/etc/init/vendor.qti.psiclient@1.0-service.rc|3c8e69345951b17aed25be91d5cac59e2ff49c35
-vendor/etc/init/vendor.qti.qspa-service.rc|783275af9388977457806c69c6a1d26855ece72a
 vendor/etc/init/vendor.xiaomi.aidl.minet@1.0-service.rc|267453f3ed84c316e7d03f93b7009ca71b5cc5a4
 vendor/etc/init/vendor.xiaomi.aidl.miwill@1.0-service.rc|b9f76db6d5c47cd19c5486fe0ec109d24ce480f6
 vendor/etc/init/vendor.xiaomi.hardware.batteryantiaging-service.rc|00dd97772be3159b290456921040ff8f7b1a7f14
