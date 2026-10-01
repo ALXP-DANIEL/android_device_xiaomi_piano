@@ -19,8 +19,10 @@ allow hal_mtdservice_default vendor_persist_data_file:dir { search };
 allow vendor_location_lowi_server vendor_location:fd { use };
 allow vendor_modprobe self:capability { sys_nice };
 allow vendor_modprobe self:key { write };
-allow vendor_subsystem_ramdump self:capability { net_admin };
-allow vendor_subsystem_ramdump vendor_bsp_data_log_file:dir { getattr };
+userdebug_or_eng(`
+  allow vendor_subsystem_ramdump self:capability { net_admin };
+  allow vendor_subsystem_ramdump vendor_bsp_data_log_file:dir { getattr };
+')
 allow vendor_wcnss_service vendor_persist_bluetooth_file:file { open read };
 binder_call(bootanim, vendor_hal_qspmhal_default)
 binder_call(surfaceflinger, vendor_hal_qspmhal_default)
