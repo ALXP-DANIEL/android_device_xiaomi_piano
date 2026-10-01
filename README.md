@@ -10,26 +10,42 @@ installing a build.
 
 ## Status
 
-Tested on hardware with build 12 (2026-10-01):
+Tested on hardware with build 17 (2026-10-02). Changes made since then are
+marked "next build" until a build containing them has been tested.
 
 | Area | Status |
 | --- | --- |
 | Boot, setup wizard, launcher | Works |
-| Display (3200x2136, 120 Hz LCD), touch | Works |
+| Display (3200x2136, up to 144 Hz LCD), touch | Works; peak refresh rate is selectable in Settings |
+| Color modes (natural, boosted, saturated, automatic) | Next build: stock panel calibration added |
 | Rotation | Works with auto-rotate (on by default); natural orientation is portrait for now |
 | Wi-Fi, Bluetooth | Works |
-| Audio | Works (speakers and mic not fully tested) |
+| Audio | Works; volume curve matches stock, with the HyperOS boost level on the top step |
+| Dolby Atmos (DolbyManager) | Works |
 | Sensors | Works (55 sensors) |
+| Smart cover | Works: closing the cover puts the tablet to sleep |
 | Camera (Aperture, front and rear) | Works |
+| MiuiCamera (optional) | Opens; the camera HAL crash may be fixed in the next build |
 | Fingerprint (power button, Goodix) | Works, including lock screen unlock |
-| Charging | Works |
-| Stylus, keyboard cover | Untested |
+| Charging | Works; charging limit next build |
+| Thermal profiles (mi_thermald) | Next build: stock profiles added |
+| Keyboard cover | Types; arrow key fix next build, battery level and wake handshake not done |
+| Stylus | Writes; battery level and buttons not done |
 | SELinux | Permissive; enforcing is in progress |
+
+Piano-specific apps:
+
+- `PianoParts` (next build): sends the screen rotation to the touch panel for
+  edge palm rejection, and adds a Quick Settings tile for the game thermal
+  profile.
+- `PianoVolumeBoost`: shows the stock warning when media volume reaches the
+  boost level on the speakers.
 
 Known issues:
 
 - MiuiCamera (the stock Xiaomi camera app) comes from the optional
-  `miuicamera-16` branch; without it, Aperture is the camera app.
+  `miuicamera-16` branch; without it, Aperture is the camera app. Its UI is
+  laid out for MIUI and looks compressed.
 - The video enhancement service (`videoservice`) is dropped: it needs a `libgui`
   symbol Android 16 no longer exports.
 
@@ -97,3 +113,13 @@ bootloader firmware (`xbl`, `abl`, `tz`, `hyp`) from other sources.
 The TWRP and OrangeFox trees decrypt both HyperOS and custom ROM data using the
 stock KeyMint, Gatekeeper and Weaver services. Recovery is still being worked
 on; see the `twrp-16` and `ofox-16` branches for the current state.
+
+## Credits
+
+- The LineageOS project.
+- The Xiaomi 15 Pro (`haotian`) LineageOS trees, the starting point for the
+  common trees.
+- Paranoid Android, for DolbyManager and the XiaomiParts features used as the
+  model for PianoParts.
+- Evolution-X (`hardware_xiaomi`), for the reverse-engineered Xiaomi
+  TouchFeature and DisplayFeature interfaces.
