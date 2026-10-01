@@ -13,7 +13,7 @@ allow hal_hypsys_vendor vendor_sysfs_displayfeature:file { getattr open read };
 allow hal_hypsys_vendor vendor_sysfs_hardwareinfo:file { open read write };
 allow hal_hypsys_vendor vendor_sysfs_soc_sensitive:file { getattr open read };
 allow hal_hypsys_vendor vendor_wifi_version:file { getattr map open read };
-allow hal_mtdservice_default hal_mtdservice_default:capability { dac_read_search };
+dontaudit hal_mtdservice_default self:capability dac_read_search;
 allow nanoapp_aidl vndbinder_device:chr_file { ioctl map open read write };
 allow vendor_hal_perf_default hal_camera_default:dir { search };
 allow vendor_hal_perf_default hal_camera_default:file { open read };
