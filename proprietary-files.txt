@@ -1556,3 +1556,7 @@ vendor/lib64/libopencl_loader.so|204af1d5e0c07145c39ebd1b6ba98139719eb6e3
 
 # Stock libui, installed to odm (see Android.bp)
 vendor/lib64/libui.so|69f9f83e8b6d0d17eaa6b0b3935c729890ab2309
+
+# Public libraries for MiuiCamera (slow motion, text scanning)
+odm/lib64/libxmi_slow_motion_mein.so|8ca13832f34e391a31f6a35ecf44b00981c99b39
+odm/lib64/libmiocr.so|c8a28c1552ff78fdb9f29a1e36e0285a262daeb0
