@@ -67,7 +67,8 @@ PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 
 # Shims (hardware/lineage/compat)
 PRODUCT_PACKAGES += \
-    libprocessgroup_shim
+    libprocessgroup_shim \
+    PianoVolumeBoost
 
 # Core features (app widgets, device admin, home screen, input methods, ...)
 PRODUCT_COPY_FILES += \

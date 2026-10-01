@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <string name="app_name">Volume boost</string>
+    <!-- Same wording as the stock HyperOS notice. -->
+    <string name="volume_boost_on">Volume boost is on. Your device may heat up and use more power.</string>
+</resources>
