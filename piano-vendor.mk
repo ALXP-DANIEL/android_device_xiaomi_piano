@@ -6,6 +6,15 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1260.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x01_1260.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1294.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x01_1294.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1260.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x10_1260.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1294.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x10_1294.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1260.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x61_1260.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1294.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/Keyboard_Upgrade_0x61_1294.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1260.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/TouchPad_Upgrade_0x04_1260.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1294.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/TouchPad_Upgrade_0x04_1294.bin \
+    vendor/xiaomi/piano/proprietary/system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x06_1294.bin:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/piano_keyboard/TouchPad_Upgrade_0x06_1294.bin \
     vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_BU.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_BU.jpg \
     vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_DG.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_DG.jpg \
     vendor/xiaomi/piano/proprietary/product/media/wallpaper/wallpaper_TA.jpg:$(TARGET_COPY_OUT_PRODUCT)/media/wallpaper/wallpaper_TA.jpg \
