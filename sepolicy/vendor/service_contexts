@@ -1,0 +1,5 @@
+
+# Ported from the Global 304 vendor and odm policy.
+vendor.xiaomi.hardware.keyboardnanoapp_aidl.IKeyboardNanoapp_aidl/default   u:object_r:hal_keyboardnanoapp_service:s0
+vendor.xiaomi.hardware.dtool1.IDtool/default                            u:object_r:vendor_hal_fingerprint_dtool1_service:s0
+vendor.xiaomi.aidl.miwill.IMiwillAIDLService/default  u:object_r:hal_miwillservice_service:s0
