@@ -313,5 +313,4 @@ PRODUCT_PACKAGES += \
     vendor.xiaomi.hw.touchfeature-service \
     toucheventcheck \
     vendor.qti.hardware.lights.service \
-    vendor.qti.MemHal-service \
-    vendor.qti.MemHal-V1-ndk
+    vendor.qti.MemHal-service
