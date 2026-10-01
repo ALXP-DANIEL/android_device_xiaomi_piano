@@ -1,5 +1,5 @@
 # Audio
-system_vendor_config_prop(vendor_audio_cloud_ctrl_mi_prop)
+vendor_restricted_prop(vendor_audio_cloud_ctrl_mi_prop)
 vendor_public_prop(vendor_audio_mi_prop)
 
 # Camera
