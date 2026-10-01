@@ -52,4 +52,8 @@
         <fqname>IWeaver/default</fqname>
     </hal>
 
+    <hal format="aidl">
+        <name>android.hardware.boot</name>
+        <fqname>IBootControl/default</fqname>
+    </hal>
 </manifest>
