@@ -71,13 +71,11 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/stk3bcx_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/stk3bcx_0.json \
     vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sx937x_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sx937x_0.json \
     vendor/xiaomi/piano/proprietary/odm/etc/sensors/config/sx937x_reg_0.json:$(TARGET_COPY_OUT_ODM)/etc/sensors/config/sx937x_reg_0.json \
-    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.qti.MemHal-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.MemHal-service.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/sensors/config/qsh_camera_common_sm8735.json:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/config/qsh_camera_common_sm8735.json \
     vendor/xiaomi/piano/proprietary/vendor/etc/sensors/config/qsh_camera_ov32c4c_4_sm8735.json:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/config/qsh_camera_ov32c4c_4_sm8735.json \
     vendor/xiaomi/piano/proprietary/vendor/etc/sensors/javalibs/odpmanagerlib-aar:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/javalibs/odpmanagerlib-aar \
     vendor/xiaomi/piano/proprietary/vendor/etc/sensors/sns_odp_config:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sns_odp_config \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.MemHal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.MemHal.xml \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/Mi_acdb_cal.acdb:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/Mi_acdb_cal.acdb \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/Mi_workspaceFileXml.qwsp:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/Mi_workspaceFileXml.qwsp \
     vendor/xiaomi/piano/proprietary/odm/etc/acdbdata/Mi/model924_twoBlocks_eai_int8_8750.eai:$(TARGET_COPY_OUT_ODM)/etc/acdbdata/Mi/model924_twoBlocks_eai_int8_8750.eai \
@@ -1037,8 +1035,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/vendor/etc/camera/cameraopt_perf.json:$(TARGET_COPY_OUT_VENDOR)/etc/camera/cameraopt_perf.json \
     vendor/xiaomi/piano/proprietary/vendor/etc/camera/cameraopt_vendor.json:$(TARGET_COPY_OUT_VENDOR)/etc/camera/cameraopt_vendor.json \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.qti.camera.provider-service_64.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.camera.provider-service_64.rc \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.camera.provider.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.camera.provider.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.camera.aon-impl.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.camera.aon-impl.xml \
     vendor/xiaomi/piano/proprietary/vendor/firmware/CAMERA_ICP_1_970.b01:$(TARGET_COPY_OUT_VENDOR)/firmware/CAMERA_ICP_1_970.b01 \
     vendor/xiaomi/piano/proprietary/vendor/firmware/CAMERA_ICP_1_970.b02:$(TARGET_COPY_OUT_VENDOR)/firmware/CAMERA_ICP_1_970.b02 \
     vendor/xiaomi/piano/proprietary/vendor/firmware/CAMERA_ICP_1_970.b03:$(TARGET_COPY_OUT_VENDOR)/firmware/CAMERA_ICP_1_970.b03 \
@@ -1160,10 +1156,6 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/odm/etc/init/vendor.xiaomi.hardware.dtool1.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.xiaomi.hardware.dtool1.rc \
     vendor/xiaomi/piano/proprietary/odm/etc/init/vendor.xiaomi.hardware.keyboardnanoapp_aidl-service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.xiaomi.hardware.keyboardnanoapp_aidl-service.rc \
     vendor/xiaomi/piano/proprietary/odm/etc/init/vendor.xiaomi.hardware.mikeybag.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.xiaomi.hardware.mikeybag.rc \
-    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/dvs-aidl-service.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/dvs-aidl-service.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/vendor.xiaomi.hardware.aek.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/vendor.xiaomi.hardware.aek.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/vendor.xiaomi.hardware.keyboardnanoapp_aidl-service.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/vendor.xiaomi.hardware.keyboardnanoapp_aidl-service.xml \
-    vendor/xiaomi/piano/proprietary/odm/etc/vintf/manifest/vendor.xiaomi.hardware.mikeybag.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest/vendor.xiaomi.hardware.mikeybag.xml \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/dcfd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dcfd.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/ddr_freq.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/ddr_freq.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/ddr_training.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/ddr_training.rc \
@@ -1188,17 +1180,28 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.fbo-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.fbo-service.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.mimd2-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.mimd2-service.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.miperf2-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.miperf2-service.rc \
-    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.videoservice-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.videoservice-service.rc \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/cacert-saidl.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/cacert-saidl.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.cld_aidl.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.cld_aidl.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.fbo.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.fbo.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.minkipcbinder-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.hardware.minkipcbinder-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.hardware.wifi.wifilearner-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.hardware.wifi.wifilearner-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.memory.pasrmanager-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.memory.pasrmanager-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.qti.qspa-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.qti.qspa-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.aidl.intentaware-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.aidl.intentaware-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.aidlbgservice-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.aidlbgservice-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.batteryantiaging.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.batteryantiaging.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.mimd2-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.mimd2-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.miperf2-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.miperf2-service.xml \
-    vendor/xiaomi/piano/proprietary/vendor/etc/vintf/manifest/vendor.xiaomi.hardware.videoservice-service.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.xiaomi.hardware.videoservice-service.xml
+    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.videoservice-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.videoservice-service.rc
+
+# VINTF fragments (Global 304) installed as prebuilt_etc_xml.
+PRODUCT_PACKAGES += \
+    piano_vintf_vendor.qti.hardware.lights.service \
+    piano_vintf_vendor.qti.MemHal \
+    piano_vintf_vendor.qti.camera.provider \
+    piano_vintf_vendor.xiaomi.camera.aon-impl \
+    piano_vintf_dvs-aidl-service \
+    piano_vintf_vendor.xiaomi.hardware.aek \
+    piano_vintf_vendor.xiaomi.hardware.keyboardnanoapp_aidl-service \
+    piano_vintf_vendor.xiaomi.hardware.mikeybag \
+    piano_vintf_cacert-saidl \
+    piano_vintf_manifest_vendor.xiaomi.hardware.cld_aidl \
+    piano_vintf_manifest_vendor.xiaomi.hardware.fbo \
+    piano_vintf_vendor.qti.hardware.minkipcbinder-service \
+    piano_vintf_vendor.qti.hardware.wifi.wifilearner-service \
+    piano_vintf_vendor.qti.memory.pasrmanager-service \
+    piano_vintf_vendor.qti.qspa-service \
+    piano_vintf_vendor.xiaomi.hardware.aidl.intentaware-service \
+    piano_vintf_vendor.xiaomi.hardware.aidlbgservice-service \
+    piano_vintf_vendor.xiaomi.hardware.batteryantiaging \
+    piano_vintf_vendor.xiaomi.hardware.mimd2-service \
+    piano_vintf_vendor.xiaomi.hardware.miperf2-service \
+    piano_vintf_vendor.xiaomi.hardware.videoservice-service
