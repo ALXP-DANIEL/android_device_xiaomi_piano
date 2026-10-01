@@ -224,6 +224,8 @@ on init
     # keystore2 and KeyMint waited forever for servicemanager.ready and the
     # metadata decrypt hung on the splash screen.
     start servicemanager
+    # The boot HAL is in the early_hal class, which OrangeFox never starts.
+    start vendor.boot-qti
 
 on property:vendor.piano.partitions_ready=1 && property:vendor.piano.stock.mounted=0
     setprop vendor.piano.stock.mounted 1
