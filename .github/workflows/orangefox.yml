@@ -118,6 +118,16 @@ jobs:
           openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out "$KEY" >/dev/null 2>&1
           test -s "$KEY"
 
+      - name: Add QTI boot control
+        run: |
+          set -euo pipefail
+          # The recovery needs a Boot Control HAL to install A/B zips. Without
+          # this checkout, ALLOW_MISSING_DEPENDENCIES dropped the module silently
+          # and every install failed with "AIDL IBootControl not available".
+          rm -rf hardware/qcom/bootctrl
+          git clone --depth=1 -b lineage-23.2-caf https://github.com/LineageOS/android_hardware_qcom_bootctrl.git hardware/qcom/bootctrl
+          git -C hardware/qcom/bootctrl apply "$GITHUB_WORKSPACE/$DEVICE_PATH/patches/hardware_qcom_bootctrl/0001-drop-generated-kernel-headers.patch"
+
       - name: Build recovery
         run: |
           export ALLOW_MISSING_DEPENDENCIES=true
