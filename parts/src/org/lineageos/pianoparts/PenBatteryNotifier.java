@@ -1,0 +1,116 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package org.lineageos.pianoparts;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.util.Log;
+
+import java.util.Locale;
+
+/**
+ * Like HyperOS, pops up the stylus battery level when the pen connects or
+ * reports a new level over Bluetooth.
+ *
+ * Testing without a pen:
+ *   adb shell am broadcast -a org.lineageos.pianoparts.action.TEST_PEN_POPUP \
+ *       --ei level 80
+ */
+class PenBatteryNotifier extends BroadcastReceiver {
+
+    private static final String TAG = "PianoPartsPen";
+
+    // BluetoothDevice.ACTION_BATTERY_LEVEL_CHANGED and EXTRA_BATTERY_LEVEL.
+    private static final String ACTION_BATTERY_LEVEL_CHANGED =
+            "android.bluetooth.device.action.BATTERY_LEVEL_CHANGED";
+    private static final String EXTRA_BATTERY_LEVEL =
+            "android.bluetooth.device.extra.BATTERY_LEVEL";
+    private static final String ACTION_TEST =
+            "org.lineageos.pianoparts.action.TEST_PEN_POPUP";
+
+    private static final String CHANNEL_ID = "pen_battery";
+    private static final int NOTIFICATION_ID = 1;
+    private static final int LOW_LEVEL = 20;
+
+    private final Context mContext;
+    private final NotificationManager mNotificationManager;
+    private int mLastLevel = -1;
+
+    PenBatteryNotifier(Context context) {
+        mContext = context;
+        mNotificationManager = context.getSystemService(NotificationManager.class);
+        mNotificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID,
+                context.getString(R.string.pen_battery_channel),
+                NotificationManager.IMPORTANCE_HIGH));
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_BATTERY_LEVEL_CHANGED);
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        context.registerReceiver(this, filter, Context.RECEIVER_EXPORTED);
+
+        // Only the shell (which holds DUMP) can send the test broadcast.
+        context.registerReceiver(this, new IntentFilter(ACTION_TEST),
+                android.Manifest.permission.DUMP, null, Context.RECEIVER_EXPORTED);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (ACTION_TEST.equals(action)) {
+            showLevel(intent.getIntExtra("level", 80), true);
+            return;
+        }
+        BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE,
+                BluetoothDevice.class);
+        if (!isPen(device)) {
+            return;
+        }
+        if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
+            mLastLevel = -1;
+            mNotificationManager.cancel(NOTIFICATION_ID);
+            return;
+        }
+        int level = intent.getIntExtra(EXTRA_BATTERY_LEVEL, -1);
+        if (level < 0 || level > 100) {
+            return;
+        }
+        // Pop up when the pen connects, and again when it runs low.
+        boolean popUp = mLastLevel < 0 || (level <= LOW_LEVEL && mLastLevel > LOW_LEVEL);
+        mLastLevel = level;
+        showLevel(level, popUp);
+    }
+
+    private boolean isPen(BluetoothDevice device) {
+        if (device == null) {
+            return false;
+        }
+        try {
+            String name = device.getName();
+            return name != null && name.toLowerCase(Locale.ROOT).contains("pen");
+        } catch (SecurityException e) {
+            Log.e(TAG, "Cannot read the Bluetooth device name", e);
+            return false;
+        }
+    }
+
+    private void showLevel(int level, boolean popUp) {
+        Notification.Builder builder = new Notification.Builder(mContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_pen)
+                .setContentTitle(mContext.getString(R.string.pen_battery_title))
+                .setContentText(mContext.getString(R.string.pen_battery_level, level))
+                .setProgress(100, level, false)
+                .setOnlyAlertOnce(!popUp);
+        if (popUp) {
+            builder.setTimeoutAfter(5000);
+        }
+        mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+}

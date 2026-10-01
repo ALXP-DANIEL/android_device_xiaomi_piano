@@ -81,6 +81,7 @@ public class PianoPartsApp extends Application {
         if (isReadingMode()) {
             setDisplayFeature(FEATURE_PAPER_MODE, 1);
         }
+        new PenBatteryNotifier(this);
         mSunlightModeController = new SunlightModeController(this);
         mSunlightModeController.setEnabled(isSunlightMode());
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Piano Parts</string>
     <string name="thermal_profile_title">Thermal profile</string>
     <string name="thermal_profile_default">Default</string>
@@ -8,4 +8,7 @@
     <string name="touch_game_mode_title">Game touch</string>
     <string name="reading_mode_title">Reading mode</string>
     <string name="sunlight_mode_title">Sunlight mode</string>
+    <string name="pen_battery_channel">Pen battery</string>
+    <string name="pen_battery_title">Pen</string>
+    <string name="pen_battery_level">Battery <xliff:g id="level" example="80">%1$d</xliff:g>%%</string>
 </resources>
