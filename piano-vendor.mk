@@ -6,6 +6,59 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-4k.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-4k.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-boost.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-boost.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermalbreakboostconfig.xml:$(TARGET_COPY_OUT_ODM)/etc/thermalbreakboostconfig.xml \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-camera.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-camera.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-cclassvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-cclassvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-cgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-cgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-chg-only.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-chg-only.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-class0.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-class0.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-cvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-cvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-4k.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-4k.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-camera.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-camera.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-cclassvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-cclassvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-cgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-cgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-chg-only.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-chg-only.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-class0.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-class0.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-cvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-cvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-huanji.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-huanji.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-jkchess.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-jkchess.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-mgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-mgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-navigation.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-navigation.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-nolimits.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-nolimits.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-normal.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-normal.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-recharge.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-recharge.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-tgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-tgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-videochat.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-videochat.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-video.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-video.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-wclass0.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-wclass0.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-wgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-wgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-winplay.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-winplay.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-wnormal.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-wnormal.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-wvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-wvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-gl-yuanshen.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-gl-yuanshen.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-huanji.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-huanji.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-jkchess.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-jkchess.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-map-global.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-map-global.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-mgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-mgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-navigation.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-navigation.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-nolimits.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-nolimits.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-normal.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-normal.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-recharge.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-recharge.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-region-map.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-region-map.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-tgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-tgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-videochat.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-videochat.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-video.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-video.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-wclass0.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-wclass0.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-wgame.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-wgame.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-winplay.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-winplay.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-wnormal.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-wnormal.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-wvideo.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-wvideo.conf \
+    vendor/xiaomi/piano/proprietary/odm/etc/thermal-yuanshen.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-yuanshen.conf \
+    vendor/xiaomi/piano/proprietary/vendor/etc/thermald-devices.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermald-devices.conf \
+    vendor/xiaomi/piano/proprietary/vendor/etc/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf \
+    vendor/xiaomi/piano/proprietary/vendor/etc/thermal-map.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-map.conf \
     vendor/xiaomi/piano/proprietary/odm/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/cct_pcc.txt:$(TARGET_COPY_OUT_ODM)/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/cct_pcc.txt \
     vendor/xiaomi/piano/proprietary/odm/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/clstc/ClstcLut0.txt:$(TARGET_COPY_OUT_ODM)/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/clstc/ClstcLut0.txt \
     vendor/xiaomi/piano/proprietary/odm/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/clstc/ClstcLut1.txt:$(TARGET_COPY_OUT_ODM)/etc/disp0/mdss_dsi_p81_35_02_0b_dualdsi_dsc_vid/clstc/ClstcLut1.txt \
