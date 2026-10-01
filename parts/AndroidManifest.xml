@@ -4,6 +4,8 @@
     package="org.lineageos.pianoparts"
     android:sharedUserId="android.uid.system">
 
+    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
+
     <application
         android:name=".PianoPartsApp"
         android:label="@string/app_name"

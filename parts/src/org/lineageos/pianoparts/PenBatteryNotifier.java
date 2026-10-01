@@ -17,8 +17,8 @@ import android.util.Log;
 import java.util.Locale;
 
 /**
- * Like HyperOS, pops up the stylus battery level when the pen connects or
- * reports a new level over Bluetooth.
+ * Like HyperOS, slides in the stylus battery level when the pen connects and
+ * when it runs low, and keeps the level in a notification while connected.
  *
  * Testing without a pen:
  *   adb shell am broadcast -a org.lineageos.pianoparts.action.TEST_PEN_POPUP \
@@ -42,14 +42,16 @@ class PenBatteryNotifier extends BroadcastReceiver {
 
     private final Context mContext;
     private final NotificationManager mNotificationManager;
+    private final PenPopup mPopup;
     private int mLastLevel = -1;
 
     PenBatteryNotifier(Context context) {
         mContext = context;
+        mPopup = new PenPopup(context);
         mNotificationManager = context.getSystemService(NotificationManager.class);
         mNotificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID,
                 context.getString(R.string.pen_battery_channel),
-                NotificationManager.IMPORTANCE_HIGH));
+                NotificationManager.IMPORTANCE_LOW));
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_BATTERY_LEVEL_CHANGED);
@@ -102,15 +104,16 @@ class PenBatteryNotifier extends BroadcastReceiver {
     }
 
     private void showLevel(int level, boolean popUp) {
-        Notification.Builder builder = new Notification.Builder(mContext, CHANNEL_ID)
+        if (popUp) {
+            mPopup.show(level);
+        }
+        Notification notification = new Notification.Builder(mContext, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_pen)
                 .setContentTitle(mContext.getString(R.string.pen_battery_title))
                 .setContentText(mContext.getString(R.string.pen_battery_level, level))
                 .setProgress(100, level, false)
-                .setOnlyAlertOnce(!popUp);
-        if (popUp) {
-            builder.setTimeoutAfter(5000);
-        }
-        mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+                .setOnlyAlertOnce(true)
+                .build();
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
 }
