@@ -11,3 +11,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.miui.notch=0 \
     ro.product.mod_device=piano_global
+
+# Let the camera HAL expose its private and logical cameras to MiuiCamera.
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.camera.privapp.list=com.android.camera,org.lineageos.aperture \
+    vendor.camera.aux.packagelist=com.android.camera,org.lineageos.aperture
