@@ -1332,3 +1332,36 @@ PRODUCT_PACKAGES += \
     libmmfp \
     vendor.qti.hardware.fingerprint@1.0 \
     android.hardware.biometrics.fingerprint-V5-ndk.vendor
+
+# Camera ISP striping libraries
+PRODUCT_PACKAGES += \
+    libipebpsstriping170 \
+    libipebpsstriping480 \
+    libipebpsstriping \
+    libofestriping \
+    libopestriping \
+    libtfestriping
+
+# Camera algorithm libraries loaded with dlopen
+PRODUCT_PACKAGES += \
+    libDISAlgos \
+    libHISCppAlgos \
+    libMiMotion \
+    libcom.xiaomi.offlinefeatureintf \
+    libecoengine \
+    libmfGhostDetection \
+    libmis_platform \
+    libmis_plugin_dummy \
+    libmis_plugin_his \
+    libqfdservice \
+    libshadowhook \
+    libsnpe_config \
+    vendor.xiaomi.hardware.aidl.intentaware-V1-impl \
+    vendor.xiaomi.hardware.aidl.intentaware-V1-ndk_platform
+
+# QNN HTP stubs
+PRODUCT_PACKAGES += \
+    libQnnHtpV73CalculatorStub \
+    libQnnHtpV73Stub \
+    libQnnHtpV79CalculatorStub \
+    libQnnHtpV79Stub
