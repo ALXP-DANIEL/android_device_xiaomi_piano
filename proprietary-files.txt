@@ -1568,3 +1568,14 @@ vendor/lib64/libopencv_imgproc_se.so|21c6145230c381bd838a3d81e85f2331947db439
 product/media/wallpaper/wallpaper_BU.jpg
 product/media/wallpaper/wallpaper_DG.jpg
 product/media/wallpaper/wallpaper_TA.jpg
+
+# Keyboard cover firmware (stock odm/etc), read by PianoParts
+odm/etc/Keyboard_Upgrade_0x01_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1260.bin
+odm/etc/Keyboard_Upgrade_0x01_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1294.bin
+odm/etc/Keyboard_Upgrade_0x10_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1260.bin
+odm/etc/Keyboard_Upgrade_0x10_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1294.bin
+odm/etc/Keyboard_Upgrade_0x61_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1260.bin
+odm/etc/Keyboard_Upgrade_0x61_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1294.bin
+odm/etc/TouchPad_Upgrade_0x04_1260.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1260.bin
+odm/etc/TouchPad_Upgrade_0x04_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1294.bin
+odm/etc/TouchPad_Upgrade_0x06_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x06_1294.bin

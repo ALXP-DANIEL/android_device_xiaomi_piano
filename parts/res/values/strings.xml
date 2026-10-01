@@ -14,11 +14,26 @@
     <string name="true_tone_title">True tone</string>
     <string name="bypass_charging_title">Bypass charging</string>
     <string name="keyboard_settings_title">Keyboard cover</string>
-    <string name="keyboard_settings_summary">Backlight and touchpad</string>
+    <string name="keyboard_settings_summary">Backlight, touchpad and firmware</string>
     <string name="keyboard_not_connected">Attach the keyboard cover to change these settings</string>
     <string name="keyboard_backlight_auto_title">Automatic backlight</string>
-    <string name="keyboard_backlight_auto_summary">Follow the screen brightness</string>
+    <string name="keyboard_backlight_auto_summary">Adjust to the ambient light</string>
     <string name="keyboard_backlight_title">Backlight brightness</string>
     <string name="keyboard_touchpad_title">Touchpad</string>
     <string name="keyboard_touchpad_summary">Use the keyboard cover touchpad</string>
+    <string name="keyboard_about_title">Keyboard cover</string>
+    <string name="keyboard_model_title">Model</string>
+    <string name="keyboard_version_title">Keyboard firmware</string>
+    <string name="touchpad_version_title">Touchpad firmware</string>
+    <string name="mcu_version_title">Connector firmware</string>
+    <string name="keyboard_unknown">Unknown</string>
+    <string name="keyboard_update_title">Update keyboard firmware</string>
+    <string name="touchpad_update_title">Update touchpad firmware</string>
+    <string name="keyboard_update_available">Version <xliff:g id="version" example="1294">%1$s</xliff:g> is available</string>
+    <string name="keyboard_update_none">Up to date</string>
+    <string name="keyboard_update_progress">Updating… <xliff:g id="percent" example="40">%1$d</xliff:g>%%</string>
+    <string name="keyboard_update_warning">Firmware version <xliff:g id="version" example="1294">%1$s</xliff:g> from the stock software will be installed. Keep the keyboard cover attached and the tablet charged until it finishes. Interrupting the update can leave the keyboard cover unusable.</string>
+    <string name="keyboard_update_start">Update</string>
+    <string name="keyboard_update_success">The keyboard cover firmware was updated.</string>
+    <string name="keyboard_update_failed">The update failed. Reattach the keyboard cover and try again.</string>
 </resources>

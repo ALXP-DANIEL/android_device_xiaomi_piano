@@ -17,6 +17,8 @@ import android.os.ServiceManager;
 import android.util.Log;
 import android.view.Display;
 
+import org.lineageos.pianoparts.keyboard.PadKeyboardManager;
+
 import vendor.xiaomi.hw.touchfeature.ITouchFeature;
 
 /**
@@ -51,7 +53,6 @@ public class PianoPartsApp extends Application {
 
     private DisplayManager mDisplayManager;
     private SunlightModeController mSunlightModeController;
-    private KeyboardController mKeyboardController;
     private ITouchFeature mTouchFeature;
     private int mRotation = -1;
 
@@ -88,7 +89,7 @@ public class PianoPartsApp extends Application {
             setDisplayFeature(FEATURE_TRUE_TONE, 1);
         }
         new PenBatteryNotifier(this);
-        mKeyboardController = new KeyboardController(this);
+        PadKeyboardManager.get(this).start();
         mSunlightModeController = new SunlightModeController(this);
         mSunlightModeController.setEnabled(isSunlightMode());
     }
@@ -127,10 +128,6 @@ public class PianoPartsApp extends Application {
     void setReadingMode(boolean enabled) {
         getPrefs().edit().putBoolean(KEY_READING_MODE, enabled).apply();
         setDisplayFeature(FEATURE_PAPER_MODE, enabled ? 1 : 0);
-    }
-
-    KeyboardController getKeyboardController() {
-        return mKeyboardController;
     }
 
     boolean isTrueTone() {

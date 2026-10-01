@@ -34,4 +34,45 @@
         android:defaultValue="true"
         app:iconSpaceReserved="false" />
 
+    <PreferenceCategory
+        android:key="keyboard_about"
+        android:title="@string/keyboard_about_title"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="keyboard_model"
+            android:title="@string/keyboard_model_title"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="keyboard_version"
+            android:title="@string/keyboard_version_title"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="touchpad_version"
+            android:title="@string/touchpad_version_title"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="mcu_version"
+            android:title="@string/mcu_version_title"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="keyboard_update"
+            android:title="@string/keyboard_update_title"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="touchpad_update"
+            android:title="@string/touchpad_update_title"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
