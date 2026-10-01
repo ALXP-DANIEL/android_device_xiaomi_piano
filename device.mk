@@ -55,6 +55,10 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Minimal tablet values traced to the pinned stock framework overlay.
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Show the boot animation in landscape, the way the tablet is normally held.
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.bootanim.set_orientation_logical_0=ORIENTATION_90
+
 # Global 304 product/etc/build.prop.
 PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 

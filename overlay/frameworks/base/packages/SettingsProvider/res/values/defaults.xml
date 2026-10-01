@@ -7,4 +7,7 @@
     <!-- Tablet: follow the accelerometer by default so landscape works out of
          the box. -->
     <bool name="def_accelerometer_rotation">true</bool>
+
+    <!-- Landscape (ROTATION_90) when auto-rotate is off. -->
+    <integer name="def_user_rotation">1</integer>
 </resources>
