@@ -1322,3 +1322,13 @@ PRODUCT_PACKAGES += \
     com.xiaomi.immunesystem.hook.mtkhal \
     com.xiaomi.messagecenter \
     immunesystem.db.sqlite3
+
+# Goodix side fingerprint sensor
+PRODUCT_PACKAGES += \
+    fingerprint.goodix \
+    libgf_ca \
+    libgf_hal \
+    libgoodixhwfingerprint \
+    libmmfp \
+    vendor.qti.hardware.fingerprint@1.0 \
+    android.hardware.biometrics.fingerprint-V5-ndk.vendor
