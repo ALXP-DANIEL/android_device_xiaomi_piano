@@ -7784,8 +7784,6 @@ cc_prebuilt_binary {
     soc_specific: true,
 }
 
-}
-
 cc_prebuilt_binary {
     name: "minetd",
     owner: "xiaomi",
@@ -8089,8 +8087,6 @@ cc_prebuilt_library_shared {
     },
     prefer: true,
     soc_specific: true,
-}
-
 }
 
 cc_prebuilt_library_shared {
@@ -8490,8 +8486,6 @@ prebuilt_etc_xml {
     filename_from_src: true,
     sub_dir: "vintf/manifest",
     soc_specific: true,
-}
-
 }
 
 prebuilt_etc {
