@@ -71,6 +71,7 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default \
     libaudiohalvendorextn \
+    libmemunreachable.vendor \
     qtiaudiohalvendorextn
 
 PRODUCT_PACKAGES += \
