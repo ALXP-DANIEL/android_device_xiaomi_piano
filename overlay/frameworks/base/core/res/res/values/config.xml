@@ -15,4 +15,13 @@
     <!-- The smart cover's hall sensor reports SW_LID: sleep when it closes,
          wake when it opens. -->
     <bool name="config_lidControlsSleep">true</bool>
+
+    <!-- QDCM provides native, sRGB and Display P3: offer natural, boosted,
+         saturated and automatic, like the stock color scheme options. -->
+    <integer-array name="config_availableColorModes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
 </resources>
