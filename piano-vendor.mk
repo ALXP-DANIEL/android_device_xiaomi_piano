@@ -1198,7 +1198,6 @@ PRODUCT_PACKAGES += \
     piano_vintf_vendor.qti.hardware.minkipcbinder-service \
     piano_vintf_vendor.qti.hardware.wifi.wifilearner-service \
     piano_vintf_vendor.qti.memory.pasrmanager-service \
-    piano_vintf_vendor.qti.qspa-service \
     piano_vintf_vendor.xiaomi.hardware.aidl.intentaware-service \
     piano_vintf_vendor.xiaomi.hardware.aidlbgservice-service \
     piano_vintf_vendor.xiaomi.hardware.batteryantiaging \
