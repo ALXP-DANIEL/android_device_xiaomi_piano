@@ -64,3 +64,7 @@ PRODUCT_PRODUCT_PROPERTIES += ro.sf.lcd_density=440
 # Shims
 PRODUCT_PACKAGES += \
     libprocessgroup_shim
+
+# Core features (app widgets, device admin, home screen, input methods, ...)
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml
