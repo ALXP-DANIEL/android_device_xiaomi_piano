@@ -46,6 +46,7 @@ class PenBatteryNotifier extends BroadcastReceiver {
     private static final String UEVENT_MATCH = "SUBSYSTEM=power_supply";
     private static final String UEVENT_PEN_SOC = "POWER_SUPPLY_REVERSE_PEN_SOC";
     private static final String UEVENT_PEN_CHG_STATE = "POWER_SUPPLY_REVERSE_PEN_CHG_STATE";
+    private static final String UEVENT_PEN_MAC = "POWER_SUPPLY_REVERSE_PEN_MAC";
 
     private static final String CHANNEL_ID = "pen_battery";
     private static final int NOTIFICATION_ID = 1;
@@ -56,10 +57,16 @@ class PenBatteryNotifier extends BroadcastReceiver {
     private final PenPopup mPopup;
     private int mLastLevel = -1;
     private int mLastChargeState = -1;
+    // Bluetooth address of the pen on the magnet, as the charger reports it.
+    private String mPenAddress;
 
     private final UEventObserver mUEventObserver = new UEventObserver() {
         @Override
         public void onUEvent(UEventObserver.UEvent event) {
+            String mac = normalizeAddress(event.get(UEVENT_PEN_MAC));
+            if (mac != null) {
+                mPenAddress = mac;
+            }
             String soc = event.get(UEVENT_PEN_SOC);
             if (soc == null) {
                 return;
@@ -138,6 +145,10 @@ class PenBatteryNotifier extends BroadcastReceiver {
         if (device == null) {
             return false;
         }
+        // Like stock, the pen is the device whose address the charger reported.
+        if (mPenAddress != null && mPenAddress.equals(normalizeAddress(device.getAddress()))) {
+            return true;
+        }
         try {
             // Third-party styluses: match by name, or by the pointing device class.
             String name = device.getName();
@@ -154,6 +165,15 @@ class PenBatteryNotifier extends BroadcastReceiver {
             Log.e(TAG, "Cannot read the Bluetooth device name", e);
             return false;
         }
+    }
+
+    // Compare addresses as bare hex, whatever separators the driver uses.
+    private static String normalizeAddress(String address) {
+        if (address == null) {
+            return null;
+        }
+        String hex = address.replaceAll("[^0-9A-Fa-f]", "").toUpperCase(Locale.ROOT);
+        return hex.length() == 12 && !hex.equals("000000000000") ? hex : null;
     }
 
     private static int parseInt(String value, int fallback) {
