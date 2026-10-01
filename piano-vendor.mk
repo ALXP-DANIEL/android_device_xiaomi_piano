@@ -1110,7 +1110,6 @@ PRODUCT_PACKAGES += \
     vendor.xiaomi.hardware.fbo-service \
     vendor.xiaomi.hardware.mimd2-service \
     vendor.xiaomi.hardware.miperf2-service \
-    vendor.xiaomi.hardware.videoservice-service \
     minetd \
     qesdk-secmanager \
     qsap_dcfd \
@@ -1127,7 +1126,6 @@ PRODUCT_PACKAGES += \
     libbaa_common \
     libminkipcbinder_vendor \
     libqsh_ble_pb \
-    libvideoserviceutils \
     vendor.qti.hardware.minkipcbinder-V1-ndk \
     vendor.xiaomi.aidl.minet-V1-ndk \
     vendor.xiaomi.aidl.miwill-V1-ndk \
@@ -1171,8 +1169,7 @@ PRODUCT_COPY_FILES += \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.cld_aidl-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.cld_aidl-service.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.fbo-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.fbo-service.rc \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.mimd2-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.mimd2-service.rc \
-    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.miperf2-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.miperf2-service.rc \
-    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.videoservice-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.videoservice-service.rc
+    vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.xiaomi.hardware.miperf2-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.xiaomi.hardware.miperf2-service.rc
 
 # VINTF fragments (Global 304) installed as prebuilt_etc_xml.
 PRODUCT_PACKAGES += \
@@ -1194,8 +1191,7 @@ PRODUCT_PACKAGES += \
     piano_vintf_vendor.xiaomi.hardware.aidlbgservice-service \
     piano_vintf_vendor.xiaomi.hardware.batteryantiaging \
     piano_vintf_vendor.xiaomi.hardware.mimd2-service \
-    piano_vintf_vendor.xiaomi.hardware.miperf2-service \
-    piano_vintf_vendor.xiaomi.hardware.videoservice-service
+    piano_vintf_vendor.xiaomi.hardware.miperf2-service
 
 # Stock XML with a malformed declaration; installed without the xmllint check.
 PRODUCT_PACKAGES += \
@@ -1205,3 +1201,9 @@ PRODUCT_PACKAGES += \
     piano_camera_snsc_enhance_motiontuning \
     piano_camera_snsc_motiontuning \
     piano_camera_snsc_noface_motiontuning
+
+# Seccomp policies for stock QTI daemons (Global 304).
+PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qsap_dcfd.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qsap_dcfd.policy \
+    vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qsap_sensors.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qsap_sensors.policy \
+    vendor/xiaomi/piano/proprietary/vendor/etc/seccomp_policy/qwesd@2.0.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/qwesd@2.0.policy
