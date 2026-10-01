@@ -67,7 +67,7 @@ include $(DEVICE_PATH)/BoardConfigAvb.mk
 
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/vintf/manifest.xml
 
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/configs/config.fs
 
