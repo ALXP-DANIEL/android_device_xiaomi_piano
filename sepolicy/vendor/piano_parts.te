@@ -1,0 +1,6 @@
+# PianoParts runs as system_app: it sends the screen rotation to TouchFeature
+# and switches the mi_thermald profile.
+hal_client_domain(system_app, hal_touchfeature_xiaomi)
+binder_call(system_app, hal_touchfeature_xiaomi_default)
+allow system_app sysfs_thermal:dir search;
+allow system_app sysfs_thermal:file rw_file_perms;

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <string name="app_name">Piano Parts</string>
+    <string name="thermal_profile_title">Thermal profile</string>
+    <string name="thermal_profile_default">Default</string>
+    <string name="thermal_profile_game">Game</string>
+</resources>

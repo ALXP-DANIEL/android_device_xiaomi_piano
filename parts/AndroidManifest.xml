@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.pianoparts"
+    android:sharedUserId="android.uid.system">
+
+    <application
+        android:name=".PianoPartsApp"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:directBootAware="true">
+
+        <service
+            android:name=".ThermalProfileTileService"
+            android:icon="@drawable/ic_thermal_tile"
+            android:label="@string/thermal_profile_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

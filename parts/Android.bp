@@ -1,0 +1,19 @@
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "PianoParts",
+    srcs: [
+        "src/**/*.java",
+        "aidl/**/*.aidl",
+    ],
+    aidl: {
+        local_include_dirs: ["aidl"],
+    },
+    resource_dirs: ["res"],
+    certificate: "platform",
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+}
