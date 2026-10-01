@@ -75,6 +75,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml
 
+# USB (UVC) webcams, like the stock external camera provider. Its config is
+# the stock vendor/etc/external_camera_config.xml.
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider-V1-external-service
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml
+
 # MiuiCamera (optional, from vendor/xiaomi/piano-miuicamera)
 $(call inherit-product-if-exists, vendor/xiaomi/piano-miuicamera/miuicamera.mk)
 
