@@ -44,6 +44,12 @@ PRODUCT_VENDOR_PROPERTIES += \
     vendor.gatekeeper.disable_spu=true \
     vendor.gatekeeper.is_security_level_spu=0
 
+# China 307 vendor/build.prop: the panel is mounted rotated; the NVT touch
+# grid is portrait.
+PRODUCT_VENDOR_PROPERTIES += \
+    debug.sf.ignore_hwc_physical_display_orientation=true \
+    ro.surface_flinger.primary_display_orientation=ORIENTATION_270
+
 # Stock touchfeature init is installed by the adapted common vendor list.
 
 # Minimal tablet values traced to the pinned stock framework overlay.
