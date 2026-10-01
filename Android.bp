@@ -8600,26 +8600,6 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
-    name: "camera.device-external-impl_vendor_lib64",
-    owner: "xiaomi",
-    target: {
-        android_arm64: {
-            srcs: [
-                "proprietary/vendor/lib64/camera.device-external-impl.so",
-            ],
-        },
-    },
-    compile_multilib: "64",
-    check_elf_files: false,
-    strip: {
-        none: true,
-    },
-    prefer: true,
-    stem: "camera.device-external-impl",
-    soc_specific: true,
-}
-
-cc_prebuilt_library_shared {
     name: "camx.provider-impl",
     owner: "xiaomi",
     target: {
@@ -9661,46 +9641,6 @@ cc_prebuilt_library_shared {
         none: true,
     },
     prefer: true,
-    soc_specific: true,
-}
-
-cc_prebuilt_library_shared {
-    name: "vendor.qti.hardware.camera.aon-V1-ndk_vendor_lib64",
-    owner: "xiaomi",
-    target: {
-        android_arm64: {
-            srcs: [
-                "proprietary/vendor/lib64/vendor.qti.hardware.camera.aon-V1-ndk.so",
-            ],
-        },
-    },
-    compile_multilib: "64",
-    check_elf_files: false,
-    strip: {
-        none: true,
-    },
-    prefer: true,
-    stem: "vendor.qti.hardware.camera.aon-V1-ndk",
-    soc_specific: true,
-}
-
-cc_prebuilt_library_shared {
-    name: "vendor.qti.hardware.camera.offlinecamera-V1-ndk_vendor_lib64",
-    owner: "xiaomi",
-    target: {
-        android_arm64: {
-            srcs: [
-                "proprietary/vendor/lib64/vendor.qti.hardware.camera.offlinecamera-V1-ndk.so",
-            ],
-        },
-    },
-    compile_multilib: "64",
-    check_elf_files: false,
-    strip: {
-        none: true,
-    },
-    prefer: true,
-    stem: "vendor.qti.hardware.camera.offlinecamera-V1-ndk",
     soc_specific: true,
 }
 

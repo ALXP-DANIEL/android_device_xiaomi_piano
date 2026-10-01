@@ -1225,7 +1225,6 @@ PRODUCT_COPY_FILES += \
 
 # Camera runtime components loaded with dlopen
 PRODUCT_PACKAGES += \
-    camera.device-external-impl_vendor_lib64 \
     camx.provider-impl \
     com.qti.chiusecaseselector \
     com.qti.feature2.afbrckt \
@@ -1281,8 +1280,8 @@ PRODUCT_PACKAGES += \
     libmmcamera_mfnr_t4 \
     libmmcamera_pdpc \
     libqvrcamera_client.qti \
-    vendor.qti.hardware.camera.aon-V1-ndk_vendor_lib64 \
-    vendor.qti.hardware.camera.offlinecamera-V1-ndk_vendor_lib64 \
+    vendor.qti.hardware.camera.aon-V1-ndk.vendor \
+    vendor.qti.hardware.camera.offlinecamera-V1-ndk.vendor \
     vendor.xiaomi.hardware.camera.companion-impl \
     vendor.xiaomi.hardware.camera.companion-V1-ndk \
     vendor.xiaomi.sensor.camera-V1-ndk \
