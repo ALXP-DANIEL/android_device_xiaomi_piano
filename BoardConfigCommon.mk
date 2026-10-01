@@ -81,6 +81,9 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 include vendor/xiaomi/sm8750-common/BoardConfigVendor.mk
 
+# VINTF: stock services whose fragments are not shipped as blobs.
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/configs/vintf/manifest_xiaomi.xml
+
 # VINTF: framework compatibility matrices for the stock Xiaomi and QTI HALs
 # (manifests come from the stock vendor fragments).
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
