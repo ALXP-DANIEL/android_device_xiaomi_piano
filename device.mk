@@ -75,3 +75,7 @@ PRODUCT_COPY_FILES += \
 
 # MiuiCamera (optional, from vendor/xiaomi/piano-miuicamera)
 $(call inherit-product-if-exists, vendor/xiaomi/piano-miuicamera/miuicamera.mk)
+
+# Keyboard cover: do not rotate the arrow keys with the display.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/idc/Vendor_15d9_Product_00a3.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Vendor_15d9_Product_00a3.idc
