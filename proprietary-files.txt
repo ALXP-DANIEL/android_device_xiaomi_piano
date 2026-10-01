@@ -1277,3 +1277,11 @@ vendor/lib64/com.xiaomi.immunesystem.hook.mivi.so|6d30179bca8db98c10f410931fc20f
 vendor/lib64/com.xiaomi.immunesystem.hook.mtkhal.so|4d0a7be22633e72ee3aea8f60dc1c8f035667814
 vendor/lib64/com.xiaomi.messagecenter.so|8a35527896a10e28a9d0541d1415e9ca4d92e376
 vendor/lib64/immunesystem.db.sqlite3.so|52dea5cf20bc65795732eef581828ee7fafadf04
+
+# Goodix side fingerprint sensor (Global 304)
+odm/lib64/hw/fingerprint.goodix.so|3dd9382051844138d021b3391b0718467532edb2
+odm/lib64/libgf_ca.so|6e85d22ead3d50d4ca49644019ff039bd7f7b40d
+odm/lib64/libgf_hal.so|eb18a6de330bbe785d2368c82f4faeda529ef866
+odm/lib64/libgoodixhwfingerprint.so|86a54bdd2ee524390379719d4df76921cc64e717
+vendor/lib64/libmmfp.so|e3c561cad1d855d78f56e9701b9b663752601b38
+vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so|bbd56cce435a40d5453ec06f835d11fbce8a074e
