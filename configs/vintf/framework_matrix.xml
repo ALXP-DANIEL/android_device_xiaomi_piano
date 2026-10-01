@@ -80,4 +80,76 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.dolby.dvs</name>
+        <version>1</version>
+        <interface>
+            <name>IDvs</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.aek</name>
+        <version>1</version>
+        <interface>
+            <name>IAEKService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.cld_aidl</name>
+        <version>1</version>
+        <interface>
+            <name>ICld</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.fbo</name>
+        <version>1</version>
+        <interface>
+            <name>IFbo</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.keyboardnanoapp_aidl</name>
+        <version>1</version>
+        <interface>
+            <name>IKeyboardNanoapp_aidl</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.mikeybag</name>
+        <version>1</version>
+        <interface>
+            <name>IMiKeyBagService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.mimd2</name>
+        <version>1</version>
+        <interface>
+            <name>IMimd</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.miperf2</name>
+        <version>1</version>
+        <interface>
+            <name>IMiPerf</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.videoservice</name>
+        <version>7</version>
+        <interface>
+            <name>IVideoService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
 </compatibility-matrix>
