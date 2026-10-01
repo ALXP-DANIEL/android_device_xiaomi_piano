@@ -12,17 +12,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.UEventObserver;
 import android.util.Log;
 
 import java.util.Locale;
 
 /**
- * Like HyperOS, slides in the stylus battery level when the pen connects and
- * when it runs low, and keeps the level in a notification while connected.
+ * Like HyperOS, shows the stylus battery popup when the pen snaps onto the
+ * magnetic charger and when it runs low, and keeps the level in a quiet
+ * notification while the pen is connected.
+ *
+ * The level comes from the charger's power_supply uevent
+ * (POWER_SUPPLY_REVERSE_PEN_SOC, as stock miui-services reads it) or from the
+ * pen's Bluetooth battery report.
  *
  * Testing without a pen:
  *   adb shell am broadcast -a org.lineageos.pianoparts.action.TEST_PEN_POPUP \
- *       --ei level 80
+ *       --ei level 80 --ez charging true
  */
 class PenBatteryNotifier extends BroadcastReceiver {
 
@@ -36,6 +42,10 @@ class PenBatteryNotifier extends BroadcastReceiver {
     private static final String ACTION_TEST =
             "org.lineageos.pianoparts.action.TEST_PEN_POPUP";
 
+    private static final String UEVENT_MATCH = "SUBSYSTEM=power_supply";
+    private static final String UEVENT_PEN_SOC = "POWER_SUPPLY_REVERSE_PEN_SOC";
+    private static final String UEVENT_PEN_CHG_STATE = "POWER_SUPPLY_REVERSE_PEN_CHG_STATE";
+
     private static final String CHANNEL_ID = "pen_battery";
     private static final int NOTIFICATION_ID = 1;
     private static final int LOW_LEVEL = 20;
@@ -44,6 +54,23 @@ class PenBatteryNotifier extends BroadcastReceiver {
     private final NotificationManager mNotificationManager;
     private final PenPopup mPopup;
     private int mLastLevel = -1;
+    private int mLastChargeState = -1;
+
+    private final UEventObserver mUEventObserver = new UEventObserver() {
+        @Override
+        public void onUEvent(UEventObserver.UEvent event) {
+            String soc = event.get(UEVENT_PEN_SOC);
+            if (soc == null) {
+                return;
+            }
+            int chargeState = parseInt(event.get(UEVENT_PEN_CHG_STATE), 0);
+            int level = parseInt(soc, -1);
+            // The popup appears when the pen starts charging on the magnet.
+            boolean attached = chargeState > 0 && mLastChargeState <= 0;
+            mLastChargeState = chargeState;
+            onLevel(level, chargeState > 0, attached);
+        }
+    };
 
     PenBatteryNotifier(Context context) {
         mContext = context;
@@ -61,13 +88,16 @@ class PenBatteryNotifier extends BroadcastReceiver {
         // Only the shell (which holds DUMP) can send the test broadcast.
         context.registerReceiver(this, new IntentFilter(ACTION_TEST),
                 android.Manifest.permission.DUMP, null, Context.RECEIVER_EXPORTED);
+
+        mUEventObserver.startObserving(UEVENT_MATCH);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (ACTION_TEST.equals(action)) {
-            showLevel(intent.getIntExtra("level", 80), true);
+            mPopup.show(intent.getIntExtra("level", 80),
+                    intent.getBooleanExtra("charging", true));
             return;
         }
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE,
@@ -81,13 +111,26 @@ class PenBatteryNotifier extends BroadcastReceiver {
             return;
         }
         int level = intent.getIntExtra(EXTRA_BATTERY_LEVEL, -1);
+        onLevel(level, false, mLastLevel < 0);
+    }
+
+    private void onLevel(int level, boolean charging, boolean attached) {
         if (level < 0 || level > 100) {
             return;
         }
-        // Pop up when the pen connects, and again when it runs low.
-        boolean popUp = mLastLevel < 0 || (level <= LOW_LEVEL && mLastLevel > LOW_LEVEL);
+        boolean wentLow = level <= LOW_LEVEL && mLastLevel > LOW_LEVEL;
         mLastLevel = level;
-        showLevel(level, popUp);
+        if (attached || wentLow) {
+            mPopup.show(level, charging);
+        }
+        Notification notification = new Notification.Builder(mContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_pen)
+                .setContentTitle(mContext.getString(R.string.pen_battery_title))
+                .setContentText(mContext.getString(R.string.pen_battery_level, level))
+                .setProgress(100, level, false)
+                .setOnlyAlertOnce(true)
+                .build();
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
 
     private boolean isPen(BluetoothDevice device) {
@@ -103,17 +146,14 @@ class PenBatteryNotifier extends BroadcastReceiver {
         }
     }
 
-    private void showLevel(int level, boolean popUp) {
-        if (popUp) {
-            mPopup.show(level);
+    private static int parseInt(String value, int fallback) {
+        if (value == null) {
+            return fallback;
         }
-        Notification notification = new Notification.Builder(mContext, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_pen)
-                .setContentTitle(mContext.getString(R.string.pen_battery_title))
-                .setContentText(mContext.getString(R.string.pen_battery_level, level))
-                .setProgress(100, level, false)
-                .setOnlyAlertOnce(true)
-                .build();
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            return fallback;
+        }
     }
 }
