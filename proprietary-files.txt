@@ -1105,7 +1105,6 @@ vendor/bin/hw/vendor.xiaomi.hardware.cld_aidl-service|997922c99f75aa8caf8de511c5
 vendor/bin/hw/vendor.xiaomi.hardware.fbo-service|8cadb64fc5d6d82f8ef6589ddc3eb4e2ed303bf1
 vendor/bin/hw/vendor.xiaomi.hardware.mimd2-service|3469c822262c9002b0bdbab2ac6f224613fb3872
 vendor/bin/hw/vendor.xiaomi.hardware.miperf2-service|10ea3aba2509fe87713710dbcce906d951bb356e
-vendor/bin/hw/vendor.xiaomi.hardware.videoservice-service|c17555c03ef3cf1fac8afdb42252f7304f0b4479
 vendor/bin/minetd|8d207f3fe863d18267dd236d080954b0e88be34e
 vendor/bin/qesdk-secmanager|9374d87ab08ce57161d86ab84a02bb41d36cfb4e
 vendor/bin/qsap_dcfd|b3e52ee06a511c0b6da29ddca28b298ca59e7f95
@@ -1132,7 +1131,6 @@ vendor/etc/init/vendor.xiaomi.hardware.cld_aidl-service.rc|0542578b7670f511821ba
 vendor/etc/init/vendor.xiaomi.hardware.fbo-service.rc|2f76ed7dab66800a2420944c050bc1f96824ff17
 vendor/etc/init/vendor.xiaomi.hardware.mimd2-service.rc|b60120f65e6a2fc1e7c67ebdf904ff842474009c
 vendor/etc/init/vendor.xiaomi.hardware.miperf2-service.rc|a6e7105414ee6e6301b5031081ccdc8fca1dcd85
-vendor/etc/init/vendor.xiaomi.hardware.videoservice-service.rc|8db9025c0e15b29ff411f19d78f194b21e8483c0
 vendor/etc/vintf/manifest/cacert-saidl.xml|af590798b4f52238fb81ce2d14ef1a7b0546b6d3
 vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.cld_aidl.xml|2560b8a4ed294a5bc457f3735823d6fcf2a321fe
 vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.fbo.xml|42e83679145f21e02eb7f3d035027c68157847c3
@@ -1145,7 +1143,6 @@ vendor/etc/vintf/manifest/vendor.xiaomi.hardware.aidlbgservice-service.xml|2b13e
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.batteryantiaging.xml|02e0c125f4a0be5b439187c6a061451da66dbe12
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.mimd2-service.xml|1543e90e2a21da1926f54a3ed73921c5f6010b2c
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.miperf2-service.xml|75d7acde4f16249cc78467c4529b8c284f0005fb
-vendor/etc/vintf/manifest/vendor.xiaomi.hardware.videoservice-service.xml|106d126d3b35ca908969df4a4f35ea5b9c6d9368
 vendor/lib64/hw/vendor.qti.memory.pasrmanager-impl.so|1877cc0de911482269d20d23f42ca3b571700142
 vendor/lib64/libDcfHalFramework.so|94b0b4729fd6fd6510b79a9b030e3d3050ccbc17
 vendor/lib64/libDcfHalLogger.so|7aba2f7f41d0612cee2d33f804cb5b13a1127eb6
@@ -1158,7 +1155,6 @@ vendor/lib64/libbaa_LowSohFvDown.so|678884d02b355aa70a8812485061c84f0dedede5
 vendor/lib64/libbaa_common.so|e569e26a3d4b1dd78f6b9424c30e48414cd157f1
 vendor/lib64/libminkipcbinder_vendor.so|0796d8854268dd65cffa96a31b7435ef8a5416f6
 vendor/lib64/libqsh_ble_pb.so|ba5187b8bff08ee6a5d3553ca89f7e4f1eedbf12
-vendor/lib64/libvideoserviceutils.so|e4bf22e0366b382845e629803353a9924d7e8e16
 vendor/lib64/vendor.qti.hardware.minkipcbinder-V1-ndk.so|720af46f511a6328ea117e04db060464a782dc5c
 vendor/lib64/vendor.xiaomi.aidl.minet-V1-ndk.so|b6778840e8b8d88793f4d2b910a71526227d8cf9
 vendor/lib64/vendor.xiaomi.aidl.miwill-V1-ndk.so|c4f0342fcaa00f20f80c9edca866c78926abd239
@@ -1171,3 +1167,8 @@ vendor/lib64/vendor.xiaomi.hardware.keyboardnanoapp_aidl-V1-ndk.so|102c330978dc6
 vendor/lib64/vendor.xiaomi.hardware.mikeybag-V1-ndk.so|f4215942721d6d472f06f1c3303cd2fa3bdc22a8
 vendor/lib64/vendor.xiaomi.hardware.mimd2-V1-ndk.so|8161e55ea7ea9f5343293f636a1f4364de256a72
 vendor/lib64/vendor.xiaomi.hardware.miperf2-V1-ndk.so|a185632b10469486a3a00d853faeeb3f4b68ace0
+
+# Seccomp policies (Global 304)
+vendor/etc/seccomp_policy/qsap_dcfd.policy|d7cc9144b6d4c82e16052b1c7b126a2e8a1b9e94
+vendor/etc/seccomp_policy/qsap_sensors.policy|8fcd82551b6a9445d9c9b04d9a45c306c55d30e4
+vendor/etc/seccomp_policy/qwesd@2.0.policy|769655c4e732d063f61aa789c21c63f35c2f70df
