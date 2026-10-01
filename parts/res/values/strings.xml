@@ -7,4 +7,5 @@
     <string name="thermal_profile_game">Game</string>
     <string name="touch_game_mode_title">Game touch</string>
     <string name="reading_mode_title">Reading mode</string>
+    <string name="sunlight_mode_title">Sunlight mode</string>
 </resources>
