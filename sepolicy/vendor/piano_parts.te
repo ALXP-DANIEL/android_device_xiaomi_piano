@@ -10,3 +10,6 @@ allow system_app self:netlink_kobject_uevent_socket { create bind read setopt ge
 # Bypass charging tile: the smart_chg node.
 allow system_app vendor_sysfs_qcom_battery:dir search;
 allow system_app vendor_sysfs_qcom_battery:file rw_file_perms;
+# Keyboard tiles: send feature commands to the keyboard nanoapp HAL.
+allow system_app hal_keyboardnanoapp_service:service_manager find;
+binder_call(system_app, nanoapp_aidl)
