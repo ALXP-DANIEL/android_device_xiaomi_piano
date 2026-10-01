@@ -52,7 +52,7 @@ type vendor_dtool_exec, exec_type, file_type, vendor_file_type;
 type vendor_fbo_prop, property_type;
 type vendor_ffu_prop, property_type;
 type vendor_hal_fingerprint_dtool1_service, service_manager_type;
-type vendor_hal_fingerprint_hwservice_xiaomi;
+type vendor_hal_fingerprint_hwservice_xiaomi, hwservice_manager_type;
 type vendor_mfp-daemon, domain;
 type vendor_minetd_prop, property_type;
 type vendor_miwild_prop, property_type;
@@ -346,9 +346,6 @@ allow hal_videoservice_default hal_videoservice_default_exec:file { read getattr
 allow hal_videoservice_default servicemanager:binder { call transfer };
 allow hal_videoservice_default servicemanager:fd { use };
 allow hal_videoservice_default hal_mediaeventgatherservice_service:service_manager { find };
-allow hal_videoservice_default hal_mediaeventgatherservice_service:binder { call transfer };
-allow hal_videoservice_default hal_mediaeventgatherservice_service:fd { use };
-allow hal_videoservice_default hal_mediaeventgatherservice_service:binder { transfer };
 allow hal_miwillservice_default hal_miwillservice_default_exec:file { read getattr map execute open entrypoint };
 allow hal_miwillservice_default servicemanager:binder { call transfer };
 allow hal_miwillservice_default sysfs:file { read write open };
