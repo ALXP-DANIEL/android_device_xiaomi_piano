@@ -629,6 +629,10 @@ PRODUCT_PACKAGES += \
     libcneqmiutils \
     libcodec2_soft_ac4dec \
     libcodec2_soft_ddpdec \
+    lib_AIVC_decoder \
+    lib_AIVC_encoder \
+    libcodec2_soft_aivc_dec \
+    libcodec2_soft_aivc_enc \
     libcodec2_soft_mihc_dec \
     libcodec2_soft_mihc_enc \
     libcodec2_store_dolby \
