@@ -6,6 +6,54 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/xiaomi/piano
 
 PRODUCT_COPY_FILES += \
+    vendor/xiaomi/piano/proprietary/odm/lib/rfsa/adsp/libmialgo_tracker_cdsp_skel.so:$(TARGET_COPY_OUT_ODM)/lib/rfsa/adsp/libmialgo_tracker_cdsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libCalculator_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libCalculator_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libDspIOProxy_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libDspIOProxy_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libSnpeHtpV73Skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libSnpeHtpV73Skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libSnpeHtpV79Skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libSnpeHtpV79Skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libadsp_jpege_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libadsp_jpege_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libarc_htp_driver_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libarc_htp_driver_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libdsp_streamer_binning.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libdsp_streamer_binning.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libhalide_hexagon_remote_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libhalide_hexagon_remote_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libhme_dsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libhme_dsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libmctfengine_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libmctfengine_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libmialgo_basic_cdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libmialgo_basic_cdsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libmialgo_rfs_cdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libmialgo_rfs_cdsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib/rfsa/adsp/libmlawbpostproc_dsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/rfsa/adsp/libmlawbpostproc_dsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libIMTCppAlgos.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libIMTCppAlgos.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libQnnDsp.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libQnnDsp.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libQnnDspNetRunExtensions.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libQnnDspNetRunExtensions.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libmialgo.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libmialgo.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libmialgoengine_custom.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libmialgoengine_custom.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libswregistrationalgo.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libswregistrationalgo.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libVppAisQnnHtp.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libVppAisQnnHtp.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libVppFrcQnnHtp.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libVppFrcQnnHtp.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libapn_dsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libapn_dsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libbitml_nsp_73na_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libbitml_nsp_73na_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libbitml_nsp_79na_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libbitml_nsp_79na_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libbitml_nsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libbitml_nsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libdpp_engine_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libdpp_engine_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libdspCV_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libdspCV_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libevadsp.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libevadsp.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libfastcvadsp.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libfastcvadsp.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libfastcvdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libfastcvdsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libhdr_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libhdr_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libmobilenet_dsp_frc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libmobilenet_dsp_frc.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libmobilenet_dsp_frc_networks.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libmobilenet_dsp_frc_networks.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libnsp_ipc_cdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libnsp_ipc_cdsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libnspextensionsuperresolutionprovider.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libnspextensionsuperresolutionprovider.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libqsegnetengine_dsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libqsegnetengine_dsp_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libscveT2T_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libscveT2T_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_ais.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_ais.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_ais_networks.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_ais_networks.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_frc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_frc.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_gfrc_networks.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_gfrc_networks.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_svc_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_svc_skel.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpp_vqa_networks.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpp_vqa_networks.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libvpt_action_recognition.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libvpt_action_recognition.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/rfs/dsp/libworker_pool.so:$(TARGET_COPY_OUT_VENDOR)/lib64/rfs/dsp/libworker_pool.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libSNPESample.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libSNPESample.so \
+    vendor/xiaomi/piano/proprietary/vendor/lib64/libopencl_loader.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libopencl_loader.so \
     vendor/xiaomi/piano/proprietary/vendor/etc/media_profiles_piano.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_piano.xml \
     vendor/xiaomi/piano/proprietary/vendor/etc/init/vendor.qti.smp2p.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.smp2p.rc \
     vendor/xiaomi/piano/proprietary/odm/etc/thermal-4k.conf:$(TARGET_COPY_OUT_ODM)/etc/thermal-4k.conf \
