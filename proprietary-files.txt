@@ -178,7 +178,7 @@ odm/etc/acdbdata/Mi/model_eai_int8_8750__w8_b8_utts2000_v2820_0904.eai|8f08d84e6
 odm/etc/audio-test-config|c2049d11f6a451e49923bc2b2a7bc4048a762f58
 odm/etc/audio/RES1K.wav|8924d588e520eaabd344e09e180b97218ccb144a
 odm/etc/audio/audio_lowpower_app_list.xml|a71d476ce9c29cd5faaaa8899264a23338ca4129
-odm/etc/audio/audio_module_config_primary.xml|03b61e0daab2dd30bf67ad7b0c868fafdd61f2e2
+odm/etc/audio/audio_module_config_primary.xml|03b61e0daab2dd30bf67ad7b0c868fafdd61f2e2|0e47613a3676044646aab6873759e423fdea1eea
 odm/etc/audio/back_rcv.wav|89b72f02df8f0befd7adba107762245b85767b68
 odm/etc/audio/bl-spk.wav|dc33ecb17b626e8079bff0fe026385b89a87f30d
 odm/etc/audio/bl-spk_hp.wav|275e33bb92f539e027a3716b3bc604cfa587ab50
