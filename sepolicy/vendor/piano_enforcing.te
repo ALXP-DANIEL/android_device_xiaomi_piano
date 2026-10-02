@@ -71,3 +71,18 @@ dontaudit vendor_cacertservice_app system_data_file:file { create open rename se
 dontaudit { platform_app system_app } { vendor_audio_prop vendor_default_prop }:file { getattr map open read };
 dontaudit platform_app proc_pressure_io:file { getattr open read };
 dontaudit system_server vendor_file:dir read;
+
+# Third pass (enforcing soak on build 24, 2026-10-02).
+# The camera HAL caches its zoom remap table in /data/misc/cameraserver, a core
+# directory that vendor code may not write; it recomputes the table instead.
+dontaudit hal_camera_default system_data_file:dir { write add_name remove_name };
+dontaudit hal_camera_default system_data_file:file { create write setattr unlink rename };
+# A property without a vendor label: the read falls back to the default.
+dontaudit hal_camera_default system_prop:file { getattr map open read };
+# The perf HAL looks for mediacodec threads to boost; Xiaomi's probing only.
+dontaudit vendor_hal_perf_default mediacodec:dir search;
+dontaudit vendor_hal_perf_default mediacodec:file { getattr open read };
+dontaudit vendor_hal_perf_default kernel:process setsched;
+dontaudit permissioncontroller_app vendor_hal_qspmhal_service:service_manager find;
+dontaudit permissioncontroller_app vendor_hal_qspmhal_default:binder call;
+dontaudit mediacodec { adaptive_haptics_prop ab_update_gki_prop }:file { getattr map open };
