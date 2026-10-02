@@ -64,10 +64,14 @@
     <!-- Global stock: offer the microphone privacy toggle. -->
     <bool name="config_supportsMicToggle">true</bool>
 
-    <!-- Like the HyperOS workstation mode: let the tablet screen host
-         Android desktop windowing (resizable, floating app windows). -->
+    <!-- Android desktop windowing (floating, resizable app windows), the
+         counterpart of the HyperOS workstation mode. This is the documented
+         OEM configuration: the tablet screen can host desktops, and apps
+         stay full screen until the user enters the desktop from the app
+         header. -->
+    <bool name="config_isDesktopModeSupported">true</bool>
     <bool name="config_canInternalDisplayHostDesktops">true</bool>
-    <bool name="config_isDesktopModeDevOptionSupported">true</bool>
+    <bool name="config_enterDesktopByDefaultOnFreeformDisplay">false</bool>
 
     <!-- MiuiCamera finishes itself in a multi-window or freeform window, so
          keep it full screen in desktop mode, as HyperOS does. -->
