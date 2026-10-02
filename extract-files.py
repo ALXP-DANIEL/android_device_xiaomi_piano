@@ -138,7 +138,7 @@ blob_fixups: blob_fixups_user_type = {
     # Persist is mounted during fs; QSEE must not start in the earlier init phase.
     'vendor/etc/init/qseecomd.rc': blob_fixup()
         .regex_replace(r'on init\n    start vendor.qseecomd',
-                       'on post-fs-data\n    start vendor.qseecomd')
+                       'on post-fs\n    start vendor.qseecomd')
         .regex_replace(r'    class core\n', '    class core\n    disabled\n'),
     # Haotian-specific HDR binary patches are excluded for China 307 piano.
     'odm/bin/hw/mfp-daemon': blob_fixup()
