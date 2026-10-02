@@ -1,0 +1,13 @@
+{
+  "scope": "Regular files and resolvable file symlinks in supplied vendor/odm dump",
+  "warning": "Inventory states do not prove installed feature support or ABI compatibility",
+  "stock_file_count": 4726,
+  "states": {
+    "unselected-review": 1520,
+    "selected-present": 3046,
+    "source-reference-review": 160
+  },
+  "generated_build_reports_supplied": true,
+  "paths_found_in_generated_build": 3681,
+  "unpinned_manifest_inputs": []
+}

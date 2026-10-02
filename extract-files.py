@@ -53,5 +53,5 @@ if __name__ == '__main__':
             name, expected, *_ = line.split('|')
             path = source / name.lstrip('-').split(';')[0].split(':')[0]
             if not path.is_file() or hashlib.sha1(path.read_bytes()).hexdigest() != expected:
-                raise SystemExit(f'Missing or mismatched Global 304 input: {name}')
+                raise SystemExit(f'Missing or mismatched pinned stock input: {name}')
     ExtractUtils.device_with_common(module, 'sm8750-common', module.vendor).run()

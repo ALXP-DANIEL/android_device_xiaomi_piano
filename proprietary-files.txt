@@ -1564,18 +1564,20 @@ vendor/lib64/libSEGModel.so|8100a0f4d5a026caae929dca2e1aba7111821bc1
 vendor/lib64/libopencv_core_se.so|68487ae61fc9a50a44cc8dc363805d846fcd63a3
 vendor/lib64/libopencv_imgproc_se.so|21c6145230c381bd838a3d81e85f2331947db439
 
-# Wallpapers (stock picks the one matching the body colour)
-product/media/wallpaper/wallpaper_BU.jpg
-product/media/wallpaper/wallpaper_DG.jpg
-product/media/wallpaper/wallpaper_TA.jpg
+# Wallpapers: Global 303 product image (Global 304 product not available).
+# Stock picks the one matching the body colour; stage these three inputs
+# alongside the Global 304 vendor/odm dump for offline re-extraction.
+product/media/wallpaper/wallpaper_BU.jpg|fb7d9e582f38259e60ed7c972354e5c9f76b43e9
+product/media/wallpaper/wallpaper_DG.jpg|624360f94acb94f7bebbd485328e18aa7e06007b
+product/media/wallpaper/wallpaper_TA.jpg|b74d979ec364bdb23895b9f90eacd19b7e7fa844
 
 # Keyboard cover firmware (stock odm/etc), read by PianoParts
-odm/etc/Keyboard_Upgrade_0x01_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1260.bin
-odm/etc/Keyboard_Upgrade_0x01_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1294.bin
-odm/etc/Keyboard_Upgrade_0x10_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1260.bin
-odm/etc/Keyboard_Upgrade_0x10_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1294.bin
-odm/etc/Keyboard_Upgrade_0x61_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1260.bin
-odm/etc/Keyboard_Upgrade_0x61_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1294.bin
-odm/etc/TouchPad_Upgrade_0x04_1260.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1260.bin
-odm/etc/TouchPad_Upgrade_0x04_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1294.bin
-odm/etc/TouchPad_Upgrade_0x06_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x06_1294.bin
+odm/etc/Keyboard_Upgrade_0x01_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1260.bin|16062ed64f2d04cba471aadfc15635e107a43906
+odm/etc/Keyboard_Upgrade_0x01_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x01_1294.bin|bc648fbdc29cbe8b2fc4213615d50d6bb864c22c
+odm/etc/Keyboard_Upgrade_0x10_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1260.bin|16062ed64f2d04cba471aadfc15635e107a43906
+odm/etc/Keyboard_Upgrade_0x10_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x10_1294.bin|bc648fbdc29cbe8b2fc4213615d50d6bb864c22c
+odm/etc/Keyboard_Upgrade_0x61_1260.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1260.bin|16062ed64f2d04cba471aadfc15635e107a43906
+odm/etc/Keyboard_Upgrade_0x61_1294.bin:system_ext/etc/piano_keyboard/Keyboard_Upgrade_0x61_1294.bin|bc648fbdc29cbe8b2fc4213615d50d6bb864c22c
+odm/etc/TouchPad_Upgrade_0x04_1260.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1260.bin|62cd4c8c534177a3ddaeaf26db7113f251eef0c8
+odm/etc/TouchPad_Upgrade_0x04_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x04_1294.bin|62cd4c8c534177a3ddaeaf26db7113f251eef0c8
+odm/etc/TouchPad_Upgrade_0x06_1294.bin:system_ext/etc/piano_keyboard/TouchPad_Upgrade_0x06_1294.bin|204d32391eea88bef32fb4482b6dae30e39063c2
