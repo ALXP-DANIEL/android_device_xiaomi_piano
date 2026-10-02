@@ -34,6 +34,7 @@ final class KeyboardProtocol {
     // Commands.
     static final byte CMD_GET_VERSION = 0x01;
     static final byte CMD_UPGRADE_INFO = 0x02;
+    static final byte CMD_RECOVER_STATUS = 0x20;
     static final byte CMD_UPGRADE_END = 0x04;
     static final byte CMD_UPGRADE_FLASH = 0x06;
     static final byte CMD_UPGRADE_DATA = 0x11;

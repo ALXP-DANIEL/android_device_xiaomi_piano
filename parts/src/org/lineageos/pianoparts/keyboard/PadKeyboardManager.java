@@ -20,7 +20,10 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 import android.view.InputDevice;
+
+import org.lineageos.pianoparts.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -85,6 +88,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private final CopyOnWriteArrayList<Listener> mListeners = new CopyOnWriteArrayList<>();
 
     private volatile boolean mConnected;
+    private volatile boolean mPogoFault;
     private volatile boolean mScreenOn = true;
     private volatile boolean mSleeping;
     // Off until the cover is attached at a working angle, so that the cover's
@@ -293,6 +297,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE,
                 "PianoParts:KeyboardUpdate");
         wakeLock.acquire(10 * 60 * 1000L);
+        // Like stock, only the keyboard update is announced, not the touchpad's.
+        if (!touchpad) {
+            showToast(R.string.keyboard_upgrade_start);
+        }
         mUpdater.start(firmware, new KeyboardUpdater.Callback() {
             @Override
             public void onProgress(int percent) {
@@ -305,6 +313,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
             public void onFinished(boolean success) {
                 if (wakeLock.isHeld()) {
                     wakeLock.release();
+                }
+                if (!touchpad) {
+                    showToast(success ? R.string.keyboard_upgrade_success
+                            : R.string.keyboard_upgrade_failed);
                 }
                 for (Listener listener : mListeners) {
                     mMainHandler.post(() -> listener.onUpdateFinished(touchpad, success));
@@ -352,6 +364,11 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                     onAttached();
                 }
                 break;
+            case KeyboardProtocol.CMD_RECOVER_STATUS:
+                if (reply[5] == 1 && reply[6] == 0x36) {
+                    showToast(R.string.keyboard_reset_success);
+                }
+                break;
             case KeyboardProtocol.CMD_SLEEP:
                 if (reply[5] == 1) {
                     onSleepChanged(reply[6] == 0);
@@ -374,9 +391,15 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         boolean connected = reply[18] == 0 && (reply[9] & 0x63) == 0x23;
         if (reply[18] == 1) {
             Log.w(TAG, "Keyboard cover over current");
-        } else if ((reply[9] & 0x63) == 0x43) {
-            Log.w(TAG, "Keyboard cover attached, but the pogo pins are faulty");
         }
+        boolean pogoFault = reply[18] == 0 && (reply[9] & 0x63) == 0x43;
+        if (pogoFault) {
+            Log.w(TAG, "Keyboard cover attached, but the pogo pins are faulty");
+            if (!mPogoFault) {
+                showToast(R.string.keyboard_connect_failed);
+            }
+        }
+        mPogoFault = pogoFault;
         if (connected == mConnected) {
             return;
         }
@@ -662,6 +685,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         }
         applyTouchpad();
         notifyChanged();
+    }
+
+    private void showToast(int resId) {
+        mMainHandler.post(() -> Toast.makeText(mContext, resId, Toast.LENGTH_SHORT).show());
     }
 
     private void notifyChanged() {

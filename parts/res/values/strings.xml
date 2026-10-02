@@ -32,6 +32,11 @@
     <string name="keyboard_version_title">Keyboard firmware</string>
     <string name="touchpad_version_title">Touchpad firmware</string>
     <string name="mcu_version_title">Connector firmware</string>
+    <string name="keyboard_connect_failed">Couldn\'t connect keyboard. Attach again.</string>
+    <string name="keyboard_upgrade_start">Updating keyboard…</string>
+    <string name="keyboard_upgrade_success">Updated keyboard successfully</string>
+    <string name="keyboard_upgrade_failed">Couldn\'t update keyboard</string>
+    <string name="keyboard_reset_success">Reset keyboard successfully</string>
     <string name="keyboard_unknown">Unknown</string>
     <string name="keyboard_update_title">Update keyboard firmware</string>
     <string name="touchpad_update_title">Update touchpad firmware</string>
