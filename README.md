@@ -11,7 +11,9 @@ installing a build.
 ## Status
 
 Tested on hardware with build 24 (2026-10-02). Items marked "next build" are
-in the tree but not yet tested on a build.
+in the tree but not yet tested on a build. The corrected incremental
+`1790940907` also boots enforcing after a data-preserving OTA; its focused
+checks are recorded in `docs/INSTALLED_BUILD_1790940907.md`.
 
 | Area | Status |
 | --- | --- |
@@ -32,7 +34,7 @@ in the tree but not yet tested on a build.
 | Thermal profiles (mi_thermald) | Works, stock profiles with a Quick Settings tile |
 | Reading mode, True Tone, Sunlight mode | Work (Quick Settings tiles) |
 | Desktop windowing | Enabled, untested |
-| Default wallpaper by body colour | Dedicated init service wired and validated; pending boot test |
+| Default wallpaper by body colour | Works on installed incremental 1790940907; body-colour wallpaper confirmed |
 | Stylus | Writes; battery popup like stock is next build, untested with a real pen |
 | Keyboard cover | Settings, authentication, firmware update, DND key and guarded hall handling implemented; untested on hardware |
 | SELinux | Installed build boots enforcing; full functional soak and suppressed-denial review remain open |
