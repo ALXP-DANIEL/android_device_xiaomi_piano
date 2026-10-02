@@ -83,6 +83,4 @@ dontaudit hal_camera_default system_prop:file { getattr map open read };
 dontaudit vendor_hal_perf_default mediacodec:dir search;
 dontaudit vendor_hal_perf_default mediacodec:file { getattr open read };
 dontaudit vendor_hal_perf_default kernel:process setsched;
-dontaudit permissioncontroller_app vendor_hal_qspmhal_service:service_manager find;
-dontaudit permissioncontroller_app vendor_hal_qspmhal_default:binder call;
 dontaudit mediacodec { adaptive_haptics_prop ab_update_gki_prop }:file { getattr map open };
