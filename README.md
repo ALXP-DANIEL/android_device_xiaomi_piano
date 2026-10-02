@@ -17,3 +17,23 @@ tree includes it automatically when it is present.
   limit; the build joins them.
 
 All files are proprietary and belong to Xiaomi.
+
+## Landscape compatibility
+
+On the tested Lineage userdebug build, Camera requests portrait orientation
+and Android letterboxes it on the landscape tablet display. Enable the
+package-specific `OVERRIDE_ANY_ORIENTATION_TO_USER` compatibility change:
+
+```sh
+adb shell am compat enable 310816437 com.android.camera
+adb shell am start -n com.android.camera/.Camera
+```
+
+Tested on 2026-10-02: the landscape window expands and shutter/mode controls
+no longer overlap. This override is stored on the device; a clean data format
+requires applying it again. Automatic clean-install configuration and portrait
+regression testing remain open. To undo the test:
+
+```sh
+adb shell am compat reset 310816437 com.android.camera
+```
