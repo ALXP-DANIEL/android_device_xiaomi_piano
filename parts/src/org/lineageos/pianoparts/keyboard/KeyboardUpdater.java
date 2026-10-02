@@ -111,7 +111,7 @@ final class KeyboardUpdater {
             int index = offset / KeyboardFirmware.CHUNK;
             int count = mFirmware.chunkCount();
             report(index + 1, count);
-            if (index >= count - 1) {
+            if (index == count - 1) {
                 send(mFirmware.endPacket());
             } else {
                 send(mFirmware.dataPacket(index + 1));
