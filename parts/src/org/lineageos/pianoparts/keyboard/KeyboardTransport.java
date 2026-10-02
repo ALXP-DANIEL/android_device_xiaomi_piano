@@ -169,7 +169,17 @@ final class KeyboardTransport {
         }
         byte report = reply[0];
         boolean known = report == 0x22 || report == 0x23 || report == 0x24 || report == 0x26;
-        if (!known || reply[3] != KeyboardProtocol.ADDRESS_PAD) {
+        byte version = reply[1];
+        byte source = reply[2];
+        // Match stock CommunicationUtil.dealReadSocketPackage: upgrade
+        // replies come from MCU or keyboard addresses 0x38/0x39; feature
+        // replies come only from the keyboard at 0x38.
+        boolean sender = version == KeyboardProtocol.VERSION_UPGRADE
+                && (source == KeyboardProtocol.ADDRESS_MCU
+                        || source == KeyboardProtocol.ADDRESS_KEYBOARD || source == 0x39)
+                || version == KeyboardProtocol.VERSION_FEATURE
+                        && source == KeyboardProtocol.ADDRESS_KEYBOARD;
+        if (!known || !sender || reply[3] != KeyboardProtocol.ADDRESS_PAD) {
             Log.d(TAG, "Ignoring keyboard reply: " + KeyboardProtocol.hex(reply, reply.length));
             return;
         }
