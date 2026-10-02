@@ -130,6 +130,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private volatile boolean mRejected;
     private volatile boolean mAuthRunning;
     private int mAuthAttempts;
+    private volatile int mAuthGeneration;
     private boolean mAutoKeyboardTried;
     private boolean mAutoTouchpadTried;
 
@@ -477,6 +478,9 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
             mPowerManager.wakeUp(SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_UNKNOWN,
                     "PianoParts:keyboard_attach");
         } else {
+            // An in-flight Binder check cannot be removed from the auth queue.
+            // Invalidate its result before a different cover can be attached.
+            mAuthGeneration++;
             mUpdater.abort();
             mAuthHandler.removeCallbacksAndMessages(null);
             mAuthRunning = false;
@@ -816,23 +820,32 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     private void scheduleAuth(boolean first, long delayMs) {
         if (first) {
+            mAuthGeneration++;
             mAuthAttempts = 0;
             mAuthHandler.removeCallbacksAndMessages(null);
         }
         mAuthRunning = true;
-        mAuthHandler.postDelayed(() -> runAuth(first), delayMs);
+        int generation = mAuthGeneration;
+        mAuthHandler.postDelayed(() -> runAuth(first, generation), delayMs);
     }
 
-    private void runAuth(boolean first) {
+    private void runAuth(boolean first, int generation) {
+        if (generation != mAuthGeneration) {
+            return;
+        }
         if (!mConnected || !mScreenOn) {
             mAuthRunning = false;
             return;
         }
         int result = mAuth.check(first, mMcu2022);
-        mHandler.post(() -> onAuthResult(result));
+        mHandler.post(() -> onAuthResult(result, generation));
     }
 
-    private void onAuthResult(int result) {
+    private void onAuthResult(int result, int generation) {
+        if (generation != mAuthGeneration) {
+            Log.i(TAG, "Ignoring an obsolete keyboard authentication result");
+            return;
+        }
         if (!mConnected) {
             mAuthRunning = false;
             return;
@@ -854,7 +867,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 break;
             case KeyboardAuth.RESULT_AGAIN:
                 if (++mAuthAttempts < AUTH_ATTEMPTS) {
-                    mAuthHandler.postDelayed(() -> runAuth(false), AUTH_RETRY_MS);
+                    mAuthHandler.postDelayed(() -> runAuth(false, generation), AUTH_RETRY_MS);
                 } else {
                     // Could not be checked: it keeps working, but is not updated.
                     Log.w(TAG, "Keyboard cover could not be checked");

@@ -31,6 +31,10 @@ Required proof before marking hardware support complete:
    Include the first working-angle sample after a sensor reset, when the angle
    helper may report no working-state transition.
 
+8. Delay an authentication reply, detach and attach another cover (or request
+   re-authentication), then deliver the old result. It must be logged as obsolete
+   and must neither authorize automatic updating nor reject the current cover.
+
 XML and transition checks pass. The final keyboard Java sources compile with
 JDK 21 against the generated Android framework and existing app classes, using
 freshly generated MiDevAuth AIDL and R classes. aapt2 compiled and linked the
