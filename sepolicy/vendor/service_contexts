@@ -9,3 +9,6 @@ vendor.xiaomi.hardware.cld_aidl.ICld/default                       u:object_r:ha
 vendor.xiaomi.hardware.fbo.IFbo/default                            u:object_r:hal_fbo_service:s0
 vendor.xiaomi.hardware.mimd2.IMimd/default                         u:object_r:hal_mimd_service:s0
 vendor.xiaomi.hardware.miperf2.IMiPerf/default                     u:object_r:hal_miperf_service:s0
+
+# USB (UVC) webcams: the external camera provider instance.
+android.hardware.camera.provider.ICameraProvider/external/0  u:object_r:hal_camera_service:s0
