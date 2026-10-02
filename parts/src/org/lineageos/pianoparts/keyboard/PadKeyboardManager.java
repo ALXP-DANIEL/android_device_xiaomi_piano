@@ -87,7 +87,9 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private volatile boolean mConnected;
     private volatile boolean mScreenOn = true;
     private volatile boolean mSleeping;
-    private volatile boolean mKeysEnabled = true;
+    // Off until the cover is attached at a working angle, so that the cover's
+    // input devices, which exist even when it is detached, do not show a cursor.
+    private volatile boolean mKeysEnabled = false;
     private volatile byte mKeyboardType = -1;
     private volatile byte mTouchpadType = -1;
     private volatile String mPid;
@@ -181,6 +183,8 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenReceiver, filter);
+        mInputManager.registerInputDeviceListener(mInputDeviceListener, mHandler);
+        mHandler.post(this::applyInputDeviceState);
         mHandler.post(() -> {
             if (!mTransport.connect()) {
                 return;
@@ -601,6 +605,45 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         cancelBacklightAnimation();
     }
 
+    private final InputManager.InputDeviceListener mInputDeviceListener =
+            new InputManager.InputDeviceListener() {
+                @Override
+                public void onInputDeviceAdded(int deviceId) {
+                    applyInputDeviceState(deviceId);
+                }
+
+                @Override
+                public void onInputDeviceRemoved(int deviceId) {}
+
+                @Override
+                public void onInputDeviceChanged(int deviceId) {}
+            };
+
+    private void applyInputDeviceState() {
+        for (int id : mInputManager.getInputDeviceIds()) {
+            applyInputDeviceState(id);
+        }
+    }
+
+    private void applyInputDeviceState(int id) {
+        InputDevice device = mInputManager.getInputDevice(id);
+        if (device == null || device.getVendorId() != VENDOR_ID) {
+            return;
+        }
+        int product = device.getProductId();
+        boolean enabled = mKeysEnabled;
+        if (product == PRODUCT_KEYBOARD || product == PRODUCT_CONSUMER
+                || product == PRODUCT_TOUCHPAD) {
+            if (enabled) {
+                mInputManager.enableInputDevice(id);
+            } else {
+                mInputManager.disableInputDevice(id);
+            }
+        } else if (product == PRODUCT_UNUSED) {
+            mInputManager.disableInputDevice(id);
+        }
+    }
+
     private void updateKeysEnabled() {
         boolean enabled = mConnected && mAngle.isWorking();
         if (enabled == mKeysEnabled) {
@@ -609,23 +652,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         mKeysEnabled = enabled;
         Log.i(TAG, "Keyboard cover keys " + (enabled ? "enabled" : "ignored") + " at "
                 + mAngle.getAngle() + " degrees");
-        for (int id : mInputManager.getInputDeviceIds()) {
-            InputDevice device = mInputManager.getInputDevice(id);
-            if (device == null || device.getVendorId() != VENDOR_ID) {
-                continue;
-            }
-            int product = device.getProductId();
-            if (product == PRODUCT_KEYBOARD || product == PRODUCT_CONSUMER
-                    || product == PRODUCT_TOUCHPAD) {
-                if (enabled) {
-                    mInputManager.enableInputDevice(id);
-                } else {
-                    mInputManager.disableInputDevice(id);
-                }
-            } else if (product == PRODUCT_UNUSED) {
-                mInputManager.disableInputDevice(id);
-            }
-        }
+        applyInputDeviceState();
         if (enabled) {
             mLastBacklight = -1;
             applyBacklight(mActiveBacklight);
