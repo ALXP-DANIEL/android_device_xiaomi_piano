@@ -5,6 +5,8 @@
 package org.lineageos.pianoparts;
 
 import android.app.Application;
+import android.compat.Compatibility;
+import android.content.pm.ActivityInfo;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager;
@@ -17,7 +19,12 @@ import android.os.ServiceManager;
 import android.util.Log;
 import android.view.Display;
 
+import com.android.internal.compat.CompatibilityChangeConfig;
+import com.android.internal.compat.IPlatformCompat;
+
 import org.lineageos.pianoparts.keyboard.PadKeyboardManager;
+
+import java.util.Set;
 
 import vendor.xiaomi.hw.touchfeature.ITouchFeature;
 
@@ -44,6 +51,8 @@ public class PianoPartsApp extends Application {
     private static final int FEATURE_PAPER_MODE = 31;
     private static final int FEATURE_TRUE_TONE = 32;
     static final int FEATURE_SUNLIGHT_SCREEN = 12;
+
+    private static final String CAMERA_PACKAGE = "com.android.camera";
 
     private static final String PREFS_NAME = "piano_parts";
     private static final String KEY_TOUCH_GAME_MODE = "touch_game_mode";
@@ -88,10 +97,27 @@ public class PianoPartsApp extends Application {
         if (isTrueTone()) {
             setDisplayFeature(FEATURE_TRUE_TONE, 1);
         }
+        allowCameraLandscape();
         new PenBatteryNotifier(this);
         PadKeyboardManager.get(this).start();
         mSunlightModeController = new SunlightModeController(this);
         mSunlightModeController.setEnabled(isSunlightMode());
+    }
+
+    /**
+     * MiuiCamera asks for portrait, which Android letterboxes on the landscape
+     * tablet. HyperOS lets it use the whole screen, so let the camera ignore
+     * its orientation request here.
+     */
+    private void allowCameraLandscape() {
+        try {
+            IPlatformCompat compat = IPlatformCompat.Stub.asInterface(
+                    ServiceManager.getService(Context.PLATFORM_COMPAT_SERVICE));
+            compat.setOverrides(new CompatibilityChangeConfig(new Compatibility.ChangeConfig(
+                    Set.of(ActivityInfo.OVERRIDE_ANY_ORIENTATION_TO_USER), Set.of())), CAMERA_PACKAGE);
+        } catch (RemoteException | RuntimeException e) {
+            Log.e(TAG, "Failed to let the camera use landscape", e);
+        }
     }
 
     private SharedPreferences getPrefs() {
