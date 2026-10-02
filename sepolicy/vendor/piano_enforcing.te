@@ -84,3 +84,12 @@ dontaudit vendor_hal_perf_default mediacodec:dir search;
 dontaudit vendor_hal_perf_default mediacodec:file { getattr open read };
 dontaudit vendor_hal_perf_default kernel:process setsched;
 dontaudit mediacodec { adaptive_haptics_prop ab_update_gki_prop }:file { getattr map open };
+
+# Fourth pass (enforcing boot of build 27, 2026-10-02): probes and noise.
+dontaudit hal_mtdservice_default self:capability { dac_override sys_admin };
+dontaudit hal_mtdservice_default mnt_vendor_file:dir read;
+dontaudit vendor_init { default_prop radio_prop powerctl_prop }:file read;
+dontaudit init sysfs:file write;
+dontaudit kernel self:capability net_bind_service;
+dontaudit hal_hypsys_vendor kmsg_device:chr_file write;
+dontaudit shell vendor_piano_body_color_prop:file read;

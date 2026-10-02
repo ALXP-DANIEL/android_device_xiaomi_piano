@@ -12,6 +12,12 @@
     <string name="pen_battery_title">Pen</string>
     <string name="pen_battery_level">Battery <xliff:g id="level" example="80">%1$d</xliff:g>%%</string>
     <string name="true_tone_title">True tone</string>
+    <string name="desktop_mode_title">Desktop mode</string>
+    <string name="desktop_mode_restart_subtitle">Restart to apply</string>
+    <string name="desktop_mode_restart_title">Restart to apply</string>
+    <string name="desktop_mode_restart_message">Desktop mode changes after the tablet restarts.</string>
+    <string name="desktop_mode_restart_now">Restart now</string>
+    <string name="desktop_mode_restart_later">Later</string>
     <string name="bypass_charging_title">Bypass charging</string>
     <string name="keyboard_settings_title">Keyboard cover</string>
     <string name="keyboard_settings_summary">Backlight, touchpad and firmware</string>

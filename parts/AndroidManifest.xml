@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.DISABLE_INPUT_DEVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.OVERRIDE_COMPAT_CHANGE_CONFIG" />
+    <uses-permission android:name="android.permission.REBOOT" />
 
     <application
         android:name=".PianoPartsApp"
@@ -53,6 +54,17 @@
             android:name=".SunlightModeTileService"
             android:icon="@drawable/ic_sunlight_tile"
             android:label="@string/sunlight_mode_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".DesktopModeTileService"
+            android:icon="@drawable/ic_desktop_tile"
+            android:label="@string/desktop_mode_title"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

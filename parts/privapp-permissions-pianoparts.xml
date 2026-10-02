@@ -6,5 +6,6 @@
         <permission name="android.permission.DISABLE_INPUT_DEVICE" />
         <permission name="android.permission.INTERNAL_SYSTEM_WINDOW" />
         <permission name="android.permission.OVERRIDE_COMPAT_CHANGE_CONFIG" />
+        <permission name="android.permission.REBOOT" />
     </privapp-permissions>
 </permissions>
