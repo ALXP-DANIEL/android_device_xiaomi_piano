@@ -28,14 +28,14 @@ in the tree but not yet tested on a build.
 | MiuiCamera (optional) | Opens; full landscape screen is next build |
 | USB webcams | Next build, untested with a device |
 | Fingerprint (power button, Goodix) | Works, including lock screen unlock |
-| Charging | Works; charging limit; bypass charging tile (untested below 90%) |
+| Charging | Basic charging works; limit node selected for piano, limit and bypass behavior pending plugged-in validation |
 | Thermal profiles (mi_thermald) | Works, stock profiles with a Quick Settings tile |
 | Reading mode, True Tone, Sunlight mode | Work (Quick Settings tiles) |
 | Desktop windowing | Enabled, untested |
-| Default wallpaper by body colour | Next build |
+| Default wallpaper by body colour | Dedicated init service wired and validated; pending boot test |
 | Stylus | Writes; battery popup like stock is next build, untested with a real pen |
-| Keyboard cover | Settings page, backlight, touchpad switch and firmware update implemented from the stock protocol; untested on hardware |
-| SELinux | Enforcing is next build; permissive until a build with it is tested |
+| Keyboard cover | Settings, authentication, firmware update, DND key and guarded hall handling implemented; untested on hardware |
+| SELinux | Installed build boots enforcing; full functional soak and suppressed-denial review remain open |
 
 Piano-specific apps:
 
