@@ -10,44 +10,58 @@ installing a build.
 
 ## Status
 
-Tested on hardware with build 17 (2026-10-02). Changes made since then are
-marked "next build" until a build containing them has been tested.
+Tested on hardware with build 24 (2026-10-02). Items marked "next build" are
+in the tree but not yet tested on a build.
 
 | Area | Status |
 | --- | --- |
 | Boot, setup wizard, launcher | Works |
 | Display (3200x2136, up to 144 Hz LCD), touch | Works; peak refresh rate is selectable in Settings |
-| Color modes (natural, boosted, saturated, automatic) | Next build: stock panel calibration added |
-| Rotation | Works with auto-rotate (on by default); natural orientation is portrait for now |
+| Color modes (native, sRGB, P3) | Works, stock panel calibration |
+| Rotation | Works with auto-rotate (on by default) |
 | Wi-Fi, Bluetooth | Works |
 | Audio | Works; volume curve matches stock, with the HyperOS boost level on the top step |
 | Dolby Atmos (DolbyManager) | Works |
 | Sensors | Works (55 sensors) |
 | Smart cover | Works: closing the cover puts the tablet to sleep |
-| Camera (Aperture, front and rear) | Works |
-| MiuiCamera (optional) | Opens; the camera HAL crash may be fixed in the next build |
+| Cameras (Aperture, front and rear, 4 devices) | Works |
+| MiuiCamera (optional) | Opens; full landscape screen is next build |
+| USB webcams | Next build, untested with a device |
 | Fingerprint (power button, Goodix) | Works, including lock screen unlock |
-| Charging | Works; charging limit next build |
-| Thermal profiles (mi_thermald) | Next build: stock profiles added |
-| Keyboard cover | Types; arrow key fix next build, battery level and wake handshake not done |
-| Stylus | Writes; battery level and buttons not done |
-| SELinux | Permissive; enforcing is in progress |
+| Charging | Works; charging limit; bypass charging tile (untested below 90%) |
+| Thermal profiles (mi_thermald) | Works, stock profiles with a Quick Settings tile |
+| Reading mode, True Tone, Sunlight mode | Work (Quick Settings tiles) |
+| Desktop windowing | Enabled, untested |
+| Default wallpaper by body colour | Next build |
+| Stylus | Writes; battery popup like stock is next build, untested with a real pen |
+| Keyboard cover | Settings page, backlight, touchpad switch and firmware update implemented from the stock protocol; untested on hardware |
+| SELinux | Enforcing is next build; permissive until a build with it is tested |
 
 Piano-specific apps:
 
-- `PianoParts` (next build): sends the screen rotation to the touch panel for
-  edge palm rejection, and adds a Quick Settings tile for the game thermal
-  profile.
+- `PianoParts`: Quick Settings tiles (thermal profile, touch game mode, reading
+  mode, sunlight mode, true tone, bypass charging), edge palm rejection
+  rotation, the stylus battery popup, the keyboard cover settings page, and
+  MiuiCamera landscape support.
 - `PianoVolumeBoost`: shows the stock warning when media volume reaches the
   boost level on the speakers.
+
+Not ported, and why:
+
+- Face unlock: LineageOS has no support for it.
+- MEMC and virtual SIM: they need a display service and a modem that piano
+  does not have.
+- Keyboard NFC tap, touchpad haptics and the mute light: off on Global stock.
+- Video enhancement (`videoservice`): it needs a `libgui` symbol Android 16 no
+  longer exports.
+- Xiaomi Magic Pointer and stylus gestures: see `docs/STOCK_FEATURE_AUDIT.md`.
 
 Known issues:
 
 - MiuiCamera (the stock Xiaomi camera app) comes from the optional
-  `miuicamera-16` branch; without it, Aperture is the camera app. Its UI is
-  laid out for MIUI and looks compressed.
-- The video enhancement service (`videoservice`) is dropped: it needs a `libgui`
-  symbol Android 16 no longer exports.
+  `miuicamera-16` branch; without it, Aperture is the camera app.
+- The camera HAL cannot write its zoom cache under enforcing SELinux, so it
+  recomputes it when the camera opens.
 
 ## Branches
 
@@ -89,10 +103,8 @@ come from the piano stock firmware, not from the donor.
    m bacon
    ```
 
-   Optional environment variables:
+   Optional environment variable:
    - `PIANO_AVB_KEY_PATH`: a private AVB key kept outside every repository.
-   - `PIANO_ADB_KEYS`: a public adb key, so a userdebug build can be debugged
-     before setup finishes. Leave it unset for releases.
 
 The proprietary file list (`proprietary-files.txt`) pins every blob by SHA1 to
 the Global 304 firmware. Many stock HALs load libraries by path at runtime, so
