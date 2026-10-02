@@ -147,6 +147,47 @@ All inputs in the two current proprietary file lists now have hash pins.
 Re-extraction still requires a staged dump containing every declared partition
 and source path; vendor/ODM alone cannot satisfy the product wallpaper inputs.
 
+## Additional product overlay gaps
+
+The Global 303 product overlays expose differences beyond the four Global 304
+vendor Wi-Fi overlays checked above. These are reference findings from 303;
+exact Global 304 product parity remains unverified.
+
+| Setting | Stock Global 303 | Current tree / Android default | Port status |
+| --- | --- | --- | --- |
+| Auto-brightness curve | 107 lux thresholds, 108 nits and backlight points | 28 lux thresholds, 29 legacy backlight points | Different calibration; not stock parity |
+| Brightening / darkening debounce | 1000 / 1000 ms | Android defaults 4000 / 8000 ms | Supported resources; response-time candidate |
+| Ambient hysteresis | 7 levels, 8 brightening and 8 darkening thresholds | Android single-threshold defaults | Supported tuning; paired arrays must be preserved |
+| Partial initial Wi-Fi scan | Enabled | Disabled by default | Confirmed consumer in WifiConnectivityManager; reconnection test needed |
+| SAE H2E and SAE upgrade offload | Enabled | Disabled by default | WifiGlobals consumes both; verify supplicant/HAL capability before enabling |
+| Network-centric Wi-Fi QoS | Enabled | Disabled by default | Capability and peer support need validation |
+| Application-centric Wi-Fi QoS | Enabled | Enabled by default | Already supplied by Android default |
+| SoftAP maximum clients | 32 | Android default 16 | Firmware capacity needs validation |
+| Adaptive sleep | Enabled, Google attention service configured | Disabled; that Google service is not supplied | Requires an actual attention service, not a boolean-only port |
+| Spatial audio head tracking default | Enabled | Disabled by default | Requires supported audio route and head-tracking hardware |
+
+Brightness requires particular care. Stock's 108 backlight values reach 4095,
+while Android 16's `DisplayBrightnessMappingConfig` explicitly treats legacy
+`config_autoBrightnessLcdBacklightValues` as values in [0, 255] before
+normalizing them. The stock nits curve reaches 800 nits and has matching lux
+counts, but importing that curve requires checking the panel's nits-to-backlight
+calibration and selected display configuration. Copying the 12-bit legacy
+array directly into the current overlay would be incorrect. Preserve the
+current working curve until a calibrated mapping is validated on the tablet.
+
+Other stock overlay values are intentionally not automatic port candidates:
+allowing insecure enterprise Wi-Fi configurations, scan-derived regulatory
+country updates, phone/eSIM/SMS settings, Xiaomi screenshot components and
+Google-only autofill/attention services. Their presence in stock does not
+establish a suitable Lineage replacement or a piano hardware requirement.
+
+Evidence: decoded APK resources under
+`RND/evidence/stock-feature-audit-20261002/overlay-resources/`, extracted from
+Global 303 product and Global 304 vendor inputs. Android consumers were checked
+in `DisplayBrightnessMappingConfig.java`, `WifiConnectivityManager.java` and
+`WifiGlobals.java` on the builder. These differences are audit findings; no
+runtime overlay change was made during this step.
+
 ## Next audit gates
 
 1. Classify the remaining unselected paths by actual source replacement,
