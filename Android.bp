@@ -10870,7 +10870,7 @@ android_app_import {
     name: "MiDevAuthService",
     owner: "xiaomi",
     apk: "proprietary/product/app/MiDevAuthService/MiDevAuthService.apk",
-    certificate: "PRESIGNED",
+    presigned: true,
     dex_preopt: {
         enabled: false,
     },
