@@ -2,7 +2,7 @@
 # All Rights Reserved.
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 
-on post-fs-data
+on post-fs
     start vendor.qseecomd
 
 service vendor.qseecomd /vendor/bin/qseecomd
