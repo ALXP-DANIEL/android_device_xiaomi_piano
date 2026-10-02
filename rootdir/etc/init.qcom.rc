@@ -48,16 +48,6 @@ service piano-persist-check /vendor/bin/piano-persist-check.sh
     oneshot
     stdio_to_kmsg
 
-service piano-body-color /vendor/bin/piano-body-color.sh
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
-on property:vendor.piano.persist.ready=1
-    start piano-body-color
-
 # Stock piano peripheral manager starts DSP clients after filesystem setup.
 service vendor.per_mgr /vendor/bin/pm-service
     class core
