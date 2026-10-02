@@ -1609,3 +1609,7 @@ PRODUCT_PACKAGES += \
     libQnnHtpV73Stub \
     libQnnHtpV79CalculatorStub \
     libQnnHtpV79Stub
+
+# Keyboard cover authentication
+PRODUCT_PACKAGES += \
+    MiDevAuthService

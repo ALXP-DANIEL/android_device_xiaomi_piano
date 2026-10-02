@@ -10863,3 +10863,16 @@ cc_prebuilt_library_shared {
     },
     device_specific: true,
 }
+
+// Stock device authentication service, bound by PianoParts to check that a
+// keyboard cover is genuine (product/app of Global OS3.0.303).
+android_app_import {
+    name: "MiDevAuthService",
+    owner: "xiaomi",
+    apk: "proprietary/product/app/MiDevAuthService/MiDevAuthService.apk",
+    certificate: "PRESIGNED",
+    dex_preopt: {
+        enabled: false,
+    },
+    product_specific: true,
+}
