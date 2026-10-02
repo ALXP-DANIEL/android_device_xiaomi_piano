@@ -7,9 +7,13 @@
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.DISABLE_INPUT_DEVICE" />
+    <uses-permission android:name="android.permission.TABLET_MODE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.OVERRIDE_COMPAT_CHANGE_CONFIG" />
     <uses-permission android:name="android.permission.REBOOT" />
+
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.MANAGE_NOTIFICATIONS" />
 
     <application
         android:name=".PianoPartsApp"
@@ -92,6 +96,16 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+        </service>
+
+        <service android:name=".keyboard.KeyboardKeyService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                android:resource="@xml/keyboard_key_service" />
         </service>
 
         <activity

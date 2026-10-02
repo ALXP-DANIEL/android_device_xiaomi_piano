@@ -103,6 +103,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     // Off until the cover is attached at a working angle, so that the cover's
     // input devices, which exist even when it is detached, do not show a cursor.
     private volatile boolean mKeysEnabled = false;
+    private boolean mInTabletMode;
+    // Only trust an asserted hall state after the cover angle agrees. Retain
+    // that evidence while gravity samples are unavailable (for example asleep).
+    private boolean mHallFoldConfirmed;
     private volatile byte mKeyboardType = -1;
     private volatile byte mTouchpadType = -1;
     private volatile String mPid;
@@ -169,7 +173,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private final SensorEventListener mAccelListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            if (mAngle.onPadGravity(event.values)) {
+            if (mAngle.onPadGravity(event.values) || mHallFoldConfirmed) {
                 updateKeysEnabled();
             }
         }
@@ -214,11 +218,17 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     /** Starts talking to the keyboard; called once from the application. */
     public void start() {
+        KeyboardKeyService.setEnabled(mContext, false);
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenReceiver, filter);
         mInputManager.registerInputDeviceListener(mInputDeviceListener, mHandler);
+        mInputManager.registerOnTabletModeChangedListener(mTabletModeListener, mHandler);
+        mHandler.post(() -> {
+            mInTabletMode = mInputManager.isInTabletMode() == InputManager.SWITCH_STATE_ON;
+            Log.i(TAG, "Initial keyboard hall tablet mode: " + mInTabletMode);
+        });
         mHandler.post(this::applyInputDeviceState);
         mHandler.post(() -> {
             if (!mTransport.connect()) {
@@ -236,6 +246,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     public void removeListener(Listener listener) {
         mListeners.remove(listener);
+    }
+
+    public boolean areKeysEnabled() {
+        return mKeysEnabled;
     }
 
     public boolean isConnected() {
@@ -424,7 +438,8 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 }
                 break;
             case KeyboardProtocol.CMD_G_SENSOR:
-                if (reply.length >= 12 && mAngle.onKeyboardGravity(reply)) {
+                if (reply.length >= 12
+                        && (mAngle.onKeyboardGravity(reply) || mHallFoldConfirmed)) {
                     updateKeysEnabled();
                 }
                 break;
@@ -454,6 +469,8 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         }
         Log.i(TAG, "Keyboard cover " + (connected ? "attached" : "detached"));
         mConnected = connected;
+        mHallFoldConfirmed = false;
+        KeyboardKeyService.setEnabled(mContext, connected);
         if (connected) {
             onAttached();
             // Like stock, wake the tablet when the cover is attached.
@@ -478,6 +495,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
             mLastBacklight = -1;
             mLastCaps = null;
         }
+        // The cover's HID devices remain registered even when it is detached.
+        // Apply the MCU connection state immediately instead of waiting for a
+        // gravity reply, which stops arriving after detach.
+        updateKeysEnabled();
         notifyChanged();
     }
 
@@ -735,8 +756,24 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         }
     }
 
+    private final InputManager.OnTabletModeChangedListener mTabletModeListener =
+            (whenNanos, inTabletMode) -> {
+                mInTabletMode = inTabletMode;
+                Log.i(TAG, "Keyboard hall tablet mode: " + inTabletMode
+                        + ", angle " + mAngle.getAngle());
+                updateKeysEnabled();
+            };
+
     private void updateKeysEnabled() {
-        boolean enabled = mConnected && mAngle.isWorking() && !mRejected;
+        if (!mConnected || !mInTabletMode) {
+            mHallFoldConfirmed = false;
+        } else if (mAngle.getAngle() >= 0) {
+            // Polarity is not yet verified on a real cover. A hall assertion
+            // must agree with a measured folded angle before it can gate keys.
+            mHallFoldConfirmed = !mAngle.isWorking();
+        }
+        boolean enabled = mConnected && mAngle.isWorking() && !mRejected
+                && !mHallFoldConfirmed;
         if (enabled == mKeysEnabled) {
             return;
         }
