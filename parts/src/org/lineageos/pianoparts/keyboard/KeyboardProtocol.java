@@ -32,6 +32,10 @@ final class KeyboardProtocol {
     static final byte ADDRESS_TOUCHPAD = 0x40;
 
     // Commands.
+    static final byte CMD_AUTH_START = 0x31;
+    static final byte CMD_AUTH_STEP3 = 0x32;
+    static final byte CMD_AUTH_STEP5 = 0x33;
+    static final byte CMD_AUTH_LAST = 0x35;
     static final byte CMD_GET_VERSION = 0x01;
     static final byte CMD_UPGRADE_INFO = 0x02;
     static final byte CMD_RECOVER_STATUS = 0x20;
@@ -114,6 +118,35 @@ final class KeyboardProtocol {
                 CMD_CHECK_MCU_STATUS, 1);
         packet[10] = 1;
         seal(packet, 11);
+        return packet;
+    }
+
+    /** First step of the genuineness check: asks the cover for its identity. */
+    static byte[] authStart() {
+        byte[] packet = newPacket(REPORT_LONG, VERSION_FEATURE, ADDRESS_KEYBOARD,
+                CMD_AUTH_START, 6);
+        byte[] magic = {'M', 'I', 'A', 'U', 'T', 'H'};
+        System.arraycopy(magic, 0, packet, 10, magic.length);
+        seal(packet, 16);
+        return packet;
+    }
+
+    /** Third step: the key chosen by the auth service and its challenge. */
+    static byte[] authStep3(byte[] keyMeta, byte[] challenge) {
+        byte[] packet = newPacket(REPORT_LONG, VERSION_FEATURE, ADDRESS_KEYBOARD,
+                CMD_AUTH_STEP3, 20);
+        System.arraycopy(keyMeta, 0, packet, 10, 4);
+        System.arraycopy(challenge, 0, packet, 14, 16);
+        seal(packet, 30);
+        return packet;
+    }
+
+    /** Fifth step: the tablet's own token, for the cover to check. */
+    static byte[] authStep5(byte[] token) {
+        byte[] packet = newPacket(REPORT_LONG, VERSION_FEATURE, ADDRESS_KEYBOARD,
+                CMD_AUTH_STEP5, 16);
+        System.arraycopy(token, 0, packet, 10, 16);
+        seal(packet, 26);
         return packet;
     }
 

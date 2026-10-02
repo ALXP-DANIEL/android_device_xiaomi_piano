@@ -37,6 +37,9 @@
     <string name="keyboard_upgrade_success">Updated keyboard successfully</string>
     <string name="keyboard_upgrade_failed">Couldn\'t update keyboard</string>
     <string name="keyboard_reset_success">Reset keyboard successfully</string>
+    <string name="keyboard_identity_reject_message">Looks like your keyboard isn\'t compatible with this device.</string>
+    <string name="keyboard_identity_transfer_error_message">Couldn\'t connect keyboard. Try again.</string>
+    <string name="keyboard_identity_reject_confirm">Got it</string>
     <string name="keyboard_unknown">Unknown</string>
     <string name="keyboard_update_title">Update keyboard firmware</string>
     <string name="touchpad_update_title">Update touchpad firmware</string>

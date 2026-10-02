@@ -5,9 +5,11 @@
 package org.lineageos.pianoparts.keyboard;
 
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -15,13 +17,18 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.input.InputManager;
+import android.os.BatteryManager;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
+import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
+import android.view.WindowManager;
 
 import org.lineageos.pianoparts.R;
 
@@ -30,6 +37,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The pogo pin keyboard cover, ported from the stock HyperOS keyboard
@@ -101,6 +110,24 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private volatile String mTouchpadVersion;
     private volatile String mMcuVersion;
     private volatile boolean mMcu2022;
+
+    // Genuineness check. Rejected covers are ignored and never updated; a cover
+    // that could not be checked keeps working but is not updated automatically.
+    private static final long AUTH_START_DELAY_MS = 3000;
+    private static final int AUTH_ATTEMPTS = 5;
+    private static final long AUTH_RETRY_MS = 5000;
+    private static final long AUTH_REPLY_MS = 400;
+    private static final int AUTO_UPDATE_MIN_BATTERY = 15;
+    private final Handler mAuthHandler;
+    private final KeyboardAuth mAuth;
+    private volatile CountDownLatch mAuthLatch;
+    private volatile byte[] mAuthReply;
+    private volatile boolean mAuthTrusted;
+    private volatile boolean mRejected;
+    private volatile boolean mAuthRunning;
+    private int mAuthAttempts;
+    private boolean mAutoKeyboardTried;
+    private boolean mAutoTouchpadTried;
 
     private int mLastBacklight = -1;
     private int mActiveBacklight = -1;
@@ -179,6 +206,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         mPowerManager = context.getSystemService(PowerManager.class);
         mSensorManager = context.getSystemService(SensorManager.class);
         mScreenOn = mPowerManager.isInteractive();
+        HandlerThread authThread = new HandlerThread("PianoPartsKeyboardAuth");
+        authThread.start();
+        mAuthHandler = new Handler(authThread.getLooper());
+        mAuth = new KeyboardAuth(context, this::requestAuth);
     }
 
     /** Starts talking to the keyboard; called once from the application. */
@@ -324,6 +355,8 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 // Read the versions again.
                 mHandler.postDelayed(() -> mTransport.send(
                         KeyboardProtocol.getVersion(KeyboardProtocol.ADDRESS_KEYBOARD)), 3000);
+                // Then the other part, if it needs it.
+                mHandler.postDelayed(() -> maybeAutoUpdate(), 6000);
             }
         });
         return true;
@@ -338,6 +371,15 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         }
         byte source = reply[2];
         byte command = reply[4];
+        if (command >= KeyboardProtocol.CMD_AUTH_START
+                && command <= KeyboardProtocol.CMD_AUTH_LAST) {
+            CountDownLatch latch = mAuthLatch;
+            mAuthReply = reply;
+            if (latch != null) {
+                latch.countDown();
+            }
+            return;
+        }
         if (source == KeyboardProtocol.ADDRESS_MCU) {
             if (command == KeyboardProtocol.CMD_GET_VERSION && reply.length >= 23) {
                 byte[] version = new byte[16];
@@ -362,6 +404,13 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 // The keyboard asks to be set up again.
                 if (reply[6] == 0 || reply[6] == 1) {
                     onAttached();
+                }
+                if (reply[6] == 100) {
+                    // The cover asks to be checked again.
+                    mAuthTrusted = false;
+                    mRejected = false;
+                    scheduleAuth(true, 0);
+                    updateKeysEnabled();
                 }
                 break;
             case KeyboardProtocol.CMD_RECOVER_STATUS:
@@ -412,6 +461,13 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                     "PianoParts:keyboard_attach");
         } else {
             mUpdater.abort();
+            mAuthHandler.removeCallbacksAndMessages(null);
+            mAuthRunning = false;
+            mAuthTrusted = false;
+            mRejected = false;
+            mAuthAttempts = 0;
+            mAutoKeyboardTried = false;
+            mAutoTouchpadTried = false;
             mHandler.removeCallbacks(mKeepAwake);
             mHandler.removeCallbacks(mCapsPoll);
             stopSensors();
@@ -427,6 +483,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     private void onAttached() {
         mTransport.send(KeyboardProtocol.getVersion(KeyboardProtocol.ADDRESS_KEYBOARD));
+        scheduleAuth(true, AUTH_START_DELAY_MS);
         mSleeping = false;
         mLastBacklight = -1;
         mLastCaps = null;
@@ -437,6 +494,14 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     private void onVersion(byte[] reply) {
         if (reply.length < 15) {
             return;
+        }
+        // Which key code generation the cover sends: stock records it for its
+        // key mapping.
+        try {
+            Settings.System.putInt(mContext.getContentResolver(), "keyboard_keycode",
+                    reply[5] + 5 < 19 ? 0 : 1);
+        } catch (SecurityException e) {
+            Log.w(TAG, "Cannot record the keyboard key code version", e);
         }
         mKeyboardVersion = String.format("%02x%02x", reply[7], reply[6]);
         mPid = String.format("%02x%02x", reply[12], reply[11]);
@@ -475,6 +540,9 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
             mCapsPoll.run();
             startAngle();
             updateBacklightSource();
+            if (!mAuthTrusted && !mRejected && !mAuthRunning) {
+                scheduleAuth(true, AUTH_START_DELAY_MS);
+            }
         } else {
             stopSensors();
         }
@@ -668,7 +736,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     }
 
     private void updateKeysEnabled() {
-        boolean enabled = mConnected && mAngle.isWorking();
+        boolean enabled = mConnected && mAngle.isWorking() && !mRejected;
         if (enabled == mKeysEnabled) {
             return;
         }
@@ -689,6 +757,127 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     private void showToast(int resId) {
         mMainHandler.post(() -> Toast.makeText(mContext, resId, Toast.LENGTH_SHORT).show());
+    }
+
+    // Genuineness check.
+
+    /** Sends an authentication packet and waits for the cover's reply. */
+    private byte[] requestAuth(byte[] packet) {
+        CountDownLatch latch = new CountDownLatch(1);
+        mAuthReply = null;
+        mAuthLatch = latch;
+        if (!mTransport.send(packet)) {
+            return null;
+        }
+        try {
+            latch.await(AUTH_REPLY_MS, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return mAuthReply;
+    }
+
+    private void scheduleAuth(boolean first, long delayMs) {
+        if (first) {
+            mAuthAttempts = 0;
+            mAuthHandler.removeCallbacksAndMessages(null);
+        }
+        mAuthRunning = true;
+        mAuthHandler.postDelayed(() -> runAuth(first), delayMs);
+    }
+
+    private void runAuth(boolean first) {
+        if (!mConnected || !mScreenOn) {
+            mAuthRunning = false;
+            return;
+        }
+        int result = mAuth.check(first, mMcu2022);
+        mHandler.post(() -> onAuthResult(result));
+    }
+
+    private void onAuthResult(int result) {
+        if (!mConnected) {
+            mAuthRunning = false;
+            return;
+        }
+        switch (result) {
+            case KeyboardAuth.RESULT_OK:
+                Log.i(TAG, "Keyboard cover is genuine");
+                mAuthRunning = false;
+                mAuthTrusted = true;
+                maybeAutoUpdate();
+                break;
+            case KeyboardAuth.RESULT_REJECT:
+                Log.w(TAG, "Keyboard cover was rejected");
+                mAuthRunning = false;
+                mAuthTrusted = false;
+                mRejected = true;
+                updateKeysEnabled();
+                showDialog(R.string.keyboard_identity_reject_message);
+                break;
+            case KeyboardAuth.RESULT_AGAIN:
+                if (++mAuthAttempts < AUTH_ATTEMPTS) {
+                    mAuthHandler.postDelayed(() -> runAuth(false), AUTH_RETRY_MS);
+                } else {
+                    // Could not be checked: it keeps working, but is not updated.
+                    Log.w(TAG, "Keyboard cover could not be checked");
+                    mAuthRunning = false;
+                }
+                break;
+            default:
+                Log.w(TAG, "Keyboard cover check failed: " + result);
+                mAuthRunning = false;
+                showDialog(R.string.keyboard_identity_transfer_error_message);
+                break;
+        }
+        notifyChanged();
+    }
+
+    private void showDialog(int messageResId) {
+        mMainHandler.post(() -> {
+            AlertDialog dialog = new AlertDialog.Builder(new ContextThemeWrapper(mContext,
+                    android.R.style.Theme_DeviceDefault_Light_Dialog_Alert))
+                    .setMessage(messageResId)
+                    .setPositiveButton(R.string.keyboard_identity_reject_confirm,
+                            (DialogInterface d, int which) -> d.dismiss())
+                    .create();
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG);
+            dialog.show();
+        });
+    }
+
+    /** Whether the cover is known to be genuine. */
+    public boolean isGenuine() {
+        return mAuthTrusted;
+    }
+
+    /**
+     * Updates the keyboard and then the touchpad when their stock image is
+     * newer, as stock does once the cover has been checked. Each part is tried
+     * once per attachment.
+     */
+    private void maybeAutoUpdate() {
+        if (!mAuthTrusted || mRejected || !mConnected || !mScreenOn || mUpdater.isRunning()) {
+            return;
+        }
+        BatteryManager battery = mContext.getSystemService(BatteryManager.class);
+        Intent status = mContext.registerReceiver(null,
+                new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        boolean charging = status != null && status.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) != 0;
+        if (!charging && battery.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+                < AUTO_UPDATE_MIN_BATTERY) {
+            Log.i(TAG, "Battery too low to update the keyboard cover");
+            return;
+        }
+        if (!mAutoKeyboardTried && getAvailableKeyboardUpdate() != null) {
+            mAutoKeyboardTried = true;
+            Log.i(TAG, "Updating the keyboard automatically");
+            startUpdate(false);
+        } else if (!mAutoTouchpadTried && getAvailableTouchpadUpdate() != null) {
+            mAutoTouchpadTried = true;
+            Log.i(TAG, "Updating the touchpad automatically");
+            startUpdate(true);
+        }
     }
 
     private void notifyChanged() {

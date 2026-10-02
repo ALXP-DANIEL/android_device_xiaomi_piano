@@ -69,6 +69,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml
 
+# Special keys of the keyboard cover
+PRODUCT_COPY_FILES += \
+    device/xiaomi/piano/configs/keylayout/Vendor_15d9_Product_00a3.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/Vendor_15d9_Product_00a3.kl
+
 # USB (UVC) webcams, like the stock external camera provider. Its config is
 # the stock vendor/etc/external_camera_config.xml.
 PRODUCT_PACKAGES += \
