@@ -336,7 +336,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
     /** Starts a manual update; returns false when nothing can be flashed. */
     public boolean startUpdate(boolean touchpad) {
         KeyboardFirmware firmware = touchpad ? touchpadFirmware() : keyboardFirmware();
-        if (firmware == null || mUpdater.isRunning()) {
+        if (firmware == null || mRejected || !mConnected || mUpdater.isRunning()) {
             return false;
         }
         PowerManager.WakeLock wakeLock = mPowerManager.newWakeLock(
@@ -347,7 +347,10 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
         if (!touchpad) {
             showToast(R.string.keyboard_upgrade_start);
         }
-        mUpdater.start(firmware, new KeyboardUpdater.Callback() {
+        int generation = mAuthGeneration;
+        mUpdater.start(firmware,
+                () -> mConnected && !mRejected && generation == mAuthGeneration,
+                new KeyboardUpdater.Callback() {
             @Override
             public void onProgress(int percent) {
                 for (Listener listener : mListeners) {
@@ -862,6 +865,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 mAuthRunning = false;
                 mAuthTrusted = false;
                 mRejected = true;
+                mUpdater.abort();
                 updateKeysEnabled();
                 showDialog(R.string.keyboard_identity_reject_message);
                 break;

@@ -7,6 +7,8 @@ package org.lineageos.pianoparts.keyboard;
 import android.os.Handler;
 import android.util.Log;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * Flashes a keyboard or touchpad image the way stock does: an info packet,
  * the image in 52 byte chunks (each acknowledged with its offset), then end
@@ -28,7 +30,7 @@ final class KeyboardUpdater {
 
     private final KeyboardTransport mTransport;
     private final Handler mHandler;
-    private KeyboardFirmware mFirmware;
+    private volatile KeyboardFirmware mFirmware;
     private Callback mCallback;
     private byte[] mPending;
     private byte mPendingCommand;
@@ -46,9 +48,12 @@ final class KeyboardUpdater {
         return mFirmware != null;
     }
 
-    void start(KeyboardFirmware firmware, Callback callback) {
+    void start(KeyboardFirmware firmware, BooleanSupplier canStart, Callback callback) {
         mHandler.post(() -> {
-            if (mFirmware != null) {
+            if (mFirmware != null || !canStart.getAsBoolean()) {
+                // The caller already holds a wake lock. Complete even when
+                // a competing request or detach makes the queued start stale.
+                callback.onFinished(false);
                 return;
             }
             Log.i(TAG, "Updating " + (firmware.touchpad ? "touchpad" : "keyboard")

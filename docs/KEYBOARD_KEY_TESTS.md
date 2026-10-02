@@ -35,6 +35,10 @@ Required proof before marking hardware support complete:
    re-authentication), then deliver the old result. It must be logged as obsolete
    and must neither authorize automatic updating nor reject the current cover.
 
+9. Queue two manual updates, or detach before a queued start executes. Only
+   one request may transmit firmware; rejected/stale starts must complete their
+   callbacks and release their wake locks. A rejected cover must not update.
+
 XML and transition checks pass. The final keyboard Java sources compile with
 JDK 21 against the generated Android framework and existing app classes, using
 freshly generated MiDevAuth AIDL and R classes. aapt2 compiled and linked the
