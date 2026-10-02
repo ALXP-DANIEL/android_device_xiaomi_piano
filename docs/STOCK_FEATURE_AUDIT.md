@@ -129,6 +129,26 @@ feature guess:
   Virtual-camera injection/registration is therefore a port candidate; the
   ordinary Camera HAL working does not prove this extension works.
 
+A scan of DEX strings in 27 Global 303 Xiaomi/MIUI framework jars finds a
+concrete framework side for virtual cameras: `miui-framework.jar` contains
+`com.xiaomi.camera.companion.VirtualCameraManager`, `VirtualCameraProxy` and
+`VirtualCameraReprocessor`, references
+`com.xiaomi.vtcamera.VirtualCameraService`, and checks
+`ro.vendor.dynamiccamera.ability_level`. The companion interface jar contains
+`vendor.xiaomi.hardware.camera.synthetic.IVirtualCameraRegistrar` bindings.
+This supports classifying dynamic camera as a multi-component HyperOS port,
+not a missing executable that alone restores a feature. DEX strings establish
+references, not the runtime call graph or compatibility. The corresponding
+application/service and restrictions still need tracing. No sensor-camera
+property/service reference was found in those 27 jars; that limited negative
+result does not exclude an APK or native caller.
+
+The stock QVR init file would start its daemon in `late_start`, create two
+sockets and grant camera/graphics/USB/Wi-Fi groups plus `SYS_NICE`. Enabling it
+without a demonstrated tablet consumer would add a privileged background
+service without proven functionality. Keep it a candidate until a consumer
+and reproducible hardware test are identified.
+
 Stock `qvrservice` additionally has its own QVR daemon, sockets and library
 dependencies. The common tree includes some QVR client/test libraries, but
 that is not evidence that the daemon's use cases are implemented. Establish
