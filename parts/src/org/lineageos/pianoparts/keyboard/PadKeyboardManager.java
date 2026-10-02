@@ -384,6 +384,9 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
 
     @Override
     public void onReply(byte[] reply) {
+        if (reply.length < 5) {
+            return;
+        }
         if (mUpdater.onReply(reply)) {
             return;
         }
@@ -419,6 +422,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 onVersion(reply);
                 break;
             case KeyboardProtocol.CMD_REQUEST:
+                if (reply.length < 7) break;
                 // The keyboard asks to be set up again.
                 if (reply[6] == 0 || reply[6] == 1) {
                     onAttached();
@@ -432,11 +436,13 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 }
                 break;
             case KeyboardProtocol.CMD_RECOVER_STATUS:
+                if (reply.length < 7) break;
                 if (reply[5] == 1 && reply[6] == 0x36) {
                     showToast(R.string.keyboard_reset_success);
                 }
                 break;
             case KeyboardProtocol.CMD_SLEEP:
+                if (reply.length < 7) break;
                 if (reply[5] == 1) {
                     onSleepChanged(reply[6] == 0);
                 }
@@ -448,6 +454,7 @@ public final class PadKeyboardManager implements KeyboardTransport.Listener {
                 }
                 break;
             case KeyboardProtocol.CMD_FEATURE_RESPONSE:
+                if (reply.length < 8) break;
                 if (reply[7] != 0) {
                     Log.w(TAG, "Keyboard rejected command " + reply[5] + ": " + reply[7]);
                 }

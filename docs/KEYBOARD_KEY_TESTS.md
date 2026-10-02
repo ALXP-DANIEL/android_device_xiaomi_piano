@@ -39,6 +39,10 @@ Required proof before marking hardware support complete:
    one request may transmit firmware; rejected/stale starts must complete their
    callbacks and release their wake locks. A rejected cover must not update.
 
+10. Inject short request/recovery/sleep/feature replies: no exception or state
+    change. During updating, short info/end/flash replies and short data ACKs
+    must leave the pending packet in place for its normal timeout/retry.
+
 XML and transition checks pass. The final keyboard Java sources compile with
 JDK 21 against the generated Android framework and existing app classes, using
 freshly generated MiDevAuth AIDL and R classes. aapt2 compiled and linked the

@@ -77,7 +77,7 @@ final class KeyboardUpdater {
 
     /** Called on the transport thread for update replies. */
     boolean onReply(byte[] reply) {
-        if (mFirmware == null) {
+        if (mFirmware == null || reply.length < 5) {
             return false;
         }
         byte command = reply[4];
@@ -87,7 +87,13 @@ final class KeyboardUpdater {
                 && command != KeyboardProtocol.CMD_UPGRADE_FLASH) {
             return false;
         }
-        byte status = reply.length > 6 ? reply[6] : 0;
+        if (reply.length < (ack ? 11 : 7)) {
+            // Keep the pending packet and its timeout. A missing status is
+            // not an acknowledgement and must never advance the update.
+            Log.w(TAG, "Truncated keyboard update reply");
+            return true;
+        }
+        byte status = reply[6];
         if (status != 0) {
             if (status == STATUS_RETRY || command == KeyboardProtocol.CMD_UPGRADE_FLASH) {
                 Log.i(TAG, "Keyboard asked to retry");
