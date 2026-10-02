@@ -10,3 +10,6 @@ genfscon sysfs /devices/platform/soc/soc:xiaomi_wifi_gpio/wakeup u:object_r:sysf
 
 # Xiaomi memory reserve
 genfscon sysfs /kernel/reserve_pool u:object_r:vendor_sysfs_reserve_pool:s0
+
+# Keyboard cover HID device (the instance number after the dot changes)
+genfscon sysfs /devices/0006:15D9:00A3 u:object_r:vendor_sysfs_pogo_keyboard:s0

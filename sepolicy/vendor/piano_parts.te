@@ -17,5 +17,10 @@ binder_call(system_app, nanoapp_aidl)
 binder_call(nanoapp_aidl, system_app)
 allow system_app sysfs_leds:dir r_dir_perms;
 allow system_app sysfs:dir r_dir_perms;
-allow system_app sysfs:file r_file_perms;
 allow system_app sysfs:lnk_file read;
+# The keyboard cover's HID device (0006:15D9:00A3.xxxx) and its LEDs, labelled
+# so that reading them does not need access to all of sysfs.
+type vendor_sysfs_pogo_keyboard, sysfs_type, fs_type;
+allow system_app vendor_sysfs_pogo_keyboard:dir r_dir_perms;
+allow system_app vendor_sysfs_pogo_keyboard:file r_file_perms;
+allow system_app vendor_sysfs_pogo_keyboard:lnk_file read;
