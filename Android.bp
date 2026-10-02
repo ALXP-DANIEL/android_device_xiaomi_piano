@@ -10871,6 +10871,7 @@ android_app_import {
     owner: "xiaomi",
     apk: "proprietary/product/app/MiDevAuthService/MiDevAuthService.apk",
     presigned: true,
+    preprocessed: true,
     dex_preopt: {
         enabled: false,
     },
