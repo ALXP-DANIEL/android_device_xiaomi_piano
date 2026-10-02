@@ -218,7 +218,7 @@ PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(LOCAL_PATH)/configs/linker.config.json
 
 # Lineage Health
-ifneq ($(filter haotian piano,$(TARGET_DEVICE)),)
+ifneq ($(filter %_haotian %_piano,$(TARGET_PRODUCT)),)
 $(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/xm_power/charger/smart_charge/smart_night)
 else
 $(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/qcom-battery/night_charging)
