@@ -75,7 +75,8 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider-V1-external-service
 
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml
+    frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml \
+    device/xiaomi/piano/configs/vintf/android.hardware.camera.provider.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/android.hardware.camera.provider.external.xml
 
 # MiuiCamera (optional, from vendor/xiaomi/piano-miuicamera)
 $(call inherit-product-if-exists, vendor/xiaomi/piano-miuicamera/miuicamera.mk)

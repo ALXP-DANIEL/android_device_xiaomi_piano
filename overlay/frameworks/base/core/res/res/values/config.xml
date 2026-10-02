@@ -68,4 +68,10 @@
          Android desktop windowing (resizable, floating app windows). -->
     <bool name="config_canInternalDisplayHostDesktops">true</bool>
     <bool name="config_isDesktopModeDevOptionSupported">true</bool>
+
+    <!-- MiuiCamera finishes itself in a multi-window or freeform window, so
+         keep it full screen in desktop mode, as HyperOS does. -->
+    <string-array name="config_desktopExemptPackages" translatable="false">
+        <item>com.android.camera</item>
+    </string-array>
 </resources>
