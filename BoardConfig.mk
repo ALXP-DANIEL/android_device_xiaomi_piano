@@ -177,6 +177,11 @@ BOARD_RECOVERY_IMAGE_PREPARE = bash $(DEVICE_PATH)/tools/piano16-ramdisk-prune.s
 # Display / input, proven on hardware in the TWRP14 tree.
 TW_THEME := portrait_hdpi
 
+# Chinese and other non-Latin languages, with the CJK fallback font. Without
+# this, Chinese file names and text show as empty boxes (issue #1).
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
+
 # Landscape, phone-sized. OrangeFox ships only a phone (portrait) theme. Drawn
 # across the whole 3200x2136 panel it is stretched about 3x sideways, which
 # breaks image elements such as the battery icon and the logs slider. Instead
