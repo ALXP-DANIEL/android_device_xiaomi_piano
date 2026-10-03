@@ -174,6 +174,11 @@ BOARD_RECOVERY_IMAGE_PREPARE = bash $(DEVICE_PATH)/tools/piano16-ramdisk-prune.s
 # Display / input, proven on hardware in the TWRP14 tree.
 TW_THEME := landscape_hdpi
 
+# Chinese and other non-Latin languages, with the CJK fallback font. Without
+# this, Chinese file names and text show as empty boxes (issue #1).
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
+
 # Backlight.
 #
 # This panel's range is 0-4095 (/sys/class/backlight/panel0-backlight/
